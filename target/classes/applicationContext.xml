@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Bean 的作用范围 -->
+    <bean id="person" class="com.chiang.spring.container1.Person" scope="prototype"/>
+
+    <bean id="man" class="com.chiang.spring.container1.Man" init-method="setup" destroy-method="destroyMethod">
+        <property name="name" value="张三" />
+    </bean>
+
+    <bean class="com.chiang.spring.container1.MyBeanPostProcessor" />
+
+    <bean id="userDao" class="com.chiang.spring.container1.UserDaoImpl" />
+
+
+</beans>
