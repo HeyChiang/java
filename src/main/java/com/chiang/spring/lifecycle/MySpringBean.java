@@ -1,13 +1,27 @@
 package com.chiang.spring.lifecycle;
 
+import org.springframework.beans.factory.BeanNameAware;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public class MySpringBean  implements InitializingBean {
+/**
+ * 显示一个完整的Bean生命周期
+ */
+@Configuration
+public class MySpringBean  implements InitializingBean, BeanNameAware, DisposableBean {
+
+  @Value("${name}")
+  private String testName;
+
+  public MySpringBean(){
+    System.out.println("MySpringBean 我被创建了,testName:" +testName);
+  }
 
   @PostConstruct
   public void postConstruct() {
@@ -30,5 +44,15 @@ public class MySpringBean  implements InitializingBean {
   @Override
   public void afterPropertiesSet() throws Exception {
     System.out.println("MySpringBean afterPropertiesSet");
+  }
+
+  @Override
+  public void setBeanName(String name) {
+    System.out.println("MySpringBean setBeanName："+name);
+  }
+
+  @Override
+  public void destroy() throws Exception {
+    System.out.println("MySpringBean destroy");
   }
 }
