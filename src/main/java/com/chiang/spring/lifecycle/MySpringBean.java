@@ -25,20 +25,12 @@ public class MySpringBean  implements InitializingBean, BeanNameAware, Disposabl
 
   @PostConstruct
   public void postConstruct() {
-    System.out.println("MySpringBean postConstruct");
+    System.out.println("MySpringBean postConstruct初始化");
   }
 
   @PreDestroy
   public void preDestroy() {
-    System.out.println("MySpringBean preDestroy");
-  }
-
-  public void onDestroy(){
-    System.out.println("MySpringBean onDestroy");
-  }
-
-  public void initMethod(){
-    System.out.println("MySpringBean onInitialize");
+    System.out.println("MySpringBean preDestroy销毁前");
   }
 
   @Override
