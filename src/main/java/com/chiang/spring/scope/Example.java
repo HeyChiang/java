@@ -27,12 +27,12 @@ public class Example {
                 "\n count：" +
                 count +
                 "\n beanCount：" +
-                bean.getCount();
+                bean.getCount() + " ThreadName:"+Thread.currentThread().getName();
     }
 
     public static void main(String[] args) {
         ConfigurableApplicationContext run = SpringApplication.run(Example.class, args);
-        run.close();
+//        run.close();
     }
 
 }

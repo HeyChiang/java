@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 
-//@Scope(value = "request" , proxyMode = ScopedProxyMode.INTERFACES)
+@Scope(value = "request" , proxyMode = ScopedProxyMode.INTERFACES)
 @Component
 public class SessionTestBean {
     private Integer count = 0;
