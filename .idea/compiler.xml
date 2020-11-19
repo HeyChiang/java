@@ -11,11 +11,17 @@
         <module name="spring-security" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="spring-cloud-gateway-sample" target="1.8" />
+      <module name="spring-gateway" target="8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Java-Practice" options="" />
       <module name="JavaPracties" options="-parameters" />
+      <module name="spring-cloud-gateway-sample" options="-parameters -parameters" />
+      <module name="spring-gateway" options="-parameters" />
       <module name="spring-security" options="-parameters" />
     </option>
   </component>

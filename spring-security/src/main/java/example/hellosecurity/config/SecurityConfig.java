@@ -31,7 +31,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 /**
- * @author Chiang
+ * 1.Security配置好路径需要的权限，以及登录成功和登录失败的处理
+ * 2.当访问/login地址时，UsernamePasswordAuthenticationFilter会做如下操作
+ *     1.获取request里的username和password
+ *     2.将username传入LoginUserDetailsService查询帐号和密码
+ *     2.验证帐号和密码的结果，跳转成功或者失败的页面（默认跳转/index）
  */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -44,12 +48,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests(authorize -> authorize
                         .antMatchers("/css/**", "/index").permitAll()
                         .antMatchers("/user/**").hasRole("USER")
-                        .antMatchers("/anonymous","/login").anonymous()
+                        .antMatchers("/anonymous","/login").anonymous() //登录页面不需要权限
                         .antMatchers("/haveAuthority").hasAuthority("authority")
                         .anyRequest().authenticated()
                 ).formLogin(formLogin -> formLogin
                         .loginPage("/login")
                         .failureUrl("/login-error")
+                        .successForwardUrl("/haveAuthority")
                 ).logout((logout) -> {
                     logout.invalidateHttpSession(true);
         }).exceptionHandling(handler ->{
