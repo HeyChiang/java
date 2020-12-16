@@ -1,4 +1,4 @@
-package com.chiang.thread;
+package com.chiang.java.thread;
 
 public class Volatile {
     static class Work {

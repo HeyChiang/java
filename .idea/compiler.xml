@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="JavaPracties" />
         <module name="spring-security" />
+        <module name="springboot-mybatis" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

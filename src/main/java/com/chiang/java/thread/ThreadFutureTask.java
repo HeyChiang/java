@@ -1,4 +1,4 @@
-package com.chiang.thread;
+package com.chiang.java.thread;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;

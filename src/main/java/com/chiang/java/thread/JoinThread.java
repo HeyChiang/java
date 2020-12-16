@@ -1,4 +1,4 @@
-package com.chiang.thread;
+package com.chiang.java.thread;
 
 public class JoinThread {
     static String str = "a";

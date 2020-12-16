@@ -8,6 +8,9 @@ import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Component;
 
+/**
+ * scope注解的测试，每个请求生成一个bean
+ */
 @Scope(value = "request" , proxyMode = ScopedProxyMode.INTERFACES)
 @Component
 public class SessionTestBean {

@@ -6,6 +6,9 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * spring bean的生命周期测试类
+ */
 @RestController
 @SpringBootApplication
 public class LifecycleSpringBoot {

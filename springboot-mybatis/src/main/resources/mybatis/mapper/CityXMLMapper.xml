@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.mapper.CityXMLMapper" >
+
+    <resultMap id="BaseResultMap" type="City" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, city_name
+    </sql>
+
+    <select id="findByCity" resultMap="BaseResultMap"  parameterType="String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM city where city_name=#{city}
+    </select>
+
+    <!-- 开启缓存，只要查询过一次后就不会在查询数据库了，缓存可以改为使用redis -->
+    <cache
+        eviction="FIFO"
+        flushInterval="60000"
+        size="512"
+        readOnly="true"/>
+
+</mapper>

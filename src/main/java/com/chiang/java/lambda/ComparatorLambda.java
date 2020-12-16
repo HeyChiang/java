@@ -1,4 +1,4 @@
-package com.chiang.lambda;
+package com.chiang.java.lambda;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,8 +1,4 @@
-package com.chiang.thread;
-
-import java.time.Instant;
-
-import static java.time.temporal.ChronoField.MILLI_OF_SECOND;
+package com.chiang.java.thread;
 
 /**
  * 无论调用者是谁，一定要先锁（synchronized）才能成为这个对象的拥有者，
