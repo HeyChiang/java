@@ -6,6 +6,9 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 这个是注解查询
+ */
 //@Mapper
 //@Repository
 public interface CityMapper {
