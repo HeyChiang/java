@@ -6,8 +6,11 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 mybatis:
+#  mybatis配置，配置缓存开启等
   config-location: classpath:mybatis/mybatis-config.xml
+#  数据库查询语句的路径
   mapper-locations: classpath:mybatis/mapper/*.xml
+# 类的别名，有了这个就不用在*Mapper.xml文件里的resultMap - type标签里写包名了
   type-aliases-package: com.example.model
 
 logging:

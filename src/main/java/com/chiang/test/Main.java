@@ -1,11 +1,10 @@
 package com.chiang.test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) {
-
+        for (int i = 0; i < 55; i++) {
+            System.out.println(i%10);
+        }
     }
 }

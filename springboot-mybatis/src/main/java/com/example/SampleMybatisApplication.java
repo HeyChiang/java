@@ -2,6 +2,7 @@ package com.example;
 
 import com.example.mapper.CityXMLMapper;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,7 +22,7 @@ public class SampleMybatisApplication implements CommandLineRunner {
 
   public void run(String... args) throws Exception {
     System.out.println(this.cityMapper.findByCity("changsha"));
-    System.out.println("第二次查询");
+    System.out.println("第二次使用缓存查询");
     System.out.println(this.cityMapper.findByCity("changsha"));
   }
 
