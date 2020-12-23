@@ -1,5 +1,6 @@
 package com.example.demo.config;
 
+import com.sun.istack.internal.NotNull;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 基于Redis的Redisson分布式可重入锁RLock
@@ -38,8 +39,18 @@ public class RedissonReentrantLock {
     @GetMapping("/reentrant")
     public void reentrantTest(@RequestParam(value = "stock",defaultValue = "100") Integer stock,@RequestParam(value = "mode",defaultValue = "1") Byte mode) {
         this.stock = stock;
-        //使用线程池模拟并发，看分布式锁有没有问题
-        ExecutorService executorService = Executors.newFixedThreadPool(500);
+
+        //使用线程池模拟并发，看分布式锁有没有问题.
+        // 如果运行线程的数量超过maximumPoolSize就会报RejectedExecutionException错误
+        ThreadPoolExecutor threadPoolExecutor = new ThreadPoolExecutor(50, 500, 5, TimeUnit.SECONDS, new LinkedBlockingDeque<>(50), new ThreadFactory() {
+
+            private final AtomicInteger atomicInteger = new AtomicInteger(0);
+
+            @Override
+            public Thread newThread(Runnable r) {
+                return new Thread(r,"库存线程"+atomicInteger.getAndAdd(1));
+            }
+        });
 
         if(mode == 1){
             //调用加锁方法
@@ -50,12 +61,12 @@ public class RedissonReentrantLock {
         }
 
         for (int i = 0; i <= FOR_TIMES; i++) {
-            executorService.execute(() -> {
+            threadPoolExecutor.execute(() -> {
                 try {
 
                     if(mode == 1){
                         //调用加锁方法
-                        reduceStockRessionLock(i);
+                        reduceStockRessionLock();
                     }else {
                         //不加锁执行
                         reduceStock();
@@ -76,7 +87,7 @@ public class RedissonReentrantLock {
     /**
      * 加锁情况
      */
-    private void reduceStockRessionLock(Integer i) throws InterruptedException {
+    private void reduceStockRessionLock() throws InterruptedException {
         //获取锁（可重入锁）
         RLock lock = redissonClient.getLock("anyLock");
 
