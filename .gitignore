@@ -1,3 +1,11 @@
 **/.idea/
 **/*.iml
 **/target/
+spring-redisson/src/test/
+springboot-dubbo/consumer-sample/src/test/
+springboot-dubbo/provider-sample/src/test/
+springboot-dubbo/sample-api/src/main/resources/
+springboot-dubbo/sample-api/src/test/
+springboot-mybatis/src/test/
+springboot-security/src/test/
+src/test/
