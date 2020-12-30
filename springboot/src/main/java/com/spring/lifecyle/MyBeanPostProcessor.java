@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MyBeanPostProcessor implements BeanPostProcessor {
+
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName) throws BeansException {
         // 只打印自己定义的my开头bean
