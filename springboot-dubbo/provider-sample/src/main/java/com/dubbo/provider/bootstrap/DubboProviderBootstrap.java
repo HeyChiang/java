@@ -16,7 +16,10 @@
  */
 package com.dubbo.provider.bootstrap;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 
 /**
@@ -24,11 +27,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  *
  * @since 2.7.0
  */
-@EnableAutoConfiguration
-public class DubboRegistryZooKeeperProviderBootstrap {
+@SpringBootApplication
+public class DubboProviderBootstrap {
 
     public static void main(String[] args) {
-//        System.setProperty("dubbo.application.logger","log4j2");
-        new SpringApplicationBuilder(DubboRegistryZooKeeperProviderBootstrap.class).run(args);
+        new SpringApplicationBuilder(DubboProviderBootstrap.class).run(args);
     }
+
 }

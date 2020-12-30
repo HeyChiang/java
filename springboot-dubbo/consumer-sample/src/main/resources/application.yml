@@ -1,6 +1,9 @@
 spring:
   application:
-    name: dubbo-registry-zookeeper-consumer-sample
+    name: dubbo-consumer-sample
+  sleuth:
+    sampler:
+      probability: 1
 
 demo:
   service:
@@ -17,3 +20,14 @@ dubbo:
     address: zookeeper://127.0.0.1:${embedded.zookeeper.port}
     # 使用文件缓存注册中心地址列表及服务提供者列表，应用重启时将基于此文件恢复，注意：两个注册中心不能使用同一文件存储
     file: ${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
+  consumer:
+    filter: tracing
+  provider:
+    filter: tracing
+
+
+logging:
+  level:
+    com.dubbo.service: debug
+server:
+  port: 8083
