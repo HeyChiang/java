@@ -1,4 +1,4 @@
-package com.chiang.spring.scope;
+package com.spring.scope;
 
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;

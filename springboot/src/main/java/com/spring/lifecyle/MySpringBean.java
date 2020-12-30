@@ -1,4 +1,4 @@
-package com.chiang.spring.lifecycle;
+package com.spring.lifecyle;
 
 import org.springframework.beans.factory.BeanNameAware;
 import org.springframework.beans.factory.DisposableBean;
