@@ -13,6 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
+/**
+ * 演示在单个Controller里的异常捕捉
+ */
 @Controller
 public class ExceptionHandlingController {
 
@@ -46,7 +49,9 @@ public class ExceptionHandlingController {
   }
 
   /**
-   * 返回409 conflict异常状态给前端
+   * 返回409 conflict异常状态给前端。
+   *
+   * 注意，异常不做只会在当前这个Controller里，如果需要全局捕捉需要配合@ControllerAdvice使用。
    */
   @ResponseStatus(value= HttpStatus.CONFLICT, reason="Data integrity violation")
   @ExceptionHandler(PasswordException.class)
