@@ -3,6 +3,7 @@ package com.spring.annotation.advice;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
@@ -13,7 +14,21 @@ import java.util.Map;
  * @author Chiang
  */
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class GlobalHandler {
+
+    /**
+     * 定义全局的数据绑定，无论在哪个Controller里都可以使用，每有一次请求都会触发一次调用。
+     */
+    @ModelAttribute(name = "md")
+    public Map<String,Object> modelData() {
+        System.out.println("调用了一次!!!!");
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("age", 99);
+        map.put("gender", "男");
+        return map;
+    }
+
 
     /**
      * 如果不加@ResponseBody就可以返回一个view页面

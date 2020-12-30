@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +27,11 @@ public class OneController {
 
   @GetMapping("/login")
   @ResponseBody
-  public String login(Integer password) throws MissingServletRequestParameterException {
+  public String login(Integer password, Model model) throws MissingServletRequestParameterException {
+
+    //从全局的AdviceHandler里获取参数
+    logger.info(String.valueOf(model.getAttribute("md")));
+
     if(password != 1){
         throw new MissingServletRequestParameterException("MissError","密码错误");
     }
