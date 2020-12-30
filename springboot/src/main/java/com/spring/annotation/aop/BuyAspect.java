@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class BuyAspectJ {
+public class BuyAspect {
 
     /**
      * execution 代表在方法执行时触发
@@ -17,11 +17,14 @@ public class BuyAspectJ {
     }
 
     /**
-     * 在方法执行后调用，不管是否异常
+     * 在方法执行后调用，不管是否异常。
+     *
+     * within：指定某类的所有方法执行后被调用，必须指定具体的类，不能是接口。
+     * @within:匹配标注了指定注解的类及其所有子类
      */
-    @After("execution(* com.spring.annotation.aop.IBuy.buy(..))")
+    @After("within(com.spring.annotation.aop.Boy)")
     public void pointAfter() {
-        System.out.println("After ...");
+        System.out.println("pointAfter ...");
     }
 
     /**
