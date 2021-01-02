@@ -5,9 +5,10 @@ spring:
     sampler:
       probability: 1
 
+# 调用服务的版本号，如果服务不存在此版本则会报错
 demo:
   service:
-    version: 1.0.0
+    version: 2.0.0
 
 # 连接zookeeper的端口
 embedded:

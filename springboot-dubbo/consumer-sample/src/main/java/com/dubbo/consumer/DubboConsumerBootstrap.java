@@ -40,10 +40,12 @@ public class DubboConsumerBootstrap {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     /**
-     * 申请去调用服务者类，可
+     * 通过dubbo直接去调用远程服务
+     * version: 调用服务的版本
+     * group：调用服务的分组
      * loadbalance：集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 random 随机调用。如果服务者和消费者都有loadbalance则按照
      */
-    @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin")
+    @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin",group = "zhangsan")
     private DemoService demoService;
 
     public static void main(String[] args) {
