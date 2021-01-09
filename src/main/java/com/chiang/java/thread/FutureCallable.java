@@ -2,6 +2,10 @@ package com.chiang.java.thread;
 
 import java.util.concurrent.*;
 
+/**
+ * 资
+ * @author Chiang
+ */
 public class FutureCallable {
     public static void main(String[] args) throws ExecutionException, InterruptedException {
         ExecutorService executorService = Executors.newCachedThreadPool();

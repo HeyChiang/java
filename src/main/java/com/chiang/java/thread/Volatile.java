@@ -2,7 +2,7 @@ package com.chiang.java.thread;
 
 public class Volatile {
     static class Work {
-         boolean isShutDown = false;
+        boolean isShutDown = false;
 
         void shutdown() {
             isShutDown = true;

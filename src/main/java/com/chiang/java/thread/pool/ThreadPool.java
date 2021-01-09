@@ -1,4 +1,4 @@
-package com.chiang.java.thread;
+package com.chiang.java.thread.pool;
 
 public class ThreadPool {
 

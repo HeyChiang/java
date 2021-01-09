@@ -3,16 +3,18 @@ package com.chiang.java.thread;
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
 
+/**
+ * 可以返回值的异步线程
+ * @author Chiang
+ */
 public class ThreadFutureTask implements Callable<String> {
     public static void main(String[] args) throws Exception {
-        ThreadFutureTask main = new ThreadFutureTask();
-        FutureTask mainFutureTask = new FutureTask(main);
+        // FutureTask可以获取线程返回的值
+        FutureTask<String> mainFutureTask = new FutureTask<>(new ThreadFutureTask());
         new Thread(mainFutureTask).start();
-        System.out.println(mainFutureTask.get());
-    }
 
-    public static void print(Object object){
-        System.out.println(object);
+        //等待值的返回并打印
+        System.out.println(mainFutureTask.get());
     }
 
     @Override
