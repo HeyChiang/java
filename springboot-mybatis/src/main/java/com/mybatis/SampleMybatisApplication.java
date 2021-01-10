@@ -9,7 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import javax.annotation.Resource;
 
 @SpringBootApplication
-@MapperScan(basePackages = {"com.example.mapper"})
+@MapperScan(basePackages = {"com.mybatis.mapper"})
 public class SampleMybatisApplication implements CommandLineRunner {
 
   @Resource
@@ -19,7 +19,8 @@ public class SampleMybatisApplication implements CommandLineRunner {
     SpringApplication.run(SampleMybatisApplication.class, args);
   }
 
-  public void run(String... args) throws Exception {
+  @Override
+  public void run(String... args) {
     System.out.println(this.cityMapper.findByCity("changsha"));
     System.out.println("第二次使用缓存查询");
     System.out.println(this.cityMapper.findByCity("changsha"));
