@@ -14,27 +14,26 @@ import javax.annotation.PreDestroy;
  * 显示一个完整的Bean生命周期
  */
 @Configuration
-public class MySpringBean  implements InitializingBean, BeanNameAware, DisposableBean {
+public class LifeSpringBean implements InitializingBean, BeanNameAware, DisposableBean {
 
-  @Value("${name}")
-  private String testName;
-
-  public MySpringBean(){
-    System.out.println("MySpringBean 我被创建了,testName:" +testName);
+  public static final String CLASS_NAME = "LifeSpringBean";
+  
+  public LifeSpringBean(){
+    System.out.println(CLASS_NAME+" 构造方法");
   }
 
   @PostConstruct
   public void postConstruct() {
-    System.out.println("MySpringBean postConstruct");
+    System.out.println(CLASS_NAME+"注解 @postConstruct");
   }
 
   @PreDestroy
   public void preDestroy() {
-    System.out.println("MySpringBean preDestroy");
+    System.out.println(CLASS_NAME+"注解 @preDestroy");
   }
 
   public void onDestroy(){
-    System.out.println("MySpringBean onDestroy");
+    System.out.println(CLASS_NAME+" onDestroy");
   }
 
   /**
@@ -45,21 +44,21 @@ public class MySpringBean  implements InitializingBean, BeanNameAware, Disposabl
    * }
    */
   public void initMethod(){
-    System.out.println("MySpringBean onInitialize");
+    System.out.println(CLASS_NAME+" onInitialize");
   }
 
   @Override
   public void afterPropertiesSet() throws Exception {
-    System.out.println("MySpringBean afterPropertiesSet");
+    System.out.println(CLASS_NAME+" InitializingBean->afterPropertiesSet");
   }
 
   @Override
   public void setBeanName(String name) {
-    System.out.println("MySpringBean setBeanName："+name);
+    System.out.println(CLASS_NAME+" BeanNameAware->setBeanName："+name);
   }
 
   @Override
   public void destroy() throws Exception {
-    System.out.println("MySpringBean destroy");
+    System.out.println(CLASS_NAME+" DisposableBean->destroy");
   }
 }

@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class LifecycleSpringBoot {
 
-    final MySpringBean mySpringBean;
+    final LifeSpringBean mySpringBean;
 
-    public LifecycleSpringBoot(MySpringBean mySpringBean) {
+    public LifecycleSpringBoot(LifeSpringBean mySpringBean) {
         this.mySpringBean = mySpringBean;
     }
 
