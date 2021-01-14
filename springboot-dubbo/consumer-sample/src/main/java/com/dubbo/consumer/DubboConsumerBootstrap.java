@@ -44,8 +44,9 @@ public class DubboConsumerBootstrap {
      * version: 调用服务的版本
      * group：调用服务的分组
      * loadbalance：集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 random 随机调用。如果服务者和消费者都有loadbalance则按照
+     * url="dubbo://localhost:20890"，可以直接连接服务，注意provider要固定好端口不能使用-1随机
      */
-    @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin",group = "zhangsan")
+    @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin",group = "myGroup")
     private DemoService demoService;
 
     public static void main(String[] args) {
@@ -63,6 +64,7 @@ public class DubboConsumerBootstrap {
 
     @GetMapping("/test")
     public String test(){
+        // 增加服务最终的信息到zipkin
         tracer.currentSpan().tag("key1","value2").tag("key2","value2");
 
         logger.info(demoService.sayHello("成功了"));

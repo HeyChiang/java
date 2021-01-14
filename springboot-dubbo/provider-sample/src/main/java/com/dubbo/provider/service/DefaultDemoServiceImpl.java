@@ -26,13 +26,12 @@ import org.slf4j.LoggerFactory;
  * version：当一个接口实现，出现不兼容升级时，可以用版本号过渡，版本号不同的服务相互间不引用。
  * loadbalance：集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 random 随机调用。
  */
-@DubboService(version = "${demo.service.version}",group = "zhangsan")
+@DubboService(version = "${demo.service.version}",group = "myGroup")
 public class DefaultDemoServiceImpl implements DemoService {
 
-    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Override
     public String sayHello(String name) {
-        return String.format("zhangsan  hi, %s", name);
+        return String.format("hi  hi, %s", name);
     }
 }
