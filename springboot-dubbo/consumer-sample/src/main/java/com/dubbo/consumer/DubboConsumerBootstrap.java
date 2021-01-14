@@ -17,6 +17,7 @@
 package com.dubbo.consumer;
 
 import brave.Tracer;
+import com.dubbo.service.ByeService;
 import com.dubbo.service.DemoService;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
@@ -49,13 +50,19 @@ public class DubboConsumerBootstrap {
     @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin",group = "myGroup")
     private DemoService demoService;
 
+    @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin",group = "myGroup")
+    private ByeService byeService;
+
     public static void main(String[] args) {
         SpringApplication.run(DubboConsumerBootstrap.class);
     }
 
     @Bean
     public ApplicationRunner runner() {
-        return args -> logger.info(demoService.sayHello("我是蒋犇犇"));
+        String sayBye = byeService.sayBye("刘牛牛");
+        String sayHello = demoService.sayHello("我是蒋犇犇");
+
+        return args -> logger.info(sayHello +" -- "+sayBye);
     }
 
 
@@ -64,7 +71,7 @@ public class DubboConsumerBootstrap {
 
     @GetMapping("/test")
     public String test(){
-        // 增加服务最终的信息到zipkin
+        // 增加服务追踪的信息到zipkin
         tracer.currentSpan().tag("key1","value2").tag("key2","value2");
 
         logger.info(demoService.sayHello("成功了"));
