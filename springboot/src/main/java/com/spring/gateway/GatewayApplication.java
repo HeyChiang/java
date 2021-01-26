@@ -1,4 +1,4 @@
-package com.spring.test;
+package com.spring.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,7 +11,7 @@ import java.util.Enumeration;
 
 @RestController
 @SpringBootApplication
-public class ApplicationTest {
+public class GatewayApplication {
 
     @RequestMapping("/get")
     public String get(HttpServletRequest request) {
@@ -42,7 +42,7 @@ public class ApplicationTest {
     }
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext run = SpringApplication.run(ApplicationTest.class, args);
+        ConfigurableApplicationContext run = SpringApplication.run(GatewayApplication.class, args);
 //        run.close();
     }
 

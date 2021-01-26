@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 
 /**
- * 需要配合springboot项目com.spring.test包下的application一起用
+ * 通过请求springboot项目com.spring.gateway包下的GatewayApplication，制作延迟调用fallback方法
  * @author Chiang
  */
 @SpringBootApplication
