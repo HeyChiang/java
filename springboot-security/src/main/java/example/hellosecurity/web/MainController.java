@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.*;
 
 /**
- * @author Joe Grandja
+ * @author Chiang
  */
 @Controller
 public class MainController {

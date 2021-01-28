@@ -20,7 +20,6 @@ public class LoginUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         LoginUser loginUser = new LoginUser();
         loginUser.setUserName(username);
-        loginUser.setPassword(PasswordEncoderFactories.createDelegatingPasswordEncoder().encode("password"));
 
         // 添加权限
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();

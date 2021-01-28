@@ -28,6 +28,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  *     1.获取request里的username和password
  *     2.将username传入LoginUserDetailsService查询帐号和密码
  *     2.验证帐号和密码的结果，跳转成功或者失败的页面（默认跳转/index）
+ * 3.如果需要自定义登录的方式，可以继承 UsernamePasswordAuthenticationFilter 重写 attemptAuthentication 方法，然后添加此过滤器
  */
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
