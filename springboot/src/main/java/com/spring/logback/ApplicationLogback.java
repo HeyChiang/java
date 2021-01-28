@@ -8,6 +8,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * 日志打印
+ * @author Chiang
+ */
 @RestController
 @SpringBootApplication
 public class ApplicationLogback implements CommandLineRunner {
@@ -15,7 +19,7 @@ public class ApplicationLogback implements CommandLineRunner {
 
     public void doIt() {
         logger.debug("Did it debug!");
-        logger.info("Info --");
+        logger.info("Info myinfo--");
         logger.error("error --");
     }
 
