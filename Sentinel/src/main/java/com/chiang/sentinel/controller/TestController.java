@@ -14,6 +14,6 @@ public class TestController {
 
     @GetMapping(value = "/hello/{name}")
     public String apiHello(@PathVariable String name) {
-        return service.sayHello(name);
+        return service.hello(1);
     }
 }

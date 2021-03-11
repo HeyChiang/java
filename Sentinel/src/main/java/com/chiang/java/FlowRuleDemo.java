@@ -1,4 +1,4 @@
-package com.chiang.sentinel;
+package com.chiang.java;
 
 import com.alibaba.csp.sentinel.Entry;
 import com.alibaba.csp.sentinel.SphU;
@@ -11,7 +11,10 @@ import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SentinelMain {
+/**
+ * @author jianghao
+ */
+public class FlowRuleDemo {
     public static void main(String[] args) throws InterruptedException {
         // 配置规则.
         initFlowRules();
@@ -31,12 +34,6 @@ public class SentinelMain {
         }
     }
 
-    @SentinelResource("HelloWorld")
-    public void helloWorld() {
-        // 资源中的逻辑
-        System.out.println("hello world");
-    }
-
     /**
      * 定义资源访问的限制
      */
@@ -44,8 +41,9 @@ public class SentinelMain {
         List<FlowRule> rules = new ArrayList<>();
         FlowRule rule = new FlowRule();
         rule.setResource("HelloWorld");
+        // 按照每秒的请求数量来限制。也可以按照线程数来
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        // Set limit QPS to 20.
+        // 每秒执行多少次开始限制
         rule.setCount(5);
         rules.add(rule);
         FlowRuleManager.loadRules(rules);
