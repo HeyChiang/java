@@ -16,17 +16,17 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRuleManager;
  */
 public class AuthorityRuleDemo {
 
-    private static final String RESOURCE_NAME = "ThisResource";
+    private static final String RESOURCE_NAME = "Store";
 
     public static void main(String[] args) {
-        System.out.println("========Testing for black list========");
+        System.out.println("========黑名单列表测试========");
         initBlackRules("appA,appB");
         testFor(RESOURCE_NAME, "appA");
         testFor(RESOURCE_NAME, "appB");
         testFor(RESOURCE_NAME, "appC");
         testFor(RESOURCE_NAME, "appE");
 
-        System.out.println("========Testing for white list========");
+        System.out.println("========白名单列表测试========");
         initWhiteRules("appA,appB");
         testFor(RESOURCE_NAME, "appA");
         testFor(RESOURCE_NAME, "appB");
@@ -39,9 +39,9 @@ public class AuthorityRuleDemo {
         Entry entry = null;
         try {
             entry = SphU.entry(resource);
-            System.out.println(String.format("Passed for resource %s, origin is %s", resource, origin));
+            System.out.println(String.format("通过资源 %s, 来源是 %s", resource, origin));
         } catch (BlockException ex) {
-            System.err.println(String.format("Blocked for resource %s, origin is %s", resource, origin));
+            System.err.println(String.format("封锁资源 %s, 来源是 %s", resource, origin));
         } finally {
             if (entry != null) {
                 entry.exit();
