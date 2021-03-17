@@ -81,6 +81,9 @@ public class DegradeRuleDemo {
         }
     }
 
+    /**
+     * Sentinel 支持注册自定义的事件监听器监听熔断器状态变换事件
+     */
     private static void registerStateChangeObserver() {
         EventObserverRegistry.getInstance().addStateChangeObserver("logging",
             (prevState, newState, rule, snapshotValue) -> {
@@ -94,17 +97,24 @@ public class DegradeRuleDemo {
             });
     }
 
+    /**
+     * 初始化熔断的规则
+     */
     private static void initDegradeRule() {
         List<DegradeRule> rules = new ArrayList<>();
         DegradeRule rule = new DegradeRule(KEY)
+            // 熔断策略，支持慢调用比例/异常比例/异常数策略
             .setGrade(CircuitBreakerStrategy.SLOW_REQUEST_RATIO.getType())
-            // Max allowed response time
+            // 慢调用比例模式下为慢调用临界 RT（超出该值计为慢调用）；
+            // 异常比例/异常数模式下为对应的阈值
             .setCount(50)
-            // Retry timeout (in second)
+            // 熔断10秒，之后会重新尝试
             .setTimeWindow(10)
-            // Circuit breaker opens when slow request ratio > 60%
+            // 慢调用比例阈值，仅慢调用比例模式有效 > 60%
             .setSlowRatioThreshold(0.6)
+            // 熔断触发的最小请求数，请求数小于该值时即使异常比率超出阈值也不会熔断
             .setMinRequestAmount(100)
+            // 统计时长（单位为 ms），如 60*1000 代表分钟级
             .setStatIntervalMs(20000);
         rules.add(rule);
 
