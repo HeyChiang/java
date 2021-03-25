@@ -8,6 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import javax.annotation.Resource;
 
+/**
+ * @author jianghao
+ */
 @SpringBootApplication
 @MapperScan(basePackages = {"com.mybatis.mapper"})
 public class SampleMybatisApplication implements CommandLineRunner {
@@ -21,9 +24,9 @@ public class SampleMybatisApplication implements CommandLineRunner {
 
   @Override
   public void run(String... args) {
-    System.out.println(this.cityMapper.findByCity("changsha"));
+    System.out.println(this.cityMapper.findByCity("shanghai"));
     System.out.println("第二次使用缓存查询");
-    System.out.println(this.cityMapper.findByCity("changsha"));
+    System.out.println(this.cityMapper.findByCity("shanghai"));
   }
 
 }
