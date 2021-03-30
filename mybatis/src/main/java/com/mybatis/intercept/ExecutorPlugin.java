@@ -27,14 +27,14 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- *
+ * 拦截查询的方法
  * @author Chiang
  */
 @Intercepts({@Signature(
         type = Executor.class,
         method = "query",
         args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class})})
-public class ExamplePlugin implements Interceptor {
+public class ExecutorPlugin implements Interceptor {
 
     private Properties properties = new Properties();
 
@@ -43,9 +43,9 @@ public class ExamplePlugin implements Interceptor {
         Object[] args = invocation.getArgs();
         Object target = invocation.getTarget();
 
-
+        // 在执行SQL前
         Object returnObject = invocation.proceed();
-        // implement post processing if need
+        // 在执行SQL后
         return returnObject;
     }
 

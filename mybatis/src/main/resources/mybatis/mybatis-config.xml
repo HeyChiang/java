@@ -7,7 +7,7 @@
     </settings>
 
     <plugins>
-        <plugin interceptor="com.mybatis.intercept.ExamplePlugin">
+        <plugin interceptor="com.mybatis.intercept.ExecutorPlugin">
             <property name="someProperty" value="100"/>
         </plugin>
     </plugins>
