@@ -10,5 +10,7 @@
         <plugin interceptor="com.mybatis.intercept.ExecutorPlugin">
             <property name="someProperty" value="100"/>
         </plugin>
+        
+        <plugin interceptor="com.mybatis.intercept.MasterSlaveAutoRoutingPlugin"></plugin>
     </plugins>
 </configuration>
