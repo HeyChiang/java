@@ -15,7 +15,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
-        <nacos-config-spring-boot.version>0.2.1</nacos-config-spring-boot.version>
+        <nacos-config-spring-boot.version>0.2.3</nacos-config-spring-boot.version>
         <spring-boot.version>2.0.3.RELEASE</spring-boot.version>
     </properties>
 
@@ -51,7 +51,7 @@
         <dependency>
             <groupId>com.alibaba.boot</groupId>
             <artifactId>nacos-discovery-spring-boot-starter</artifactId>
-            <version>0.2.1</version>
+            <version>0.2.3</version>
         </dependency>
 
     </dependencies>

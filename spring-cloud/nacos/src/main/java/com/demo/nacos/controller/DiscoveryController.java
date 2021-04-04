@@ -13,6 +13,9 @@ import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+/**
+ * @author jianghao
+ */
 @Controller
 @RequestMapping("discovery")
 public class DiscoveryController {
@@ -20,6 +23,10 @@ public class DiscoveryController {
     @NacosInjected
     private NamingService namingService;
 
+    /**
+     * 获取Nacos的服务信息
+     * @param serviceName nacos的服务名
+     */
     @RequestMapping(value = "/get", method = GET)
     @ResponseBody
     public List<Instance> get(@RequestParam String serviceName) throws NacosException {
