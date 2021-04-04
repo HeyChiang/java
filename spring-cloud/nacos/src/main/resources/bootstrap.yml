@@ -1,0 +1,17 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        file-extension: yml
+      discovery:
+        server-addr: '127.0.0.1:8848'
+        username: nacos
+        password: nacos
+  application:
+    name: nacos-cloud-demo
+  profiles:
+    active: dev
+
+#logging:
+#  level:
+#    root: debug
