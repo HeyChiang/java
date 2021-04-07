@@ -18,18 +18,13 @@ public class StreamLambda {
         List<String> collect = strList.stream().filter((s -> s.length() > 7)).collect(Collectors.toList());
         System.out.println(collect);
 
-
-
+        // 列表所有的数-100
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
-        List<Integer> newList1 = list.stream()
-                .peek(System.out::println)
-                .collect(Collectors.toList());
-
-        List<Integer> newList2 = list.stream()
+        List<Integer> newList = list.stream()
                 .peek((x) -> System.out.println( x=x-100))
                 .collect(Collectors.toList());
-
-        System.out.println(Integer.MIN_VALUE);
+        // peek的操作不会影响集合的数据
+        newList.forEach(System.out::println);
 
     }
 }
