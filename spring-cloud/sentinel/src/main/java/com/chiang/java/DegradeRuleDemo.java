@@ -17,6 +17,7 @@ import com.alibaba.csp.sentinel.slots.block.degrade.circuitbreaker.EventObserver
 import com.alibaba.csp.sentinel.util.TimeUtil;
 
 /**
+ * 熔断Demo示例
  * Run this demo, and the output will be like:
  *
  * <pre>

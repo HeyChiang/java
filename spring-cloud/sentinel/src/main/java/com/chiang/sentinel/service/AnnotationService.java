@@ -5,7 +5,7 @@ import com.alibaba.csp.sentinel.slots.block.BlockException;
 import org.springframework.stereotype.Service;
 
 /**
- * 配置SentinelAspectConfiguration类后，Sentinel支持注解的控制
+ * 配置SentinelAspectConfiguration类后，Sentinel支持注解的控制资源
  * @author jianghao
  */
 @Service

@@ -4,3 +4,12 @@ spring:
       transport:
         port: 8719
         dashboard: localhost:8080
+      eager: false
+  application:
+    name: sentinal-demo
+server:
+  port: 80
+
+logging:
+  level:
+    com.alibaba.cloud.sentinel: debug

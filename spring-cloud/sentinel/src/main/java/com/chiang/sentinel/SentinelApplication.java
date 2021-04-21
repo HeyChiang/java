@@ -1,9 +1,11 @@
 package com.chiang.sentinel;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+/**
+ * @author jianghao
+ */
 @SpringBootApplication
 public class SentinelApplication {
 
