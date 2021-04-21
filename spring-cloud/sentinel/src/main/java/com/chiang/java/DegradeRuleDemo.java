@@ -17,40 +17,32 @@ import com.alibaba.csp.sentinel.slots.block.degrade.circuitbreaker.EventObserver
 import com.alibaba.csp.sentinel.util.TimeUtil;
 
 /**
- * 熔断Demo示例
- * Run this demo, and the output will be like:
- *
- * <pre>
- * 1529399827825,total:0, pass:0, block:0
- * 1529399828825,total:4263, pass:100, block:4164
- * 1529399829825,total:19179, pass:4, block:19176 // circuit breaker opens
- * 1529399830824,total:19806, pass:0, block:19806
- * 1529399831825,total:19198, pass:0, block:19198
- * 1529399832824,total:19481, pass:0, block:19481
- * 1529399833826,total:19241, pass:0, block:19241
- * 1529399834826,total:17276, pass:0, block:17276
- * 1529399835826,total:18722, pass:0, block:18722
- * 1529399836826,total:19490, pass:0, block:19492
- * 1529399837828,total:19355, pass:0, block:19355
- * 1529399838827,total:11388, pass:0, block:11388
- * 1529399839829,total:14494, pass:104, block:14390 // After 10 seconds, the system restored
- * 1529399840854,total:18505, pass:0, block:18505
- * 1529399841854,total:19673, pass:0, block:19676
- * </pre>
+ * 熔断Demo示例，定义一个资源后，选择异常的比例、慢调用的数量、异常数量三个模式
+ * 的其中一种，当超出规则时发生熔断
  *
  * @author jianghao
  */
 public class DegradeRuleDemo {
 
+    /**
+     * 定义资源
+     */
     private static final String KEY = "some_method";
 
+    /**
+     * 定义tick时钟，每秒答应一次统计结果
+     */
     private static volatile boolean stop = false;
     private static int seconds = 120;
 
-    private static AtomicInteger total = new AtomicInteger();
-    private static AtomicInteger pass = new AtomicInteger();
-    private static AtomicInteger block = new AtomicInteger();
+    /**
+     * 定义计数器，记录资源访问的总次数、通过次数、被锁的次数
+     */
+    private static final AtomicInteger TOTAL = new AtomicInteger();
+    private static final AtomicInteger PASS = new AtomicInteger();
+    private static final AtomicInteger BLOCK = new AtomicInteger();
 
+    @SuppressWarnings("all")
     public static void main(String[] args) throws Exception {
         initDegradeRule();
         registerStateChangeObserver();
@@ -63,14 +55,14 @@ public class DegradeRuleDemo {
                     Entry entry = null;
                     try {
                         entry = SphU.entry(KEY);
-                        pass.incrementAndGet();
-                        // RT: [40ms, 60ms)
+                        PASS.incrementAndGet();
+                        // 定义睡眠事件在40~60毫秒之间
                         sleep(ThreadLocalRandom.current().nextInt(40, 60));
                     } catch (BlockException e) {
-                        block.incrementAndGet();
+                        BLOCK.incrementAndGet();
                         sleep(ThreadLocalRandom.current().nextInt(5, 10));
                     } finally {
-                        total.incrementAndGet();
+                        TOTAL.incrementAndGet();
                         if (entry != null) {
                             entry.exit();
                         }
@@ -106,8 +98,7 @@ public class DegradeRuleDemo {
         DegradeRule rule = new DegradeRule(KEY)
             // 熔断策略，支持慢调用比例/异常比例/异常数策略
             .setGrade(CircuitBreakerStrategy.SLOW_REQUEST_RATIO.getType())
-            // 慢调用比例模式下为慢调用临界 RT（超出该值计为慢调用）；
-            // 异常比例/异常数模式下为对应的阈值
+            // 慢调用比例模式下为慢调用临界 RT（超出该值毫秒返回事件计为慢调用）；异常比例/异常数模式下为对应的阈值
             .setCount(50)
             // 熔断10秒，之后会重新尝试
             .setTimeWindow(10)
@@ -116,13 +107,17 @@ public class DegradeRuleDemo {
             // 熔断触发的最小请求数，请求数小于该值时即使异常比率超出阈值也不会熔断
             .setMinRequestAmount(100)
             // 统计时长（单位为 ms），如 60*1000 代表分钟级
-            .setStatIntervalMs(20000);
+            .setStatIntervalMs(2 * 1000);
         rules.add(rule);
 
         DegradeRuleManager.loadRules(rules);
         System.out.println("Degrade rule loaded: " + rules);
     }
 
+    /**
+     * 线程的睡眠事件
+     * @param timeMs 毫秒数
+     */
     private static void sleep(int timeMs) {
         try {
             TimeUnit.MILLISECONDS.sleep(timeMs);
@@ -148,18 +143,19 @@ public class DegradeRuleDemo {
             long oldPass = 0;
             long oldBlock = 0;
 
+            // 每秒打印一次，清除掉上一秒统计的总数、通过次数、锁住的次数
             while (!stop) {
                 sleep(1000);
 
-                long globalTotal = total.get();
+                long globalTotal = TOTAL.get();
                 long oneSecondTotal = globalTotal - oldTotal;
                 oldTotal = globalTotal;
 
-                long globalPass = pass.get();
+                long globalPass = PASS.get();
                 long oneSecondPass = globalPass - oldPass;
                 oldPass = globalPass;
 
-                long globalBlock = block.get();
+                long globalBlock = BLOCK.get();
                 long oneSecondBlock = globalBlock - oldBlock;
                 oldBlock = globalBlock;
 
@@ -173,8 +169,8 @@ public class DegradeRuleDemo {
 
             long cost = System.currentTimeMillis() - start;
             System.out.println("time cost: " + cost + " ms");
-            System.out.println("total: " + total.get() + ", pass:" + pass.get()
-                + ", block:" + block.get());
+            System.out.println("total: " + TOTAL.get() + ", pass:" + PASS.get()
+                + ", block:" + BLOCK.get());
             System.exit(0);
         }
     }

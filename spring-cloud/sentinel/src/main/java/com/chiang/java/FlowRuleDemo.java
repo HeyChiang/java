@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 流量控制
  * @author jianghao
  */
 public class FlowRuleDemo {

@@ -20,7 +20,6 @@ public class SentinelAspectConfiguration {
     @Bean
     public SentinelResourceAspect sentinelResourceAspect() {
         initFlowRules();
-
         return new SentinelResourceAspect();
     }
 
@@ -30,7 +29,7 @@ public class SentinelAspectConfiguration {
     private static void initFlowRules(){
         List<FlowRule> rules = new ArrayList<>();
         FlowRule rule = new FlowRule();
-        // 定义需要被控制的资源名词
+        // 定义service 里需要被控制的资源名
         rule.setResource("hello");
         // 按照每秒的请求数量来限制。也可以按照线程数来
         rule.setGrade(RuleConstant.FLOW_GRADE_QPS);

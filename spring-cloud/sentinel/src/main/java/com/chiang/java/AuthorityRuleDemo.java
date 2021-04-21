@@ -11,7 +11,7 @@ import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRule;
 import com.alibaba.csp.sentinel.slots.block.authority.AuthorityRuleManager;
 
 /**
- * 一个资源可以设置多个规则，本类设置可以访问资源的黑白名单
+ * 渠道控制，一个资源可以设置多个规则，本类设置可以访问资源的黑白名单
  * @author JiangHao
  */
 public class AuthorityRuleDemo {
