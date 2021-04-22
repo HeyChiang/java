@@ -46,7 +46,8 @@ public class SystemGuardDemo {
                     while (true) {
                         Entry entry = null;
                         try {
-                            // 进入资源methodA
+                            // 进入资源methodA，SphU 包含了 try-catch 风格的 API。用这种方式，当资源发生
+                            // 了限流之后会抛出 BlockException。这个时候可以捕捉异常，进行限流之后的逻辑处理。
                             entry = SphU.entry("methodA", EntryType.IN);
                             pass.incrementAndGet();
                             try {
