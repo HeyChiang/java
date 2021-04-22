@@ -46,6 +46,13 @@ public class SystemGuardDemo {
                     while (true) {
                         Entry entry = null;
                         try {
+                            /**
+                             * Sentinel FQA
+                             * 入口流量指的是进入应用的流量（EntryType.IN），通常作为 provider。比如 Web 服务或 Dubbo 服务端接收的请求，
+                             * 都属于入口流量。而出口流量指的是从本资源调其它资源的流量（EntryType.OUT），通常作为 consume。
+                             *
+                             * 部分规则的判断会区分流量类型，比如系统规则只对入口流量生效。
+                             */
                             // 进入资源methodA，SphU 包含了 try-catch 风格的 API。用这种方式，当资源发生
                             // 了限流之后会抛出 BlockException。这个时候可以捕捉异常，进行限流之后的逻辑处理。
                             entry = SphU.entry("methodA", EntryType.IN);
