@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>springboot-dubbo</artifactId>
+    <artifactId>dubbo</artifactId>
     <packaging>pom</packaging>
     <version>${sample.version}</version>
 
