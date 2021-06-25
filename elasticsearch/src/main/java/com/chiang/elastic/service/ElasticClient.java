@@ -4,14 +4,12 @@ import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
-import org.elasticsearch.client.indices.CreateIndexRequest;
-import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.xcontent.XContentType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.UUID;
 
 import static org.elasticsearch.action.support.WriteRequest.RefreshPolicy.IMMEDIATE;
 
@@ -23,26 +21,29 @@ import static org.elasticsearch.action.support.WriteRequest.RefreshPolicy.IMMEDI
 public class ElasticClient {
 
     final
-    RestHighLevelClient highLevelClient;
+    RestHighLevelClient elasticsearchClient;
 
-    public ElasticClient(RestHighLevelClient highLevelClient) {
-        this.highLevelClient = highLevelClient;
+    public ElasticClient(RestHighLevelClient elasticsearchClient) {
+        this.elasticsearchClient = elasticsearchClient;
     }
 
     public IndexResponse indexRequest() throws IOException {
 
-        HashMap<String,String> map = new HashMap<>(0);
-        map.put("feature", "final test");
-        map.put("name","kuaile");
+        HashMap<String,Object> map = new HashMap<>(0);
+        map.put("api","1101");
+        map.put("clientIp","192.168.0.1");
+        map.put("os","Chrome");
+        map.put("url", "https://www.zhihu.com/");
+        map.put("request","{}");
+        map.put("response","{}");
+        map.put("@timestamp",new Date());
 
-        IndexRequest request = new IndexRequest("spring-data")
-                .id("test")
+        IndexRequest request = new IndexRequest("medicine-logs")
+                .id(UUID.randomUUID().toString())
                 .source(map)
-                .index("spring-data4")
                 .setRefreshPolicy(IMMEDIATE);
 
-        IndexResponse response = highLevelClient.index(request, RequestOptions.DEFAULT);
-        return response;
+        return elasticsearchClient.index(request, RequestOptions.DEFAULT);
     }
 
 }
