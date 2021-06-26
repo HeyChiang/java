@@ -1,5 +1,6 @@
 package com.chiang.elastic.service;
 
+import org.elasticsearch.action.bulk.BulkRequest;
 import org.elasticsearch.action.index.IndexRequest;
 import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.RequestOptions;
@@ -14,28 +15,33 @@ import java.util.UUID;
 import static org.elasticsearch.action.support.WriteRequest.RefreshPolicy.IMMEDIATE;
 
 /**
- * 使用索引
+ * 提交日志数据
  * @author jianghao
  */
 @Component
-public class ElasticClient {
+public class LogService {
 
     final
     RestHighLevelClient elasticsearchClient;
 
-    public ElasticClient(RestHighLevelClient elasticsearchClient) {
+    public LogService(RestHighLevelClient elasticsearchClient) {
         this.elasticsearchClient = elasticsearchClient;
     }
 
+    /**
+     * 发送日志到 ElasticSearch
+     */
     public IndexResponse indexRequest() throws IOException {
 
         HashMap<String,Object> map = new HashMap<>(0);
         map.put("api","1101");
-        map.put("clientIp","192.168.0.1");
-        map.put("os","Chrome");
         map.put("url", "https://www.zhihu.com/");
+        map.put("header","header");
         map.put("request","{}");
         map.put("response","{}");
+        map.put("employeeId","123");
+        map.put("storeId","");
+        map.put("env","dev");
         map.put("@timestamp",new Date());
 
         IndexRequest request = new IndexRequest("medicine-logs")
