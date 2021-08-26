@@ -23,7 +23,7 @@ public class ConfigController {
     private String test;
 
     /**
-     * 标记useLocalCache参数可以通过nacos动态改变，默认是false.
+     * 使用value注解标记useLocalCache，参数可以通过nacos动态改变，默认是false.
      */
     @Value("${useLocalCache:false}")
     private boolean useLocalCache;

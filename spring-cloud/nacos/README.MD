@@ -1,4 +1,4 @@
-本项目的运行要先在nacos里添加 nacos-cloud-demo-dev.yml 文件，代码如下
+本项目的运行要先在nacos【配置管理-配置列表】里添加 nacos-cloud-demo-dev.yml 文件，代码如下
 ```yaml
 server:
   port: 8080
