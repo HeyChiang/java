@@ -15,7 +15,7 @@ public class BodyRewrite implements RewriteFunction<byte[], byte[]> {
     public Publisher<byte[]> apply(ServerWebExchange exchange, byte[] body) {
         String originalBody = body == null ? "" : new String(body);
 
-        System.out.println("originalBody："+originalBody);
+        System.out.println("BodyRewrite - 返回的内容："+originalBody);
 
         if (!ServerWebExchangeUtils.isAlreadyRouted(exchange)) {
             return Mono.just(originalBody.getBytes());

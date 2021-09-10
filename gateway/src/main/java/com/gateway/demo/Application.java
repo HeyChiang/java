@@ -6,6 +6,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.gateway.filter.GlobalFilter;
+import org.springframework.cloud.gateway.filter.factory.rewrite.ModifyRequestBodyGatewayFilterFactory;
 import org.springframework.cloud.gateway.filter.factory.rewrite.RewriteFunction;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
@@ -40,7 +42,7 @@ import java.util.function.Predicate;
 @SpringBootApplication
 @EnableConfigurationProperties(UriConfiguration.class)
 @RestController
-public class Application implements CommandLineRunner {
+public class Application {
 
 	public static void main(String[] args) {
 
@@ -104,16 +106,21 @@ public class Application implements CommandLineRunner {
 		return Mono.just("two fallback");
 	}
 
-	@Autowired
-	RouteLocator routeLocator;
+	/**
+	 * 全局过滤器，可以获取到请求的内容
+	 */
+	@Bean
+	public GlobalFilter apply() {
+		return (exchange, chain) -> {
+			ModifyRequestBodyGatewayFilterFactory.Config modifyRequestConfig = new ModifyRequestBodyGatewayFilterFactory.Config();
 
-	@Override
-	public void run(String... args) throws Exception {
-		routeLocator.getRoutes().collectList().blockOptional().filter(new Predicate<List<Route>>() {
-			@Override
-			public boolean test(List<Route> routes) {
-				return false;
-			}
-		});
+			modifyRequestConfig.setRewriteFunction(String.class, String.class, (exchange1, originalRequestBody) -> {
+				System.out.println("apply-请求的内容:"+originalRequestBody);
+				return Mono.just(originalRequestBody);
+			});
+
+			return new ModifyRequestBodyGatewayFilterFactory().apply(modifyRequestConfig).filter(exchange, chain);
+		};
 	}
+
 }
