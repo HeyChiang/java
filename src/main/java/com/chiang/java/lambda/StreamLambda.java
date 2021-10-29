@@ -15,8 +15,12 @@ public class StreamLambda {
         strList.add("qianqi");
 
         // 筛选名称长度大于7的
-        List<String> collect = strList.stream().filter((s -> s.length() > 7)).collect(Collectors.toList());
-        System.out.println(collect);
+        List<String> filterList = strList.stream().filter((s -> s.length() > 7)).collect(Collectors.toList());
+        System.out.println(filterList);
+
+        // 对字符串进行操作后拿到结果
+        List<String> mapList = strList.stream().map(s -> s + "--").collect(Collectors.toList());
+        System.out.println(mapList);
 
         // 列表所有的数-100
         List<Integer> list = Arrays.asList(1, 2, 3, 4, 5);
