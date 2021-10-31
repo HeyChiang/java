@@ -18,6 +18,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -49,12 +50,14 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
+
+
 	@Bean
 	public RouteLocator myRoutes(RouteLocatorBuilder builder, UriConfiguration uriConfiguration) {
 		String httpUri = uriConfiguration.getHttpUrl();
 		return builder.routes()
 			.route(p -> p
-				.path("/post")
+				.path("/get")
 				.filters(gatewayFilterSpec -> {
 					gatewayFilterSpec.addRequestHeader("Hello", "World")
 					.modifyRequestBody(String.class,String.class,((serverWebExchange, s) ->{
@@ -76,15 +79,16 @@ public class Application {
 							System.out.println(s1 + "="+ headers.get(s1));
 						}
 
-						System.out.println("path:"+request.getPath());
+						System.out.println("path:"+request.getURI().getPath());
 						System.out.println("URI:"+request.getURI());
 						System.out.println("params:"+request.getQueryParams());
 						System.out.println("method："+request.getMethod());
 						int status = Objects.requireNonNull(serverWebExchange.getResponse().getStatusCode()).value();
 						System.out.println("status:"+status);
 
-
-						System.out.println("requestBody" + serverWebExchange.getAttributes().get("requestBody").toString());
+						if(request.getMethod() == HttpMethod.POST){
+							System.out.println("requestBody" + serverWebExchange.getAttributes().get("requestBody").toString());
+						}
 
 						return Mono.just(s);
 					});
