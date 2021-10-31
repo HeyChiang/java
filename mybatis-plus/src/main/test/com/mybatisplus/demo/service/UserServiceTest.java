@@ -1,6 +1,6 @@
 package com.mybatisplus.demo.service;
 
-import com.mybatisplus.demo.mapper.UserMapper;
+import com.mybatisplus.demo.mapper.MySQLMapper;
 import com.mybatisplus.demo.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ class UserServiceTest {
 
 
     @Resource
-    private UserMapper userMapper;
+    private MySQLMapper mySQLMapper;
 
     @Resource
     private UserService userService;
@@ -24,14 +24,14 @@ class UserServiceTest {
 
     @Test
     public void intoDataBySelect(){
-        boolean status = userMapper.intoDataBySelect();
+        boolean status = mySQLMapper.intoDataBySelect();
         assert status;
     }
 
 
     @Test
     public void saveBatch() throws Exception {
-        List<User> users = userMapper.selectList(null);
+        List<User> users = mySQLMapper.selectList(null);
 
         users.forEach(System.out::println);
 
