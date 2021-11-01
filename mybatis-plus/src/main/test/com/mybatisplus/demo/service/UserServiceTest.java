@@ -4,6 +4,8 @@ import com.mybatisplus.demo.mapper.MySQLMapper;
 import com.mybatisplus.demo.model.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -11,6 +13,7 @@ import java.util.List;
 /**
  * @author JiangHao at 10/31/2021 10:59 AM
  */
+@Rollback(value = false)
 @SpringBootTest
 class UserServiceTest {
 
@@ -23,9 +26,10 @@ class UserServiceTest {
 
 
     @Test
+    @Transactional
     public void intoDataBySelect(){
         boolean status = mySQLMapper.intoDataBySelect();
-        assert status;
+        throw new RuntimeException("test");
     }
 
 
