@@ -14,6 +14,7 @@ public class Math {
         System.out.println(bigC.max(bigA));
 
         BigDecimal bigD = new BigDecimal("0.0");
+        System.out.println("bigD："+bigD);
         System.out.println(bigD.compareTo(BigDecimal.ZERO));
 
         System.out.println(BigDecimal.ZERO);
@@ -31,5 +32,8 @@ public class Math {
 //        double disPrice = price.subtract(nowPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
         double disPrice = price.subtract(nowPrice).setScale(2, RoundingMode.HALF_UP).doubleValue();
         System.out.println(disPrice);
+
+        BigDecimal bigG = new BigDecimal("3.256");
+        System.out.println("BigDecimal(3.256)="+bigG.setScale(2, RoundingMode.HALF_UP));
     }
 }
