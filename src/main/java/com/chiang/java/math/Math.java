@@ -1,39 +1,33 @@
 package com.chiang.java.math;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 public class Math {
     public static void main(String[] args) {
-        BigDecimal bigA = new BigDecimal("0.7");
-        BigDecimal bigB = new BigDecimal("0.5");
-        BigDecimal bigC = bigA.multiply(bigB);
-        System.out.println(bigC);
+        BigDecimal bigA = new BigDecimal("0.0");
+        BigDecimal bigB = new BigDecimal("0.00");
 
-        System.out.println(bigC.min(bigA));
-        System.out.println(bigC.max(bigA));
+        System.out.println(bigA.compareTo(bigB));
+        System.out.println(toFixTwo(bigA));
+    }
 
-        BigDecimal bigD = new BigDecimal("0.0");
-        System.out.println("bigD："+bigD);
-        System.out.println(bigD.compareTo(BigDecimal.ZERO));
+    /**
+     * 只保留2位小数，其他的丢弃掉
+     */
+    private static BigDecimal toFixTwo(BigDecimal bigDecimal) {
+        assert bigDecimal != null;
 
-        System.out.println(BigDecimal.ZERO);
-        System.out.println(BigDecimal.ONE);
-        System.out.println(BigDecimal.TEN);
+        String s = bigDecimal.toString();
+        int i = s.indexOf(".");
+        if (i == -1) {
+            return bigDecimal;
+        }
 
-        double a = 1.1;
-        System.out.println(-a);
+        String decimal = s.substring(i, s.length() - 1);
+        if(decimal.length() > 2){
+            return new BigDecimal(s.substring(0, i + 3));
+        }
 
-        BigDecimal bigE = new BigDecimal("1.1");
-        System.out.println(bigE.negate());
-
-        BigDecimal price = new BigDecimal("1.5");
-        BigDecimal nowPrice = new BigDecimal("2.0");
-//        double disPrice = price.subtract(nowPrice).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
-        double disPrice = price.subtract(nowPrice).setScale(2, RoundingMode.HALF_UP).doubleValue();
-        System.out.println(disPrice);
-
-        BigDecimal bigG = new BigDecimal("3.256");
-        System.out.println("BigDecimal(3.256)="+bigG.setScale(2, RoundingMode.HALF_UP));
+        return bigDecimal;
     }
 }
