@@ -1,14 +1,14 @@
 package com.mybatisplus.demo.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mybatisplus.demo.model.User;
+import com.mybatisplus.demo.model.MySQLUser;
 import org.apache.ibatis.annotations.Insert;
 
 /**
  * Application配置MapperScan会扫描到这里
  * @author jianghao
  */
-public interface MySQLMapper extends BaseMapper<User> {
+public interface MySQLMapper extends BaseMapper<MySQLUser> {
 
 
     /**
