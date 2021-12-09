@@ -6,6 +6,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * 比较大小
+ */
 public class ComparatorLambda {
 
     public static void main(String[] args) {
@@ -23,7 +26,7 @@ public class ComparatorLambda {
             }
         });
 
-        // 构造方法引用
+        // 构造方法引用，从小到达排序
         personList.sort(Comparator.comparingInt(Person::getAge));
 
         System.out.println(personList);
