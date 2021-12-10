@@ -23,6 +23,8 @@ public class ConfigExample {
         String group = "DEFAULT_GROUP";
         Properties properties = new Properties();
         properties.put("serverAddr", serverAddr);
+
+        // 获取配置信息类
         ConfigService configService = NacosFactory.createConfigService(properties);
         String content = configService.getConfig(dataId, group, 5000);
         System.out.println("初始化："+content);
@@ -34,6 +36,7 @@ public class ConfigExample {
                 System.out.println("receive:" + configInfo);
             }
 
+            // 如果为null，使用nacos自带的Executor
             @Override
             public Executor getExecutor() {
                 return null;
