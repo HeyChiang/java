@@ -2,6 +2,9 @@ package com.chiang.java.lambda;
 
 import java.util.*;
 
+/**
+ * 测试Lamda表达式和普通For循环的效率执行比较，还是普通的For循环效率好
+ */
 public class StreamPerformance {
     public static void main(String[] args) {
         Random random = new Random();
@@ -29,7 +32,7 @@ public class StreamPerformance {
         System.out.println();
 
         long endTime = System.currentTimeMillis();
-        System.out.println("testSteamMax执行时间:" + (endTime - startTime) +"ms");
+        System.out.println("list.stream().max(Integer::compareTo) 执行时间:" + (endTime - startTime) +"ms");
     }
 
     public static void testParallelStream(List<Integer> list){
@@ -39,7 +42,7 @@ public class StreamPerformance {
         System.out.println();
 
         long endTime = System.currentTimeMillis();
-        System.out.println("testParallelSteam执行时间:" + (endTime - startTime) +"ms");
+        System.out.println("list.parallelStream().max(Integer::compareTo) 执行时间:" + (endTime - startTime) +"ms");
     }
 
     public static void testStreamFor1(List<Integer> list){
@@ -55,7 +58,7 @@ public class StreamPerformance {
         System.out.println();
 
         long endTime = System.currentTimeMillis();
-        System.out.println("testSteamFor1执行时间:" + (endTime - startTime) +"ms");
+        System.out.println("for (int i = 0; i < list.size(); i++) 执行时间:" + (endTime - startTime) +"ms");
     }
 
     public static void testStreamFor2(List<Integer> list){
@@ -70,7 +73,7 @@ public class StreamPerformance {
         System.out.println();
 
         long endTime = System.currentTimeMillis();
-        System.out.println("testSteamFor2执行时间:" + (endTime - startTime) +"ms");
+        System.out.println("for (Integer i :list) 执行时间:" + (endTime - startTime) +"ms");
     }
     public static void testStreamIterator(List<Integer> list){
         long startTime = System.currentTimeMillis();
@@ -86,6 +89,6 @@ public class StreamPerformance {
         System.out.println();
 
         long endTime = System.currentTimeMillis();
-        System.out.println("testSteamIterator执行时间:" + (endTime - startTime) +"ms");
+        System.out.println("while (iterator.hasNext()) 执行时间:" + (endTime - startTime) +"ms");
     }
 }
