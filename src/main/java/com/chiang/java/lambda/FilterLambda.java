@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  * 筛选功率列表的数据，得到自己想要的
  * @author JiangHao at 12/9/2021 7:47 PM
  */
-public class PredicateLambda {
+public class FilterLambda {
 
     public static void main(String[] args) {
         ArrayList<String> strList = new ArrayList<>();

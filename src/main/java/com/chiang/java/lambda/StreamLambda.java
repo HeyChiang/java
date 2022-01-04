@@ -6,6 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * 通过map、filter、peek对数据进行操作并打印
+ * @author jianghao
+ */
 public class StreamLambda {
 
     static ArrayList<String> strList = new ArrayList<>();
