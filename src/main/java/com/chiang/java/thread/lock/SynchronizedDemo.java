@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 1. 对象锁：同一个类下不同的两个方法，使用synchronized会互相阻塞
+ * 1. 对象锁：同一个类下不同的两个方法、synchronized(this)，会互相阻塞
  * 2. 类锁：静态方法、synchronized（类.class）会互相阻塞
  * 3. 类锁和对象锁，互不干涉
  * @author Chiang
