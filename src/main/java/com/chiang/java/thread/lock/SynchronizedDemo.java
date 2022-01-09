@@ -9,8 +9,14 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * 1. 对象锁：同一个类下不同的两个方法、synchronized(this)，会互相阻塞
- * 2. 类锁：静态方法、synchronized（类.class）会互相阻塞
+ * 1.获取对象锁的两种方法，一实例对象指一个new Class
+ *   1.同步代码块synchronized（this）和synchronized（类实例对象）
+ *   2.同步非静态方法synchronized method，锁是当前对象的实例对象
+ *
+ * 2.获取类锁的两种用法，整个类都同步了
+ *   1.同步代码块synchronized（类.class），锁是小括号()的类对象
+ *   2.同步静态方法synchronized static method ，锁是当前对象的类对象
+ *
  * 3. 类锁和对象锁，互不干涉
  * @author Chiang
  */

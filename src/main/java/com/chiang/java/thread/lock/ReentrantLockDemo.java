@@ -14,28 +14,10 @@ import java.util.concurrent.locks.*;
  */
 public class ReentrantLockDemo {
 
-    public static void main(String[] args) {
-//        readAndWrite();
-
-        lockConditionTest();
-    }
-
-    /**
-     * lock.newCondition的lock与synchronize的wait是一样的
-     * signal=notify
-     * signalAll=notifyAll
-     */
-    private static void lockConditionTest() {
-        LockCondition lockCondition = new LockCondition();
-        new Thread(lockCondition::getTask).start();
-        new Thread(()->{lockCondition.addTask("A");}).start();
-
-    }
-
     /**
      * 读写锁互斥，不能同步操作
      */
-    private static void readAndWrite() {
+    public static void main(String[] args) {
         ReentrantLockDemo readWriteLockMain = new ReentrantLockDemo();
         new Thread(readWriteLockMain::writeMethod).start();
         new Thread(readWriteLockMain::readMethod).start();
@@ -72,36 +54,6 @@ public class ReentrantLockDemo {
         } finally {
             rwlock.writeLock().unlock();
             System.out.println(Thread.currentThread().getName() + " 释放了写锁");
-        }
-    }
-
-
-    static class LockCondition {
-        private final Lock lock = new ReentrantLock();
-        private final Condition condition = lock.newCondition();
-        private final Queue<String> queue = new LinkedList<>();
-
-        public void addTask(String s) {
-            lock.lock();
-            try {
-                queue.add(s);
-                condition.signalAll();
-            } finally {
-                lock.unlock();
-            }
-        }
-
-        @SneakyThrows
-        public String getTask() {
-            lock.lock();
-            try {
-                while (queue.isEmpty()) {
-                    condition.await();
-                }
-                return queue.remove();
-            } finally {
-                lock.unlock();
-            }
         }
     }
 }
