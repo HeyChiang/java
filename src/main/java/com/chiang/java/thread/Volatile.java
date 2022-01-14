@@ -3,11 +3,10 @@ package com.chiang.java.thread;
 import lombok.SneakyThrows;
 
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * volatile 变量直接操作内存，不再使用CPU的缓存,
- * 可以保证读取到的变量值是最新的，但是不保证操作的原子性
+ * 可以保证读取到的变量值是最新的，但是不保证操作的原子性,所以本Demo在并发搞的时候，无法打印出1000 00
  * @author JiangHao
  */
 @SuppressWarnings("all")
