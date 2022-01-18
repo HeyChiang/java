@@ -1,7 +1,7 @@
 package com.chiang.algorithm.linear;
 
 /**
- * 泛型
+ * 泛型的线性查找
  *
  * @author JiangHao at 1/15/2022 6:57 PM
  */
