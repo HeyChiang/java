@@ -1,9 +1,5 @@
 package com.chiang.java.thread.lock;
 
-import lombok.SneakyThrows;
-
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.concurrent.locks.*;
 
 /**
@@ -12,13 +8,13 @@ import java.util.concurrent.locks.*;
  *
  * @author Chiang
  */
-public class ReentrantLockDemo {
+public class ReentrantReadWriteDemo {
 
     /**
      * 读写锁互斥，不能同步操作
      */
     public static void main(String[] args) {
-        ReentrantLockDemo readWriteLockMain = new ReentrantLockDemo();
+        ReentrantReadWriteDemo readWriteLockMain = new ReentrantReadWriteDemo();
         new Thread(readWriteLockMain::writeMethod).start();
         new Thread(readWriteLockMain::readMethod).start();
         new Thread(readWriteLockMain::readMethod).start();
