@@ -1,5 +1,7 @@
 package com.chiang.algorithm.foundation.linear;
 
+import com.chiang.algorithm.foundation.SortHelper;
+
 import java.util.Random;
 
 /**
@@ -21,23 +23,11 @@ public class LinearGeneric {
         return null;
     }
 
-    /**
-     * 生成数组
-     */
-    public static Integer[] generateArray(Integer num) {
-        Random random = new Random();
-        Integer[] array = new Integer[num];
-        for (int i = 0; i < num; i++) {
-            array[i] = random.nextInt(100);
-        }
-        return array;
-    }
-
     public static void main(String[] args) {
         Integer[] testTime = new Integer[]{1000000, 10000000};
 
         for (Integer integer : testTime) {
-            Integer[] array = generateArray(integer);
+            Integer[] array = SortHelper.generateArray(integer);
             long startTime = System.currentTimeMillis();
             search(array, -1);
             double useTime = (System.currentTimeMillis() - startTime)/1000.0;

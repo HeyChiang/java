@@ -1,4 +1,4 @@
-package com.chiang.algorithm.foundation.sort;
+package com.chiang.algorithm.foundation.selector;
 
 import lombok.AllArgsConstructor;
 

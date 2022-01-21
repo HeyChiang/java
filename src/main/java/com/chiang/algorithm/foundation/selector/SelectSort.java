@@ -1,5 +1,6 @@
-package com.chiang.algorithm.foundation.sort;
+package com.chiang.algorithm.foundation.selector;
 
+import com.chiang.algorithm.foundation.SortHelper;
 import com.chiang.algorithm.foundation.linear.LinearGeneric;
 
 /**
@@ -14,7 +15,7 @@ public class SelectSort {
         Integer[] testTime = new Integer[]{10000, 100000};
 
         for (int k = 0; k < testTime.length; k++) {
-            Integer[] array = LinearGeneric.generateArray(testTime[k]);
+            Integer[] array = SortHelper.generateArray(testTime[k]);
             long startTime = System.currentTimeMillis();
 
             // array[0..i)是已排序的，array[i..n)是未排序的
