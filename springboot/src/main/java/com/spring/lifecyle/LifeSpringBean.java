@@ -14,10 +14,11 @@ import javax.annotation.PreDestroy;
  * 显示一个完整的Bean生命周期
  */
 @Configuration
+@SuppressWarnings("all")
 public class LifeSpringBean implements InitializingBean, BeanNameAware, DisposableBean {
 
   public static final String CLASS_NAME = "LifeSpringBean";
-  
+
   public LifeSpringBean(){
     System.out.println(CLASS_NAME+" 构造方法");
   }
@@ -32,10 +33,6 @@ public class LifeSpringBean implements InitializingBean, BeanNameAware, Disposab
     System.out.println(CLASS_NAME+"注解 @preDestroy");
   }
 
-  public void onDestroy(){
-    System.out.println(CLASS_NAME+" onDestroy");
-  }
-
   /**
    * 在此代码的配置下，会调用initMethod和onDestroy方法
    * @Bean(initMethod = "onInitialize", destroyMethod = "onDestroy")
@@ -43,6 +40,10 @@ public class LifeSpringBean implements InitializingBean, BeanNameAware, Disposab
    *    return new MySpringBean();
    * }
    */
+  public void onDestroy(){
+    System.out.println(CLASS_NAME+" onDestroy");
+  }
+
   public void initMethod(){
     System.out.println(CLASS_NAME+" onInitialize");
   }
