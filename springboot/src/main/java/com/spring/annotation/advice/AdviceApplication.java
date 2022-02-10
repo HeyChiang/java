@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * 启动测试类
+ * @ControllerAdvice 的三种始终方法测试类
  */
 @SpringBootApplication
 public class AdviceApplication {

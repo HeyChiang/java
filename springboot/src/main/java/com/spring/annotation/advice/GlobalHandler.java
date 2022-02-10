@@ -1,11 +1,13 @@
 package com.spring.annotation.advice;
 
 import org.springframework.web.bind.MissingServletRequestParameterException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
+import java.beans.PropertyEditorSupport;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +19,7 @@ import java.util.Map;
 public class GlobalHandler {
 
     /**
-     * 定义全局的数据绑定，无论在哪个Controller里都可以使用，每有一次请求都会触发一次调用。
+     * 1. 定义全局的数据绑定，无论在哪个Controller里都可以使用，每有一次请求都会触发一次调用。
      */
     @ModelAttribute(name = "md")
     public Map<String,Object> modelData() {
@@ -31,7 +33,7 @@ public class GlobalHandler {
 
 
     /**
-     * 如果不加@ResponseBody就可以返回一个view页面
+     * 2.如果不加@ResponseBody就可以返回一个view页面
      */
     @ResponseBody
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
@@ -42,6 +44,9 @@ public class GlobalHandler {
         return map;
     }
 
+    /**
+     * 所有其他的异常拦截
+     */
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public Map<String,String> errorHandler(Exception ex) {
@@ -50,5 +55,19 @@ public class GlobalHandler {
 
         map.put("msg","不知道是什么错误："+ex.getMessage());
         return map;
+    }
+
+    /**
+     * 3. 对接收的数据类型进行预处理
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) {
+                // 这里可以将text转成固定的Data数据类型
+                setValue(text);
+            }
+        });
     }
 }

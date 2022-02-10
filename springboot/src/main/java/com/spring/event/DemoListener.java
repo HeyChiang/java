@@ -3,6 +3,9 @@ package com.spring.event;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
+/**
+ * 设置Event事件的监听，可以有多个监听者不冲突
+ */
 @Component
 public class DemoListener implements ApplicationListener<DemoEvent> {
 
