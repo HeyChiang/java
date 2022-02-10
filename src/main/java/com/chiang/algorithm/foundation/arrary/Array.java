@@ -1,5 +1,7 @@
 package com.chiang.algorithm.foundation.arrary;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -8,6 +10,14 @@ import java.util.Stack;
  * @author Chiang
  */
 public class Array<E> {
+
+    public static void main(String[] args) {
+        for (int i = 0; i <= 10; i++) {
+            System.out.println(i%5);
+        }
+        List<String> list =new ArrayList<>();
+    }
+
 
     private E[] elements;
 
