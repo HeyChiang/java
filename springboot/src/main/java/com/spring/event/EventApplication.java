@@ -19,6 +19,8 @@ public class EventApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        publisher.publishEvent(new DemoEvent("source",1L,"message"));
+        // source 通常传入当前的类。the object on which the event
+        // initially occurred or with which the event is associated (never null)
+        publisher.publishEvent(new DemoEvent(this,"message"));
     }
 }
