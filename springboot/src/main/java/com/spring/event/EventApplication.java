@@ -19,6 +19,6 @@ public class EventApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        publisher.publishEvent(new DemoEvent("data",1L,"message"));
+        publisher.publishEvent(new DemoEvent("source",1L,"message"));
     }
 }
