@@ -26,7 +26,7 @@ public class MyControllerAdvice implements ResponseBodyAdvice<Example.BodyTest> 
      */
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
-        System.out.println("In supports() method of " + getClass().getSimpleName());
+        System.out.println("MyControllerAdvice supports():" + getClass().getSimpleName());
         return methodParameter.getParameterType() == Example.BodyTest.class;
     }
 
@@ -35,15 +35,14 @@ public class MyControllerAdvice implements ResponseBodyAdvice<Example.BodyTest> 
      */
     @Override
     public Example.BodyTest beforeBodyWrite(Example.BodyTest body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest request, ServerHttpResponse serverHttpResponse) {
-        String requestPath = request.getURI().getPath();
-
         //通过RequestContextHolder获取request
         HttpServletRequest httpServletRequest =
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
 
         HttpSession httpSession = httpServletRequest.getSession(true);
         httpSession.setAttribute("body", body);
-
+        body.address = "beforeBodyWrite被修改成：去你的";
+        System.out.println("MyControllerAdvice："+body);
         return body;
     }
 }
