@@ -23,6 +23,9 @@ public class GitHubLookupService {
     this.restTemplate = restTemplateBuilder.build();
   }
 
+  /**
+   * 会使用 AsyncMethodApplication 定义的异步线程池的线程来运行
+   */
   @Async
   public CompletableFuture<ThreadUser> findUser(String user) throws InterruptedException {
     logger.info("Looking up " + user);

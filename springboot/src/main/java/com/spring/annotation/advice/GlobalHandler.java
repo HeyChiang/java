@@ -25,7 +25,7 @@ public class GlobalHandler {
     public Map<String,Object> modelData() {
         System.out.println("调用了一次!!!!");
 
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>(0);
         map.put("age", 99);
         map.put("gender", "男");
         return map;
