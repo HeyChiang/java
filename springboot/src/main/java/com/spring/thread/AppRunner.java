@@ -32,7 +32,8 @@ public class AppRunner implements CommandLineRunner {
     CompletableFuture.allOf(page1,page2,page3).join();
 
     // Print results, including elapsed time
-    logger.info("Elapsed time: " + (System.currentTimeMillis() - start));
+    logger.info("ThreadName："+Thread.currentThread().getName());
+    logger.info(" --> Elapsed time: " + (System.currentTimeMillis() - start));
     logger.info("--> " + page1.get());
     logger.info("--> " + page2.get());
     logger.info("--> " + page3.get());
