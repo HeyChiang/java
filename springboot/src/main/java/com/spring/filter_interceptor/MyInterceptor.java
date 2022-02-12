@@ -24,7 +24,7 @@ public class MyInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        log.info("preHandle BaseInterceptor executed：" + handler.getClass().getSimpleName());
+        log.info("************ preHandle BaseInterceptor executed：" + handler.getClass().getSimpleName());
 
         HandlerMethod method  = (HandlerMethod) handler;
         log.info("preHandler HandlerMethod:"+method.getBean());
