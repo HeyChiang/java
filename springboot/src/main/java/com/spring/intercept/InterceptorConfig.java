@@ -1,4 +1,4 @@
-package com.spring.filter_interceptor;
+package com.spring.intercept;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.spring.filter_interceptor;
+package com.spring.intercept;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
@@ -8,7 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Map;
 
 /**
  * 拦截器
@@ -27,7 +26,7 @@ public class MyInterceptor implements HandlerInterceptor {
         log.info("************ preHandle BaseInterceptor executed：" + handler.getClass().getSimpleName());
 
         HandlerMethod method  = (HandlerMethod) handler;
-        log.info("preHandler HandlerMethod:"+method.getBean());
+        log.info("preHandler HandlerMethod:"+method.getMethod().getDeclaringClass());
 
         // 设置属性可以在过滤器获取
         request.setAttribute("testA", "Data");

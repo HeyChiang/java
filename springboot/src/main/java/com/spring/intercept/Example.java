@@ -1,8 +1,9 @@
-package com.spring.filter_interceptor;
+package com.spring.intercept;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @SpringBootApplication
+@Slf4j
 public class Example {
 
     @RequestMapping("/")
@@ -28,7 +30,7 @@ public class Example {
     @RequestMapping("/body")
     @ResponseBody
     BodyTest bodyTest(@RequestBody BodyTest bodyTest){
-        System.out.println(bodyTest);
+        log.info("请求的参数：{}",bodyTest);
         return new BodyTest("李斯","庆国");
     }
 

@@ -1,4 +1,4 @@
-package com.spring.filter_interceptor;
+package com.spring.intercept;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

@@ -1,4 +1,4 @@
-package com.spring.filter_interceptor;
+package com.spring.intercept;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -26,5 +26,5 @@ public class TestFilterTwo extends OncePerRequestFilter {
         System.out.println("Two doFilterInternal end");
 
     }
- 
+
 }
