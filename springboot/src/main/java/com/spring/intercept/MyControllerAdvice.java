@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
  * @author Chiang
  */
 @ControllerAdvice
-public class MyControllerAdvice implements ResponseBodyAdvice<Example.BodyTest> {
+public class MyControllerAdvice implements ResponseBodyAdvice<UserBodyBean> {
 
     /**
      * 根据返回的class类型来判断是否要获取返回的内容
@@ -27,14 +27,14 @@ public class MyControllerAdvice implements ResponseBodyAdvice<Example.BodyTest> 
     @Override
     public boolean supports(MethodParameter methodParameter, Class aClass) {
         System.out.println("MyControllerAdvice supports():" + getClass().getSimpleName());
-        return methodParameter.getParameterType() == Example.BodyTest.class;
+        return methodParameter.getParameterType() == UserBodyBean.class;
     }
 
     /**
      * 获取要返回数据的 ResponseBody
      */
     @Override
-    public Example.BodyTest beforeBodyWrite(Example.BodyTest body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest request, ServerHttpResponse serverHttpResponse) {
+    public UserBodyBean beforeBodyWrite(UserBodyBean body, MethodParameter methodParameter, MediaType mediaType, Class aClass, ServerHttpRequest request, ServerHttpResponse serverHttpResponse) {
         //通过RequestContextHolder获取request
         HttpServletRequest httpServletRequest =
                 ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
