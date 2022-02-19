@@ -11,6 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.concurrent.*;
 
 /**
+ * 生产者，发送事务消息
  * @author chiang
  */
 public class TransactionProducer {
@@ -26,7 +27,6 @@ public class TransactionProducer {
                 return thread;
             }
         });
-        producer.setNamesrvAddr("172.28.80.1:9876");
         producer.setExecutorService(executorService);
         producer.setTransactionListener(transactionListener);
         producer.start();
@@ -34,16 +34,16 @@ public class TransactionProducer {
         String[] tags = new String[]{"TagA", "TagB", "TagC", "TagD", "TagE"};
         for (int i = 0; i < 10; i++) {
             try {
-                Message msg =
-                        new Message("TopicTest1234", tags[i % tags.length], "KEY" + i,
-                                ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                Message msg = new Message("TransTopicTest1234", tags[i % tags.length], "KEY" + i, ("Hello 2132测试 " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
                 SendResult sendResult = producer.sendMessageInTransaction(msg, null);
-                System.out.printf("%s%n", sendResult);
+                System.out.printf("消息：%s%n", sendResult);
                 Thread.sleep(10);
             } catch (MQClientException | UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
+
+
         for (int i = 0; i < 100000; i++) {
             Thread.sleep(1000);
         }
