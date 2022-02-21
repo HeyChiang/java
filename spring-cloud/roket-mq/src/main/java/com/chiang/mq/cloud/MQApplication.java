@@ -18,44 +18,44 @@ import org.springframework.messaging.MessageChannel;
 @EnableBinding(MQApplication.PolledProcessor.class)
 public class MQApplication {
 
-  private final Logger logger =
-  	  LoggerFactory.getLogger(MQApplication.class);
+    private final Logger logger =
+            LoggerFactory.getLogger(MQApplication.class);
 
-  public static void main(String[] args) {
-    SpringApplication.run(MQApplication.class, args);
-  }
+    public static void main(String[] args) {
+        SpringApplication.run(MQApplication.class, args);
+    }
 
-  @Bean
-  public ApplicationRunner runner(PollableMessageSource source,
-                                  MessageChannel dest) {
-    return args -> {
-      while (true) {
-        boolean result = source.poll(m -> {
-          String payload = (String) m.getPayload();
-          logger.info("Received: " + payload);
-          dest.send(MessageBuilder.withPayload(payload.toUpperCase())
-              .copyHeaders(m.getHeaders())
-              .build());
-        }, new ParameterizedTypeReference<String>() { });
-        if (result) {
-          logger.info("Processed a message");
-        }
-        else {
-          logger.info("Nothing to do");
-        }
-        Thread.sleep(5_000);
-      }
-    };
-  }
+    @Bean
+    public ApplicationRunner runner(PollableMessageSource source,
+                                    MessageChannel dest) {
+        return args -> {
+            while (true) {
+                boolean result = source.poll(m -> {
+                    String payload = (String) m.getPayload();
+                    logger.info("Received: " + payload);
+                    dest.send(MessageBuilder.withPayload(payload.toUpperCase())
+                            .copyHeaders(m.getHeaders())
+                            .build());
+                }, new ParameterizedTypeReference<String>() {
+                });
+                if (result) {
+                    logger.info("Processed a message");
+                } else {
+                    logger.info("Nothing to do");
+                }
+                Thread.sleep(5_000);
+            }
+        };
+    }
 
-  public static interface PolledProcessor {
+    public static interface PolledProcessor {
 
-    @Input
-    PollableMessageSource source();
+        @Input
+        PollableMessageSource source();
 
-    @Output
-    MessageChannel dest();
+        @Output
+        MessageChannel dest();
 
-  }
+    }
 
 }
