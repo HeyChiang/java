@@ -1,4 +1,4 @@
-package com.chiang.mq;
+package com.chiang.mq.java;
 
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.client.producer.SendResult;

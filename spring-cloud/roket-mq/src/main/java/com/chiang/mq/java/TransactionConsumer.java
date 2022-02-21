@@ -1,4 +1,4 @@
-package com.chiang.mq;
+package com.chiang.mq.java;
 
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 用SpringBoot 或者 Spring Cloud的 jar包都可以
+ *
  * @author Chiang
  */
 public class TransactionConsumer {

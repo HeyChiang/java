@@ -1,4 +1,4 @@
-package com.chiang.mq;
+package com.chiang.mq.java;
 
 import org.apache.rocketmq.client.producer.LocalTransactionState;
 import org.apache.rocketmq.client.producer.TransactionListener;
