@@ -1,6 +1,24 @@
 spring:
   cloud:
     stream:
+      bindings:
+        input1:
+          destination: test-topic
+          content-type: text/plain
+          group: test-group1
+        output1:
+          destination: test-topic
+          content-type: text/plain
       rocketmq:
+        bindings:
+          output1:
+            producer:
+              group: myTxProducerGroup
         binder:
           name-server: 127.0.0.1:9876
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

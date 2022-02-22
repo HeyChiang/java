@@ -1,61 +1,41 @@
 package com.chiang.mq.cloud;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.ApplicationRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
-import org.springframework.cloud.stream.binder.PollableMessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.integration.support.MessageBuilder;
 import org.springframework.messaging.MessageChannel;
+import org.springframework.messaging.SubscribableChannel;
 
 @SpringBootApplication
-@EnableBinding(MQApplication.PolledProcessor.class)
-public class MQApplication {
-
-    private final Logger logger =
-            LoggerFactory.getLogger(MQApplication.class);
+@EnableBinding({ MQApplication.MySource.class, MQApplication.MySink.class})
+public class MQApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(MQApplication.class, args);
     }
 
-    @Bean
-    public ApplicationRunner runner(PollableMessageSource source,
-                                    MessageChannel dest) {
-        return args -> {
-            while (true) {
-                boolean result = source.poll(m -> {
-                    String payload = (String) m.getPayload();
-                    logger.info("Received: " + payload);
-                    dest.send(MessageBuilder.withPayload(payload.toUpperCase())
-                            .copyHeaders(m.getHeaders())
-                            .build());
-                }, new ParameterizedTypeReference<String>() {
-                });
-                if (result) {
-                    logger.info("Processed a message");
-                } else {
-                    logger.info("Nothing to do");
-                }
-                Thread.sleep(5_000);
-            }
-        };
+    @Autowired
+    private SenderService senderService;
+
+    @Override
+    public void run(String... args) throws Exception {
+        senderService.send("你好");
     }
 
-    public static interface PolledProcessor {
+    public interface MySource {
 
-        @Input
-        PollableMessageSource source();
-
-        @Output
-        MessageChannel dest();
+        @Output("output1")
+        MessageChannel output1();
 
     }
 
+    public interface MySink {
+
+        @Input("input1")
+        SubscribableChannel input1();
+    }
 }
