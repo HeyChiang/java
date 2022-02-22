@@ -20,7 +20,9 @@ import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.stereotype.Service;
 
 /**
- * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
+ * 定义input接收信息
+ *
+ * @author Chiang
  */
 @Service
 public class ReceiveService {

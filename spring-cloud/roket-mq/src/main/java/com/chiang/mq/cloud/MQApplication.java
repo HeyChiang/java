@@ -10,6 +10,9 @@ import org.springframework.cloud.stream.annotation.Output;
 import org.springframework.messaging.MessageChannel;
 import org.springframework.messaging.SubscribableChannel;
 
+/**
+ * 使用 @EnableBinding 将 @Input 和 @Output 注解绑定到代理上去
+ */
 @SpringBootApplication
 @EnableBinding({ MQApplication.MySource.class, MQApplication.MySink.class})
 public class MQApplication implements CommandLineRunner {
@@ -26,15 +29,18 @@ public class MQApplication implements CommandLineRunner {
         senderService.send("你好");
     }
 
+    /**
+     * 定义写的通道
+     */
     public interface MySource {
-
         @Output("output1")
         MessageChannel output1();
-
     }
 
+    /**
+     * 定义读的通道
+     */
     public interface MySink {
-
         @Input("input1")
         SubscribableChannel input1();
     }

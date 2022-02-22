@@ -29,7 +29,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @author <a href="mailto:fangjian0423@gmail.com">Jim</a>
+ * 发送RocketMQ的消息
+ *
+ * @author Chiang
  */
 @Service
 public class SenderService {
