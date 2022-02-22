@@ -30,7 +30,7 @@ public class MQApplication implements CommandLineRunner {
     }
 
     /**
-     * 定义写的通道
+     * 定义写的通道，通过 @Autowired 注入后可以直接发消息
      */
     public interface MySource {
         @Output("output1")
