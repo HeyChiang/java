@@ -12,7 +12,7 @@ public class LinkedList<E> {
     /**
      * 永远是最头部的节点
      */
-    private Node dummyHead;
+    private final Node dummyHead;
 
     public LinkedList(){
         dummyHead = new Node(null, null);
@@ -51,6 +51,22 @@ public class LinkedList<E> {
             // 将当前的元素的下一个赋值到新类的next
             curNode.next = new Node(e,curNode.next);
 //        }
+    }
+
+    public E remove(int index){
+        Node curNode = dummyHead;
+        for (int i = 0; i < index; i++) {
+            curNode = curNode.next;
+        }
+        // 获取要删除的元素
+        Node delNext = curNode.next;
+        // 将要删除元素的下一个，作为被删除的元素
+        curNode.next = delNext.next;
+        // 清空被删除的元素next
+        delNext.next = null;
+
+        size--;
+        return delNext.e;
     }
 
 

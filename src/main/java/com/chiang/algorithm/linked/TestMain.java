@@ -7,5 +7,7 @@ public class TestMain {
             linkedList.addFirst(i);
         }
         System.out.println(linkedList);
+        linkedList.remove(1);
+        System.out.println(linkedList);
     }
 }
