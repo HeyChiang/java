@@ -50,13 +50,17 @@ public class ReverseList {
         return pre;
     }
 
+    /**
+     * 递归的方式反转链表
+     *
+     */
     public ListNode reverseList2(ListNode head){
         if(head == null || head.next == null){
             return head;
         }
 
-        ListNode rev = reverseList2(head);
-        rev.next.next = head;
+        ListNode rev = reverseList2(head.next);
+        head.next.next = head;
         head.next = null;
 
         return rev;
@@ -64,16 +68,28 @@ public class ReverseList {
 
     public static void main(String[] args) {
         ListNode head = new ListNode();
-        ListNode cur = head;
-        for (int i = 1; i < 6; i++) {
-            cur.next = new ListNode(i);
-            cur = cur.next;
-        }
+        generate(head);
 
         System.out.println("正序：");
         System.out.println(head);
         ListNode node = new ReverseList().reverseList1(head);
         System.out.println("倒叙：");
         System.out.println(node);
+
+        head = new ListNode();
+        generate(head);
+        System.out.println("倒叙2：");
+        System.out.println(new ReverseList().reverseList2(head));
+    }
+
+    /**
+     * 生成链表节点数据
+     */
+    private static void generate(ListNode head) {
+        ListNode cur = head;
+        for (int i = 1; i < 6; i++) {
+            cur.next = new ListNode(i);
+            cur = cur.next;
+        }
     }
 }
