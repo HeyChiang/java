@@ -51,7 +51,10 @@ public class ReverseList {
     }
 
     /**
-     * 递归的方式反转链表
+     * 递归的方式反转链表，head和rev是相反的链表，但是引用的同一个对象。
+     *
+     * head：代表正序的  0、1、2、3、4、5、null
+     * rev：代表道程序的 5、4、3、2、1、0、null
      *
      */
     public ListNode reverseList2(ListNode head){
@@ -60,7 +63,14 @@ public class ReverseList {
         }
 
         ListNode rev = reverseList2(head.next);
+
+        if(head.val == 4){
+            System.out.println("debug");
+        }
+
+        // 把正序的4、5、null 改变 5、4、null，正序和倒叙引用的是同一个类
         head.next.next = head;
+        // 把4后面的5 next换成null，不会删除rev里的4
         head.next = null;
 
         return rev;
