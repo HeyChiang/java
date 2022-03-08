@@ -28,7 +28,7 @@ public class GitHubLookupService {
    */
   @Async
   public CompletableFuture<ThreadUser> findUser(String user) throws InterruptedException {
-    logger.info("Looking up " + user);
+    logger.info("ThreadName:"+Thread.currentThread().getName()+", Looking up " + user);
     String url = String.format("https://api.github.com/users/%s", user);
     ThreadUser results = restTemplate.getForObject(url, ThreadUser.class);
     // Artificial delay of 1s for demonstration purposes

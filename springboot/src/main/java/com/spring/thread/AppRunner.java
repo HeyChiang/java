@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * 执行异步请求
+ * @author JiangHao
+ */
 @Component
 public class AppRunner implements CommandLineRunner {
 
@@ -24,6 +28,7 @@ public class AppRunner implements CommandLineRunner {
     long start = System.currentTimeMillis();
 
     // Kick of multiple, asynchronous lookups
+    // 如果不使用CompletableFuture<ThreadUser>，则返回null，但是异步线程还是会继续下去
     CompletableFuture<ThreadUser> page1 = gitHubLookupService.findUser("PivotalSoftware");
     CompletableFuture<ThreadUser> page2 = gitHubLookupService.findUser("CloudFoundry");
     CompletableFuture<ThreadUser> page3 = gitHubLookupService.findUser("Spring-Projects");
