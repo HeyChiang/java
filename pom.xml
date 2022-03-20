@@ -17,14 +17,13 @@
     </parent>
 
     <modules>
-        <module>redisson</module>
         <module>spring-cloud</module>
         <module>mybatis</module>
         <module>security</module>
         <module>gateway</module>
         <module>springboot</module>
         <module>mybatis-plus</module>
-        <module>elasticsearch</module>
+        <module>database</module>
     </modules>
 
 
