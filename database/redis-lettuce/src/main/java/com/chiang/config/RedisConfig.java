@@ -3,12 +3,15 @@ package com.chiang.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+
+import java.nio.charset.StandardCharsets;
 
 import static io.lettuce.core.ReadFrom.REPLICA_PREFERRED;
 
@@ -17,27 +20,12 @@ import static io.lettuce.core.ReadFrom.REPLICA_PREFERRED;
 public class RedisConfig {
 
     /**
-     * redis 工厂单例连接
-     */
-//    @Bean
-//    public LettuceConnectionFactory redisConnectionFactory() {
-//
-//        LettuceClientConfiguration clientConfig = LettuceClientConfiguration.builder()
-//                .readFrom(REPLICA_PREFERRED)
-//                .build();
-//
-//        RedisStandaloneConfiguration serverConfig = new RedisStandaloneConfiguration("127.0.0.1", 6379);
-//
-//        return new LettuceConnectionFactory(serverConfig, clientConfig);
-//    }
-
-    /**
      * Redis 哨兵配置
      */
     @Bean
     public RedisConnectionFactory lettuceConnectionFactory() {
         RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
-                .master("sentinel-master")
+                .master("redis-master")
                 .sentinel("127.0.0.1", 26379)
                 .sentinel("127.0.0.1", 26380)
                 .sentinel("127.0.0.1", 26381);
@@ -46,9 +34,9 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
-        RedisTemplate<byte[], byte[]> template = new RedisTemplate<>();
+        RedisTemplate<String, String> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         return template;
     }
