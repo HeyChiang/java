@@ -26,17 +26,18 @@ public class RedisConfig {
     public RedisConnectionFactory lettuceConnectionFactory() {
         RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
                 .master("redis-master")
-                .sentinel("127.0.0.1", 26379)
-                .sentinel("127.0.0.1", 26380)
-                .sentinel("127.0.0.1", 26381);
+                .sentinel("172.24.0.1", 26379)
+                .sentinel("172.24.0.1", 26380)
+                .sentinel("172.24.0.1", 26381);
+
 
         return new LettuceConnectionFactory(sentinelConfig);
     }
 
     @Bean
-    public RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    public RedisTemplate<?, ?> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
-        RedisTemplate<String, String> template = new RedisTemplate<>();
+        RedisTemplate<?, ?> template = new RedisTemplate<>();
         template.setConnectionFactory(redisConnectionFactory);
         return template;
     }
