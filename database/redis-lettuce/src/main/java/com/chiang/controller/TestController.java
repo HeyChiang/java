@@ -46,13 +46,13 @@ public class TestController {
         return s.name;
     }
 
-    @GetMapping("/set")
+    @GetMapping("/set_string")
     public String setString(String key,String value){
         stringRedisTemplate.opsForValue().set(key,value);
         return "ok";
     }
 
-    @GetMapping("/get")
+    @GetMapping("/get_string")
     public String getString(String key){
         stringRedisTemplate.opsForHash();
         String s = stringRedisTemplate.opsForValue().get(key).toString();
