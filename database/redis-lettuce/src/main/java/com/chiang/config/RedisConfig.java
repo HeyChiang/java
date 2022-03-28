@@ -18,7 +18,6 @@ import org.springframework.util.Assert;
  * @author Chiang
  */
 @Configuration
-@EnableRedisRepositories
 public class RedisConfig {
 
     /**
