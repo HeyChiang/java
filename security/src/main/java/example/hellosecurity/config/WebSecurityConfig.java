@@ -50,7 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .frameOptions()
                 .disable()
 
-				// 不创建会话
+				// 不创建Session
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -68,15 +68,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/webSocket/**"
                 ).permitAll()
 
-                // 放行swagger
-                .antMatchers("/swagger-ui.html").permitAll()
-                .antMatchers("/swagger-resources/**").permitAll()
-                .antMatchers("/webjars/**").permitAll()
-                .antMatchers("/*/api-docs").permitAll()
-
-                // 放行文件访问
-                .antMatchers("/file/**").permitAll()
-
                 // 放行druid
                 .antMatchers("/druid/**").permitAll()
 
@@ -92,25 +83,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.headers().cacheControl();
 
         // 添加JWT filter
-        httpSecurity
-                .apply(new TokenConfigurer(jwtTokenUtils));
+        JwtAuthenticationTokenFilter jwtFilter = new JwtAuthenticationTokenFilter(jwtTokenUtils,jwtSecurityProperties);
+        httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
-    }
-
-    public class TokenConfigurer extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-
-        private final JwtTokenUtils jwtTokenUtils;
-
-        public TokenConfigurer(JwtTokenUtils jwtTokenUtils){
-
-            this.jwtTokenUtils = jwtTokenUtils;
-        }
-
-        @Override
-        public void configure(HttpSecurity http) {
-            JwtAuthenticationTokenFilter customFilter = new JwtAuthenticationTokenFilter(jwtTokenUtils,jwtSecurityProperties);
-            http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
-        }
     }
 
 }

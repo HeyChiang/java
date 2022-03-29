@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
+import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -41,6 +42,7 @@ public class JwtTokenUtils implements InitializingBean {
 
 
     public String createToken(Map<String, Object> claims) {
+
         return Jwts.builder()
                 .claim(AUTHORITIES_KEY, claims)
                 .setId(UUID.randomUUID().toString())
@@ -63,8 +65,10 @@ public class JwtTokenUtils implements InitializingBean {
     }
 
     public Authentication getAuthentication(String token) {
-        Claims claims = Jwts.parser()
+
+        Claims claims = Jwts.parserBuilder()
                 .setSigningKey(key)
+                .build()
                 .parseClaimsJws(token)
                 .getBody();
 
