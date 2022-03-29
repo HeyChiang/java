@@ -11,6 +11,11 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 用户登录查询
+ *
+ * @author Chiang
+ */
 public class LoginUserDetailsService implements UserDetailsService {
 
     /**
