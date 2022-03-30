@@ -3,8 +3,8 @@ server:
 
 logging:
   level:
-    root: WARN
-    org.springframework.web: INFO
+    root: debug
+    org.springframework.web: debug
     org.springframework.security: INFO
 
 jwt:
@@ -14,4 +14,4 @@ jwt:
   # 使用Base64对该令牌进行编码
   base64-secret: mzTNypPIctGSAkzb2iuZDIMDdVnhYl3bAqx+qe6gdfss4CcG/qpfz8hKfpfF2Ir/RHNYCsDzwE1/h7N7D4Z/bA==
   # 令牌过期时间 （小时）
-  token-validity-in-minutes: 12
+  token-validity-in-hours: 12

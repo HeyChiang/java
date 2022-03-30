@@ -14,6 +14,7 @@ import javax.crypto.SecretKey;
 /**
  *  1. 定义一个JWT的过滤器，放在SpringSecurity的框架里默认帐号密码验证的前面
  *  2. 定义一个密钥，用于创建Token给用户，在用户访问资源的时，使用Filter验证
+ *  3. 用户在创建密码的时候加密储存，再次登录的时候使用密文比对
  *
  * @author chiang
  */

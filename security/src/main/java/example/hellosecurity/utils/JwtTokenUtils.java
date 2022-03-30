@@ -51,7 +51,7 @@ public class JwtTokenUtils implements InitializingBean {
                 .claim(AUTHORITIES_KEY, claims)
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + jwtSecurityProperties.getTokenValidityInMinutes() * MINUTE_UNIT))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtSecurityProperties.getTokenValidityInHours() * MINUTE_UNIT))
                 .compressWith(CompressionCodecs.DEFLATE)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
