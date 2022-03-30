@@ -3,6 +3,7 @@ package example.hellosecurity.config;
 import example.hellosecurity.filter.JwtAuthenticationTokenFilter;
 import example.hellosecurity.utils.JwtTokenUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -11,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -86,6 +89,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         JwtAuthenticationTokenFilter jwtFilter = new JwtAuthenticationTokenFilter(jwtTokenUtils,jwtSecurityProperties);
         httpSecurity.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
+    }
+
+    /**
+     * 目前最好的加密方式，需要引入 bouncycastle jar
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new Argon2PasswordEncoder();
     }
 
 }

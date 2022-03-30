@@ -14,7 +14,6 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 import java.security.Key;
-import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -24,6 +23,8 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class JwtTokenUtils implements InitializingBean {
+
+    private static final Long MINUTE_UNIT = 1000L * 60;
 
     private final JwtSecurityProperties jwtSecurityProperties;
     private static final String AUTHORITIES_KEY = "auth";
@@ -41,18 +42,24 @@ public class JwtTokenUtils implements InitializingBean {
     }
 
 
+    /**
+     * 创建Token
+     */
     public String createToken(Map<String, Object> claims) {
 
         return Jwts.builder()
                 .claim(AUTHORITIES_KEY, claims)
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date((new Date()).getTime() + jwtSecurityProperties.getTokenValidityInSeconds()))
+                .setExpiration(new Date(System.currentTimeMillis() + jwtSecurityProperties.getTokenValidityInMinutes() * MINUTE_UNIT))
                 .compressWith(CompressionCodecs.DEFLATE)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
 
+    /**
+     * 从Token中获取其过期的时间
+     */
     public Date getExpirationDateFromToken(String token) {
         Date expiration;
         try {
@@ -64,6 +71,9 @@ public class JwtTokenUtils implements InitializingBean {
         return expiration;
     }
 
+    /**
+     * 为SpringSecurity创建环境的认证凭证
+     */
     public Authentication getAuthentication(String token) {
 
         Claims claims = Jwts.parserBuilder()
@@ -77,16 +87,17 @@ public class JwtTokenUtils implements InitializingBean {
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        HashMap map = (HashMap) claims.get("auth");
+        @SuppressWarnings("unchecked")
+        Map<String,String> map = (Map<String,String>) claims.get("auth");
 
-        User principal = new User(map.get("user").toString(), map.get("password").toString(), authorities);
+        User principal = new User(map.get("user"), map.get("password"), authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
 
     public boolean validateToken(String authToken) {
         try {
-            Jwts.parser().setSigningKey(key).parseClaimsJws(authToken);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(authToken);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             log.info("Invalid JWT signature.");
@@ -107,8 +118,9 @@ public class JwtTokenUtils implements InitializingBean {
     private Claims getClaimsFromToken(String token) {
         Claims claims;
         try {
-            claims = Jwts.parser()
+            claims = Jwts.parserBuilder()
                     .setSigningKey(key)
+                    .build()
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {

@@ -32,28 +32,6 @@ import java.util.*;
 @Controller
 public class MainController {
 
-	@RequestMapping("/")
-	public String root() {
-		return "redirect:/index";
-	}
-
-	/**
-	 * 必须要有USER权限
-	 */
-	@RequestMapping("/index")
-	public String index() {
-		return "index";
-	}
-
-	@RequestMapping("/user/index")
-	public String userIndex() {
-		return "user/index";
-	}
-
-	@RequestMapping("/login")
-	public String login() {
-		return "login";
-	}
 
 	@RequestMapping("/haveAuthority")
 	@ResponseBody

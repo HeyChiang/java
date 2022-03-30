@@ -13,5 +13,5 @@ jwt:
   token-start-with: Bearer
   # 使用Base64对该令牌进行编码
   base64-secret: mzTNypPIctGSAkzb2iuZDIMDdVnhYl3bAqx+qe6gdfss4CcG/qpfz8hKfpfF2Ir/RHNYCsDzwE1/h7N7D4Z/bA==
-  # 令牌过期时间 此处单位/毫秒
-  token-validity-in-seconds: 14400000
+  # 令牌过期时间 （小时）
+  token-validity-in-minutes: 12
