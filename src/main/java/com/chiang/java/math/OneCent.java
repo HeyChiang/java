@@ -30,7 +30,7 @@ public class OneCent {
         BigDecimal productMoneySum = getProductMoneySum(productList,1);
 
         for (Product product : productList) {
-            BigDecimal ratio = product.getMoney().divide(productMoneySum,6, RoundingMode.HALF_UP);
+            BigDecimal ratio = product.getMoney().divide(productMoneySum,2, RoundingMode.HALF_UP);
             BigDecimal productCoupon = coupon.multiply(ratio);
             product.couponMoney = product.money.subtract(productCoupon);
             System.out.println("商品价格:"+product.getMoney() +" , 商品优惠："+product.getCouponMoney());
@@ -38,6 +38,28 @@ public class OneCent {
 
         BigDecimal productCouponMoneySum = getProductMoneySum(productList, 2);
 
+        System.out.println("原总价："+productMoneySum+" 优惠券："+coupon+" 优惠总价："+productCouponMoneySum);
+
+        fixOneCent(coupon,productList,productMoneySum,productCouponMoneySum);
+    }
+
+    /**
+     * 修复金额
+     */
+    private static void fixOneCent(BigDecimal coupon, List<Product> productList,BigDecimal productMoneySum,BigDecimal productCouponMoneySum) {
+        BigDecimal sumProductCoupon = productMoneySum.subtract(productCouponMoneySum);
+        BigDecimal errorMoney = coupon.subtract(sumProductCoupon);
+
+        int compareTo = errorMoney.compareTo(BigDecimal.ZERO);
+        if(compareTo > 0){
+            productList.get(0).couponMoney = productList.get(0).couponMoney.add(errorMoney);
+        }else if(compareTo < 0){
+            productList.get(0).couponMoney = productList.get(0).couponMoney.subtract(errorMoney.negate());
+        }
+
+        productCouponMoneySum = getProductMoneySum(productList, 2);
+
+        System.out.println("修复后:");
         System.out.println("原总价："+productMoneySum+" 优惠券："+coupon+" 优惠总价："+productCouponMoneySum);
     }
 
