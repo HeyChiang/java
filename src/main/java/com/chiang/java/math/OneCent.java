@@ -51,10 +51,10 @@ public class OneCent {
         BigDecimal errorMoney = coupon.subtract(sumProductCoupon);
 
         int compareTo = errorMoney.compareTo(BigDecimal.ZERO);
-        if(compareTo > 0){
+        if(compareTo < 0){
+            productList.get(0).couponMoney = productList.get(0).couponMoney.add(errorMoney.negate());
+        }else if(compareTo > 0){
             productList.get(0).couponMoney = productList.get(0).couponMoney.add(errorMoney);
-        }else if(compareTo < 0){
-            productList.get(0).couponMoney = productList.get(0).couponMoney.subtract(errorMoney.negate());
         }
 
         productCouponMoneySum = getProductMoneySum(productList, 2);

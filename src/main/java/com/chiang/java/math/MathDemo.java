@@ -2,7 +2,7 @@ package com.chiang.java.math;
 
 import java.math.BigDecimal;
 
-public class Math {
+public class MathDemo {
     public static void main(String[] args) {
         BigDecimal bigA = new BigDecimal("0.0");
         BigDecimal bigB = new BigDecimal("0.00");
