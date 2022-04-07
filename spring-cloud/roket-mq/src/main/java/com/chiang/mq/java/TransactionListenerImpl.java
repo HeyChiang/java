@@ -32,15 +32,11 @@ public class TransactionListenerImpl implements TransactionListener {
         }else {
             localTrans.put(msg.getTransactionId(), 0);
         }
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         logInfo(" 执行事务的消息 - executeLocalTransaction:" + msg.getTransactionId() + " 状态:"+ localTrans.get(msg.getTransactionId()) + "  执行信息："+new String(msg.getBody()));
 
-        return LocalTransactionState.UNKNOW;
+        // 只有在 LocalTransactionState.COMMIT_MESSAGE 状态的消息，才会被Consumer消费
+        return LocalTransactionState.COMMIT_MESSAGE;
     }
 
     private void logInfo(String s) {

@@ -16,6 +16,7 @@ import java.util.concurrent.*;
  */
 public class TransactionProducer {
     public static void main(String[] args) throws MQClientException, InterruptedException {
+        Thread.currentThread().setName("TransactionProducer - ");
 
         TransactionListener transactionListener = new TransactionListenerImpl();
         TransactionMQProducer producer = new TransactionMQProducer("please_rename_unique_group_name");

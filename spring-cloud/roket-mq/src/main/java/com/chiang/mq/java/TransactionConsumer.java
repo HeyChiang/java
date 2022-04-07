@@ -20,6 +20,8 @@ import java.util.List;
  */
 public class TransactionConsumer {
     public static void main(String[] args) throws MQClientException {
+        Thread.currentThread().setName("TransactionConsumer - ");
+
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("ConsumerGroup");
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
         //消费普通消息
@@ -31,12 +33,16 @@ public class TransactionConsumer {
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                             ConsumeConcurrentlyContext context) {
                 for (MessageExt ext:msgs) {
-                    System.out.println("consumeMessage - ext.getTransactionId()："+ext.getTransactionId()+"  "+new Date() + new String(ext.getBody(), StandardCharsets.UTF_8));
+                    logInfo(" consumeMessage - ext.getTransactionId()："+ext.getTransactionId()+"  "+new Date() + new String(ext.getBody(), StandardCharsets.UTF_8));
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
         consumer.start();
         System.out.println("Consumer Start............");
+    }
+
+    private static void logInfo(String s) {
+        System.out.println(Thread.currentThread().getName() + s);
     }
 }
