@@ -34,9 +34,10 @@ public class TransactionProducer {
         String[] tags = new String[]{"TagA", "TagB", "TagC", "TagD", "TagE"};
         for (int i = 0; i < 10; i++) {
             try {
-                Message msg = new Message("TransTopicTest1234", tags[i % tags.length], "KEY" + i, ("Hello 2132测试 " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                Message msg = new Message("TransTopicTest1234", tags[i % tags.length], "KEY" + i, ("Message消息体 " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
+                logInfo("发送者的消息发送："+ msg);
                 SendResult sendResult = producer.sendMessageInTransaction(msg, null);
-                System.out.printf("消息：%s%n", sendResult);
+                logInfo("发送者的消息接收："+ sendResult);
                 Thread.sleep(10);
             } catch (MQClientException | UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -48,5 +49,9 @@ public class TransactionProducer {
             Thread.sleep(1000);
         }
         producer.shutdown();
+    }
+
+    private static void logInfo(String s) {
+        System.out.println(Thread.currentThread().getName() +" 线程，"+ s);
     }
 }

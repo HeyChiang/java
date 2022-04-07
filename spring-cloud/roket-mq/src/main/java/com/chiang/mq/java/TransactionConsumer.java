@@ -31,7 +31,7 @@ public class TransactionConsumer {
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                             ConsumeConcurrentlyContext context) {
                 for (MessageExt ext:msgs) {
-                    System.out.println("ext.getTransactionId()："+ext.getTransactionId()+"  "+new Date() + new String(ext.getBody(), StandardCharsets.UTF_8));
+                    System.out.println("consumeMessage - ext.getTransactionId()："+ext.getTransactionId()+"  "+new Date() + new String(ext.getBody(), StandardCharsets.UTF_8));
                 }
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }

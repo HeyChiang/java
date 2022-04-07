@@ -32,9 +32,19 @@ public class TransactionListenerImpl implements TransactionListener {
         }else {
             localTrans.put(msg.getTransactionId(), 0);
         }
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        System.out.println("执行事务:" + msg.getTransactionId() + " 状态:"+ localTrans.get(msg.getTransactionId()) + "  测试信息："+new String(msg.getBody()));
+        logInfo(" 执行事务的消息 - executeLocalTransaction:" + msg.getTransactionId() + " 状态:"+ localTrans.get(msg.getTransactionId()) + "  执行信息："+new String(msg.getBody()));
+
         return LocalTransactionState.UNKNOW;
+    }
+
+    private void logInfo(String s) {
+        System.out.println(Thread.currentThread().getName() + s);
     }
 
     /**
@@ -46,7 +56,7 @@ public class TransactionListenerImpl implements TransactionListener {
     public LocalTransactionState checkLocalTransaction(MessageExt msg) {
         Integer status = localTrans.get(msg.getTransactionId());
 
-        System.out.println(new Date() + " checkLocalTransaction：" + msg.getTransactionId() + "  Status："+status + " 测试信息："+new String(msg.getBody(), StandardCharsets.UTF_8));
+        logInfo(" 事务检查的消息 - checkLocalTransaction：" + msg.getTransactionId() + "  Status："+status + " 事务检查信息："+new String(msg.getBody(), StandardCharsets.UTF_8)+" ， 时间："+new Date());
 
         if (null != status) {
             switch (status) {

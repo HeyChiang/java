@@ -27,20 +27,9 @@ public class OneCent {
         productList.add(new Product("苹果",new BigDecimal("2.3"),null));
         productList.add(new Product("辣椒",new BigDecimal("2.2"),null));
 
-        BigDecimal productMoneySum = getProductMoneySum(productList,1);
-
-        for (Product product : productList) {
-            BigDecimal ratio = product.getMoney().divide(productMoneySum,2, RoundingMode.HALF_UP);
-            BigDecimal productCoupon = coupon.multiply(ratio);
-            product.couponMoney = product.money.subtract(productCoupon);
-            System.out.println("商品价格:"+product.getMoney() +" , 商品优惠："+product.getCouponMoney());
-        }
-
-        BigDecimal productCouponMoneySum = getProductMoneySum(productList, 2);
-
-        System.out.println("原总价："+productMoneySum+" 优惠券："+coupon+" 优惠总价："+productCouponMoneySum);
-
-        fixOneCent(coupon,productList,productMoneySum,productCouponMoneySum);
+        Product product = productList.get(0);
+        product.money = new BigDecimal(99);
+        System.out.println(productList.get(0));
     }
 
     /**
