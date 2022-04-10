@@ -33,7 +33,7 @@ public class TestController {
 
 
     @GetMapping("/set_object")
-    public String setObject(String key,String value){
+    public String setObject(String key){
         redisTemplate.opsForValue().set(key,new Student());
         return "ok";
     }
@@ -43,6 +43,7 @@ public class TestController {
         stringRedisTemplate.opsForHash();
         Student s = (Student) redisTemplate.opsForValue().get(key);
         log.info("获得：{}",s);
+        assert s != null;
         return s.name;
     }
 
@@ -55,7 +56,7 @@ public class TestController {
     @GetMapping("/get_string")
     public String getString(String key){
         stringRedisTemplate.opsForHash();
-        String s = stringRedisTemplate.opsForValue().get(key).toString();
+        String s = stringRedisTemplate.opsForValue().get(key);
         log.info("获得：{}",s);
         return s;
     }
