@@ -13,3 +13,4 @@ spring:
     lettuce:
       pool:
         max-active: 8
+    password: dj-uk2022

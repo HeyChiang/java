@@ -31,6 +31,8 @@ public class RedisConfig {
         RedisSentinelConfiguration sentinelConfig = new RedisSentinelConfiguration()
                 .master(redisProperties.getSentinel().getMaster());
 
+        sentinelConfig.setPassword(redisProperties.getPassword());
+
         for (String node : redisProperties.getSentinel().getNodes()) {
             String[] parts = node.split(":");
             Assert.state(parts.length == 2, "请配置正确的host和port");
