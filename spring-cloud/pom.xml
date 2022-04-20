@@ -18,6 +18,7 @@
         <module>seata</module>
         <module>roket-mq</module>
         <module>apache-dubbo-3.x</module>
+        <module>alibaba-dubbo-2.x</module>
     </modules>
 
     <properties>
