@@ -13,11 +13,11 @@
     <artifactId>spring-cloud</artifactId>
 
     <modules>
-        <module>dubbo</module>
         <module>sentinel</module>
         <module>nacos</module>
         <module>seata</module>
         <module>roket-mq</module>
+        <module>apache-dubbo-3.x</module>
     </modules>
 
     <properties>

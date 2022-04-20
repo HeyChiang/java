@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: dubbo-consumer-sample
+# 调用服务的版本号，如果服务不存在此版本则会报错
+demo:
+  service:
+    version: 2.0.0
+
+
+
+dubbo:
+  protocol:
+    port: -1
+
+  registry:
+    # 连接注册中心的ip和port
+    address: nacos://127.0.0.1:8848
+    # 使用文件缓存注册中心地址列表及服务提供者列表，应用重启时将基于此文件恢复，注意：两个注册中心不能使用同一文件存储
+    file: ${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
+    username: nacos
+    password: nacos
+
+
+logging:
+  level:
+    com.dubbo.service: debug
+server:
+  port: 8082
