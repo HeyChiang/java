@@ -25,10 +25,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
  * @since 2.7.0
  */
 @SpringBootApplication
-public class DubboProviderBootstrap {
+public class ApacheDubboProviderBootstrap {
 
     public static void main(String[] args) {
-        new SpringApplicationBuilder(DubboProviderBootstrap.class).run(args);
+        new SpringApplicationBuilder(ApacheDubboProviderBootstrap.class).run(args);
     }
 
 }

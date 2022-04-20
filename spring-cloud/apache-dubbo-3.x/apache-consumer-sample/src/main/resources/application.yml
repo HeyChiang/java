@@ -6,8 +6,6 @@ demo:
   service:
     version: 2.0.0
 
-
-
 dubbo:
   protocol:
     port: -1

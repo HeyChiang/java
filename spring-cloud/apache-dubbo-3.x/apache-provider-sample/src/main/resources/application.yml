@@ -23,9 +23,6 @@ dubbo:
   monitor:
     protocol: registry
 
-  cloud:
-    subscribed-services: '*'
-
   provider:
     token: password123456
 demo:
