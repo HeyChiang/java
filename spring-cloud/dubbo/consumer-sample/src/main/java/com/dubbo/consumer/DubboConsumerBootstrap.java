@@ -16,7 +16,6 @@
  */
 package com.dubbo.consumer;
 
-import brave.Tracer;
 import com.dubbo.service.ByeService;
 import com.dubbo.service.DemoService;
 import org.apache.dubbo.config.annotation.DubboReference;
@@ -66,13 +65,8 @@ public class DubboConsumerBootstrap {
     }
 
 
-    @Autowired
-    private Tracer tracer;
-
     @GetMapping("/test")
     public String test(){
-        // 增加服务追踪的信息到zipkin
-        tracer.currentSpan().tag("key1","value2").tag("key2","value2");
 
         logger.info(demoService.sayHello("成功了"));
         return "success";
