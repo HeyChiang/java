@@ -18,6 +18,7 @@ package com.dubbo.consumer;
 
 import com.dubbo.service.ByeService;
 import com.dubbo.service.DemoService;
+import org.apache.dubbo.common.constants.LoadbalanceRules;
 import org.apache.dubbo.config.annotation.DubboReference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,10 +46,10 @@ public class ApacheDubboConsumerBootstrap {
      * loadbalance：集群负载均衡时，Dubbo 提供了多种均衡策略，缺省为 random 随机调用。如果服务者和消费者都有loadbalance则按照
      * url="dubbo://localhost:20890"，可以直接连接服务，注意provider要固定好端口不能使用-1随机
      */
-    @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin",group = "myGroup")
+    @DubboReference(version = "${demo.service.version}" ,loadbalance = LoadbalanceRules.LEAST_ACTIVE ,group = "myGroup")
     private DemoService demoService;
 
-    @DubboReference(version = "${demo.service.version}" ,loadbalance = "roundrobin",group = "myGroup")
+    @DubboReference(version = "${demo.service.version}" ,loadbalance = LoadbalanceRules.LEAST_ACTIVE ,group = "myGroup")
     private ByeService byeService;
 
     public static void main(String[] args) {

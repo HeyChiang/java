@@ -8,6 +8,10 @@ demo:
     version: 2.0.0
 
 dubbo:
+  # 全局配置负载均衡
+  consumer:
+    loadbalance: leastactive
+
   protocol:
     port: -1
 

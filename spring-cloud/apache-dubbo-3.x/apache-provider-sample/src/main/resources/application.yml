@@ -3,10 +3,13 @@ spring:
     name: DubboProviderBootstrap
 
 dubbo:
+  # 扫描
   scan:
     base-packages: com.dubbo.provider.service
   protocol:
     name: dubbo
+
+    # 端口随机，否则在一个机器上启动两个dubbo服务会端口冲突
     port: -1
 
   registry:
@@ -15,9 +18,7 @@ dubbo:
     username: nacos
     file: ${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
 
-  monitor:
-    protocol: registry
-
+  # Consumer端必须要去注册中心才能拿到 token
   provider:
     token: password123456
   application:

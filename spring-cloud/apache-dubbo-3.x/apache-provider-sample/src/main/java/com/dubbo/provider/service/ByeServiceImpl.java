@@ -3,7 +3,8 @@ package com.dubbo.provider.service;
 import com.dubbo.service.ByeService;
 import org.apache.dubbo.config.annotation.DubboService;
 
-@DubboService(version = "${demo.service.version}",group = "myGroup")
+
+@DubboService(version = "${demo.service.version}",group = "myGroup",filter = "MyFreeFilter")
 public class ByeServiceImpl implements ByeService {
     @Override
     public String sayBye(String name) {
