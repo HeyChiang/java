@@ -15,19 +15,17 @@ dubbo:
     username: nacos
     file: ${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
 
-  config-center:
-    address: nacos://127.0.0.1:8848
-    username: nacos
-    password: nacos
-
   monitor:
     protocol: registry
 
   provider:
     token: password123456
+  application:
+    logger: log4j2
 demo:
   service:
     version: 2.0.0
+
 
 logging:
   level:

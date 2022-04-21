@@ -1,6 +1,7 @@
 spring:
   application:
     name: dubbo-consumer-sample
+
 # 调用服务的版本号，如果服务不存在此版本则会报错
 demo:
   service:
@@ -17,6 +18,12 @@ dubbo:
     file: ${user.home}/dubbo-cache/${spring.application.name}/dubbo.cache
     username: nacos
     password: nacos
+
+#  启动多个Dubbo服务时候就会出现  https://github.com/apache/dubbo/issues/9800
+  application:
+    # 不用cache也会出现这个问题，dubbo官方回复不要管 就行了
+    enable-file-cache: false
+    logger: log4j2
 
 
 logging:
