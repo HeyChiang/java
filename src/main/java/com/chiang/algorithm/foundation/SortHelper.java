@@ -1,5 +1,6 @@
 package com.chiang.algorithm.foundation;
 
+import java.util.Objects;
 import java.util.Random;
 
 public class SortHelper {
@@ -16,5 +17,19 @@ public class SortHelper {
             array[i] = random.nextInt(100);
         }
         return array;
+    }
+
+    public static <E> void print(String str,E[] array){
+
+        if(Objects.nonNull(str)){
+            System.out.print(str);
+        }
+
+        for (E e : array) {
+            System.out.print(e);
+            System.out.print(",");
+        }
+
+        System.out.println("");
     }
 }

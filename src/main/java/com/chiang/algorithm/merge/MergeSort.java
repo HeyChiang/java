@@ -1,52 +1,87 @@
 package com.chiang.algorithm.merge;
 
+import com.chiang.algorithm.foundation.SortHelper;
+
 import java.util.Arrays;
 
 public class MergeSort {
-    public static void main(String[] args) {
-        Integer[] arrays = new Integer[]{98, 3, 4, 6, 5, 1, 2};
-        MergeSort.sort(arrays, 0, arrays.length - 1);
-        for (Integer array : arrays) {
-            System.out.println(array);
-        }
 
+    private MergeSort(){}
+
+    public static <E extends Comparable<E>> void sort(E[] arr){
+
+        sort(arr, 0, arr.length - 1, 0);
     }
 
-    private static <E extends Comparable<E>> void sort(E[] array, int l, int r) {
-        if (l >= r) {
+    private static <E extends Comparable<E>> void sort(E[] arr, int l, int r, int depth){
+
+        // 生成深度字符串
+        String depthString = generateDepthString(depth);
+
+        // 打印当前 sort 处理的数组区间信息
+//        System.out.print(depthString);
+//        System.out.printf("合并前 ：[%d, %d]%n", l, r);
+
+        if (l >= r)
             return;
-        }
 
         int mid = l + (r - l) / 2;
-        sort(array, l, mid);
-        sort(array, mid + 1, r);
-        merge(array, l, mid, r);
+        sort(arr, l, mid, depth + 1);
+        sort(arr, mid + 1, r, depth + 1);
+
+        // 打印这次 merge 要处理的区间范围
+        System.out.print(depthString);
+        System.out.printf("合并区间 ：[%d, %d] 和 [%d, %d]%n", l, mid, mid + 1, r);
+
+        merge(arr, l, mid, r);
+
+        // 打印 merge 后的数组
+        System.out.print(depthString);
+        System.out.printf("合并后 ：[%d, %d] :", l, r);
+        for(E e: arr){
+            System.out.print(e + " ");
+        }
+        System.out.println();
+        System.out.println();
     }
 
-    private static <E extends Comparable<E>> void merge(E[] array, int l, int mid, int r) {
-        E[] temp = Arrays.copyOfRange(array, l, r + 1);
+    private static String generateDepthString(int depth){
+        StringBuilder res = new StringBuilder();
+        for(int i = 0 ; i < depth ; i ++)
+            res.append("-");
+        return res.toString();
+    }
+
+
+    private static <E extends Comparable<E>> void merge(E[] arr, int l, int mid, int r){
+
+        E[] temp = Arrays.copyOfRange(arr, l, r + 1);
 
         int i = l, j = mid + 1;
 
-        // 从做导游遍历整个数组
-        for (int k = l; k <= r; k++) {
-            if (i > mid) {
-                // 左边的数组已经完成排序
-                array[k] = temp[j - l];
-                j++;
-            } else if (j > r) {
-                // 右边的数组已完成排序
-                array[k] = temp[i - l];
-                i++;
-            } else if (temp[i - l].compareTo(temp[j - l]) <= 0) {
-                // 左边小于或等于右边的数值
-                array[k] = temp[i - l];
-                i++;
-            } else {
-                // 右边大于左边的数值
-                array[k] = temp[j - l];
-                j++;
+        // 每轮循环为 arr[k] 赋值
+        for(int k = l; k <= r; k ++){
+
+            if(i > mid){
+                arr[k] = temp[j - l]; j ++;
+            }
+            else if(j > r){
+                arr[k] = temp[i - l]; i ++;
+            }
+            else if(temp[i - l].compareTo(temp[j - l]) <= 0){
+                arr[k] = temp[i - l]; i ++;
+            }
+            else{
+                arr[k] = temp[j - l]; j ++;
             }
         }
+    }
+
+    public static void main(String[] args){
+
+        Integer[] arr = {1, 7, 4, 2, 8, 3, 6, 5};
+        SortHelper.print("原始:",arr);
+        sort(arr);
+        SortHelper.print("结果:",arr);
     }
 }
