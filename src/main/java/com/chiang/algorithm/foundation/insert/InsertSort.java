@@ -29,7 +29,7 @@ public class InsertSort {
     /**
      * 优化，减少不断交换的数组数据的寻址操作，赋值只有一次
      */
-    private static void sortOptimize(Integer[] array) {
+    public static void sortOptimize(Integer[] array) {
         for (int i = 0; i < array.length; i++) {
             int temp = array[i];
             int j;

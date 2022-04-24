@@ -33,7 +33,10 @@ public class MergeSort {
         System.out.print(depthString);
         System.out.printf("合并区间 ：[%d, %d] 和 [%d, %d]%n", l, mid, mid + 1, r);
 
-        merge(arr, l, mid, r);
+        // 随机数组存在有序的情况，如果有序的就不需要去排序了
+        if(arr[mid].compareTo(arr[mid+1]) > 0){
+            merge(arr, l, mid, r);
+        }
 
         // 打印 merge 后的数组
         System.out.print(depthString);
