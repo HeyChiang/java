@@ -25,11 +25,16 @@ public class SortHelper {
             System.out.print(str);
         }
 
+        StringBuffer buffer=new StringBuffer();
         for (E e : array) {
-            System.out.print(e);
-            System.out.print(",");
+            buffer.append(e);
+            buffer.append(",");
         }
-
+        int last = buffer.lastIndexOf(",");
+        if(last == buffer.length()-1){
+            buffer.delete(last,buffer.length());
+        }
+        System.out.println(buffer.toString());
         System.out.println("");
     }
 
