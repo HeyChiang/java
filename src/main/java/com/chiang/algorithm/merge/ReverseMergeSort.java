@@ -58,14 +58,12 @@ public class ReverseMergeSort {
             } else if (j > r) {
                 arr[k] = temp[i];
                 i++;
-            } else if (temp[i].compareTo(temp[j]) >= 0) {
-                // 左边 >=右边数组，右边更小的数组赋值
+            } else if (temp[i].compareTo(temp[j]) > 0) {
                 res += mid - i + 1;
 
                 arr[k] = temp[j];
                 j++;
             } else {
-                // 右边 > 左边，左边更小的数组赋值
                 arr[k] = temp[i];
                 i++;
             }
