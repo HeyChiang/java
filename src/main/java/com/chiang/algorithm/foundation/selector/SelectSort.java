@@ -1,7 +1,6 @@
 package com.chiang.algorithm.foundation.selector;
 
-import com.chiang.algorithm.foundation.SortHelper;
-import com.chiang.algorithm.foundation.linear.LinearGeneric;
+import com.chiang.algorithm.SortHelper;
 
 /**
  * 选择排序算法，O(n^2)的时间复杂度相差百倍

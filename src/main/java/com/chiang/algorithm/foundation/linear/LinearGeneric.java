@@ -1,8 +1,6 @@
 package com.chiang.algorithm.foundation.linear;
 
-import com.chiang.algorithm.foundation.SortHelper;
-
-import java.util.Random;
+import com.chiang.algorithm.SortHelper;
 
 /**
  * 泛型的线性查找

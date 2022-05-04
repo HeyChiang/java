@@ -1,6 +1,6 @@
 package com.chiang.algorithm.recursion.merge;
 
-import com.chiang.algorithm.foundation.SortHelper;
+import com.chiang.algorithm.SortHelper;
 
 import java.util.Arrays;
 

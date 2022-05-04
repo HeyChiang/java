@@ -1,4 +1,4 @@
-package com.chiang.algorithm.foundation;
+package com.chiang.algorithm;
 
 import java.util.Objects;
 import java.util.Random;
@@ -19,13 +19,23 @@ public class SortHelper {
         return array;
     }
 
+
+    /**
+     * 交换 i 与 j 的位置
+     */
+    private static <E> void swap(E[] arr, int i, int j) {
+        E e = arr[j];
+        arr[j] = arr[i];
+        arr[i] = e;
+    }
+
     public static <E> void print(String str,E[] array){
 
         if(Objects.nonNull(str)){
             System.out.print(str);
         }
 
-        StringBuffer buffer=new StringBuffer();
+        StringBuilder buffer=new StringBuilder();
         for (E e : array) {
             buffer.append(e);
             buffer.append(",");
@@ -34,7 +44,7 @@ public class SortHelper {
         if(last == buffer.length()-1){
             buffer.delete(last,buffer.length());
         }
-        System.out.println(buffer.toString());
+        System.out.println(buffer);
         System.out.println("");
     }
 

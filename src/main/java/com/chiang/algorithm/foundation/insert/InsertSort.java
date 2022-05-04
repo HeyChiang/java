@@ -1,8 +1,6 @@
 package com.chiang.algorithm.foundation.insert;
 
-import com.chiang.algorithm.foundation.SortHelper;
-
-import java.util.Arrays;
+import com.chiang.algorithm.SortHelper;
 
 /**
  * 插入排序法和选择排序法差别在于，选择排序在一轮循环以后，第一个一定是数据里最小的，
