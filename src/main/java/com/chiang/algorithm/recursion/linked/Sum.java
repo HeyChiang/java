@@ -1,4 +1,4 @@
-package com.chiang.algorithm.linked;
+package com.chiang.algorithm.recursion.linked;
 
 public class Sum {
 

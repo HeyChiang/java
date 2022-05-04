@@ -1,4 +1,4 @@
-package com.chiang.algorithm.linked;
+package com.chiang.algorithm.recursion.linked;
 
 /**
  * 链表数据结构算法，更适合在头部添加数据时间复杂度为 O(1)

@@ -1,4 +1,4 @@
-package com.chiang.algorithm.merge;
+package com.chiang.algorithm.recursion.merge;
 
 import com.chiang.algorithm.foundation.SortHelper;
 

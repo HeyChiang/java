@@ -1,4 +1,4 @@
-package com.chiang.algorithm.linked;
+package com.chiang.algorithm.recursion.linked;
 
 /**
  * 在Java里传递参数到方法中，改变引用地址不会影响方法外的参数。
