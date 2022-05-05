@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class QuickSort {
     public static void main(String[] args) {
-        Integer[] integers = generateSpecialArray(10);
+        Integer[] integers = generateSpecialArray(5);
         SortHelper.print("退化数组", integers);
 
 //        quickSortArr();
@@ -80,15 +80,31 @@ public class QuickSort {
         return arr;
     }
 
+    /**
+     * 生成退化数组，让中间始终是最小的数，导致快排算法的递归深度为O（n）
+     */
     private static void generateSpecialArray(Integer[] arr, int l, int r, int value) {
 
         if (l > r) return;
 
+        // 让中间的数为最小的
         int mid = (l + r) / 2;
         arr[mid] = value;
 
+
+        SortHelper.print(null,arr);
+        SortHelper.print("前：",arr,l,r,1);
+        System.out.println();
+
+        // 把最小的数字放在最左边，不这样做在下次递归时，因为整数除法可能被覆盖掉
         swap(arr, l, mid);
+        // 最小的数值已经移动到最左，就不也许被覆盖了，左边+1
         generateSpecialArray(arr, l + 1, r, value + 1);
+        // 把最小的数字放回到中间
         swap(arr, l, mid);
+
+        SortHelper.print(null,arr);
+        SortHelper.print("后：",arr,l,r,1);
+        System.out.println();
     }
 }
