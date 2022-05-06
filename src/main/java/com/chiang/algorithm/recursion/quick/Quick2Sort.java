@@ -2,7 +2,7 @@ package com.chiang.algorithm.recursion.quick;
 
 import com.chiang.algorithm.SortHelper;
 
-import java.util.Random;
+import static com.chiang.algorithm.SortHelper.swap;
 
 /**
  * 双路快速排序
@@ -69,13 +69,5 @@ public class Quick2Sort {
         return j;
     }
 
-    /**
-     * 交换 i 与 j 的位置
-     */
-    private static <E> void swap(E[] arr, int i, int j) {
-        E e = arr[j];
-        arr[j] = arr[i];
-        arr[i] = e;
-    }
 
 }
