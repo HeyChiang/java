@@ -5,7 +5,7 @@ import com.chiang.algorithm.SortHelper;
 import static com.chiang.algorithm.SortHelper.swap;
 
 /**
- * 双路快速排序
+ * 双路快速排序，遇到想通数值的数组会发生退化，
  */
 public class Quick2Sort {
     public static void main(String[] args) {
@@ -41,6 +41,8 @@ public class Quick2Sort {
         int i = l + 1;
 
         while (true) {
+
+            // 想通的数值，i直接会加到最后
             while (i < j && arr[i].compareTo(arr[l]) < 0) {
                 i++;
             }
