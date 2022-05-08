@@ -1,6 +1,7 @@
 package com.chiang.algorithm.recursion.quick;
 
 import com.chiang.algorithm.SortHelper;
+import com.chiang.algorithm.foundation.selector.SelectSort;
 
 import static com.chiang.algorithm.SortHelper.swap;
 
@@ -13,9 +14,9 @@ public class Quick3Sort {
     }
 
     private static void quickSortArr() {
-        Integer[] arr = SortHelper.generateArray(5);
-        SortHelper.print("数组", arr);
-        sort(arr, 0, arr.length - 1);
+        Integer[] arr = SortHelper.generateArray(11);
+
+        sort(arr, 0, arr.length);
         SortHelper.print("结果", arr);
     }
 
@@ -30,25 +31,23 @@ public class Quick3Sort {
         while (i < gt) {
             // i:不断向前遍历的参数
             if (arr[i].compareTo(arr[l]) < 0) {
-                // lt：小于v的参数位置
+                // lt：小于v的参数都要被放到lt位置
                 lt++;
                 swap(arr, i, lt);
                 i++;
             } else if (arr[i].compareTo(arr[l]) > 0) {
-                swap(arr, gt, i);
+                // gt：大于v的参数都要被放到gt位置
                 gt--;
+                swap(arr, gt, i);
             } else {
                 i++;
             }
         }
 
         // 最后的l放到中间去
-        SortHelper.print("尾部交换前：", arr, l, r, 1);
         swap(arr, l, lt);
-        SortHelper.print("尾部交换后：", arr, l, r, 1);
-        System.out.println();
 
-        sort(arr, l, lt - 1);
+        sort(arr, l, lt );
         sort(arr, gt, r);
     }
 
