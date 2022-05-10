@@ -1,7 +1,11 @@
 package com.chiang.algorithm;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Random;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class SortHelper {
 
@@ -12,6 +16,15 @@ public class SortHelper {
     public static Integer[] generateArray(Integer num) {
         Random random = new Random();
         Integer[] array = new Integer[num];
+        for (int i = 0; i < num; i++) {
+            array[i] = random.nextInt(100);
+        }
+        return array;
+    }
+
+    public static int[] generateArrayInt(int num) {
+        Random random = new Random();
+        int[] array = new int[num];
         for (int i = 0; i < num; i++) {
             array[i] = random.nextInt(100);
         }
@@ -30,6 +43,11 @@ public class SortHelper {
 
     public static <E> void print(String str, E[] array) {
         print(str, array, 0, array.length);
+    }
+
+    public static void print(String str, int[] array) {
+        Integer[] integers = Arrays.stream(array).map(Integer::new).boxed().toArray(Integer[]::new);
+        print(str, integers, 0, array.length);
     }
 
     public static <E> void print(String str, E[] array, int l, int r) {
