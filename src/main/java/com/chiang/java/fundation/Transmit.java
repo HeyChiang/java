@@ -17,7 +17,7 @@ public class Transmit {
         testStr(strA);
         System.out.println("intA："+intA);
         System.out.println("strA："+strA);
-
+        System.out.println(strA == "a");
 
         new Transmit().test();
     }
