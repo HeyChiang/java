@@ -70,7 +70,7 @@ public class SortHelper {
             buffer.append(",");
         }
         int last = buffer.lastIndexOf(",");
-        if (last == buffer.length() - 1) {
+        if (last!= -1 && last == buffer.length() - 1) {
             buffer.delete(last, buffer.length());
         }
         System.out.println(buffer);

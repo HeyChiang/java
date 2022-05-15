@@ -1,5 +1,8 @@
 package com.chiang.algorithm.recursion.dichotomy;
 
+/**
+ * 基本的二分查找法
+ */
 public class Search {
     public static void main(String[] args) {
         Integer[] integers = new Integer[]{1, 3, 4, 5, 6, 8};
@@ -22,6 +25,6 @@ public class Search {
             System.out.println("mid:" + mid + " l:" + l + " r:" + r);
         }
 
-        return -1;
+        return l;
     }
 }
