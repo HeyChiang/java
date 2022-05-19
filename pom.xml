@@ -24,6 +24,7 @@
         <module>springboot</module>
         <module>mybatis-plus</module>
         <module>database</module>
+        <module>netty</module>
     </modules>
 
 
