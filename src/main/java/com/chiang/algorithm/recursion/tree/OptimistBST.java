@@ -32,7 +32,7 @@ public class OptimistBST<E extends Comparable<E>> {
     }
 
     public void add(E e) {
-        add(root, e);
+        root = add(root, e);
     }
 
     /**
