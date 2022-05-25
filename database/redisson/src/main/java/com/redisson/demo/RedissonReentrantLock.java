@@ -1,6 +1,5 @@
 package com.redisson.demo;
 
-import com.sun.istack.internal.NotNull;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;

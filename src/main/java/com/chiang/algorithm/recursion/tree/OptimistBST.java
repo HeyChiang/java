@@ -3,7 +3,7 @@ package com.chiang.algorithm.recursion.tree;
 import lombok.Data;
 
 /**
- * 二分搜索树
+ * 二分搜索树，添加和查找节点
  */
 @Data
 public class OptimistBST<E extends Comparable<E>> {
@@ -53,6 +53,25 @@ public class OptimistBST<E extends Comparable<E>> {
         return root;
     }
 
+    public boolean contains(E e){
+        return contains(root,e);
+    }
+
+    private boolean contains(Node root, E e) {
+        if(root == null){
+            return false;
+        }
+
+        if(root.e.compareTo(e) == 0){
+            return true;
+        }else if(root.e.compareTo(e) < 0){
+            return contains(root.right,e);
+        }else{
+            return contains(root.left,e);
+        }
+    }
+
+
     public static void main(String[] args) {
         OptimistBST<Integer> linkList = new OptimistBST<>();
         linkList.add(2);
@@ -60,6 +79,9 @@ public class OptimistBST<E extends Comparable<E>> {
         linkList.add(3);
         linkList.add(5);
         System.out.println(linkList);
+
+        System.out.println(linkList.contains(1));
+        System.out.println(linkList.contains(9));
     }
 
 }
