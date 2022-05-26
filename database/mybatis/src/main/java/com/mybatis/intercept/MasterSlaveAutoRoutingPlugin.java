@@ -27,9 +27,9 @@ public class MasterSlaveAutoRoutingPlugin implements Interceptor {
         Object[] args = invocation.getArgs();
         MappedStatement ms = (MappedStatement) args[0];
         SqlSource sqlSource =  ms.getSqlSource();
-        BoundSql boundSql = sqlSource.getBoundSql("sqlSource");
-        String sql = boundSql.getSql();
-        System.out.println(sql);
+//        BoundSql boundSql = sqlSource.getBoundSql("sqlSource");
+//        String sql = boundSql.getSql();
+//        System.out.println(sql);
 
 //        try {
 //        切换读写库

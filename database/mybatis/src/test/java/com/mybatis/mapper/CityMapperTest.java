@@ -1,12 +1,15 @@
-package com.mybatis;
+package com.mybatis.mapper;
 
-import com.mybatis.mapper.CityXMLMapper;
 import lombok.Setter;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.Arrays;
+import java.util.List;
+
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -16,7 +19,7 @@ public class CityMapperTest {
     private CityMapper cityMapper;
     private CityXMLMapper cityXMLMapper;
 
-    @Test
+    @org.junit.Test
     public void deleteById() {
         this.cityMapper.deleteById(1);
     }
@@ -24,5 +27,11 @@ public class CityMapperTest {
     @Test
     public void findByCity() {
         System.out.println(this.cityXMLMapper.findByCity("shanghai"));
+    }
+
+    @Test
+    public void queryByIds(){
+        List<Integer> ids = Arrays.asList(1,2,3);
+        System.out.println(this.cityMapper.queryByIds(ids));
     }
 }
