@@ -23,9 +23,8 @@
         <module>redisson</module>
         <module>elasticsearch</module>
         <module>redis-lettuce</module>
-        <module>mybatis-xml</module>
+        <module>mybatis</module>
         <module>mybatis-plus</module>
-        <module>mybatis-annotation</module>
     </modules>
 
 </project>
