@@ -18,11 +18,9 @@
 
     <modules>
         <module>spring-cloud</module>
-        <module>mybatis</module>
         <module>security</module>
         <module>gateway</module>
         <module>springboot</module>
-        <module>mybatis-plus</module>
         <module>database</module>
         <module>netty</module>
     </modules>

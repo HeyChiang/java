@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mybatis.mapper.CityXMLMapper" >
+
+    <resultMap id="BaseResultMap" type="City" >
+        <id column="id" property="id" />
+        <result column="city_name" property="cityName" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, city_name
+    </sql>
+
+    <select id="findByCity" resultMap="BaseResultMap"  parameterType="String">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM city where city_name=#{city}
+    </select>
+
+<!-- 配置 cache 开启缓存，只要查询过一次后就不会在查询数据库了，配置type使用redis做二级缓存 -->
+<!--    LRU – 最近最少使用：移除最长时间不被使用的对象。-->
+<!--    FIFO – 先进先出：按对象进入缓存的顺序来移除它们。-->
+<!--    SOFT – 软引用：基于垃圾回收器状态和软引用规则移除对象。-->
+<!--    WEAK – 弱引用：更积极地基于垃圾收集器状态和弱引用规则移除对象-->
+    <cache
+        eviction="LRU"
+        type="com.mybatis.config.RedisCache"
+        flushInterval="60000"
+        size="512"
+        readOnly="true"/>
+
+<!-- 在不同的命名空间用相同的二级缓存 -->
+<!--    <cache-ref namespace="com.mybatis-xml.mapper.CityXMLMapper"/>-->
+
+</mapper>
