@@ -71,17 +71,65 @@ public class OptimistBST<E extends Comparable<E>> {
         }
     }
 
+    /**
+     *  从左到有的打印数据，先把最左边的打印完成，然后打印右边的
+     */
+    public void preOrder(){
+        preOrder(root);
+    }
+
+    @Override
+    public String toString(){
+        if(root != null){
+            StringBuilder builder = new StringBuilder();
+            generatePrint(builder,0,root);
+            return builder.toString();
+        }
+        return null;
+    }
+
+    private void generatePrint(StringBuilder builder,int depth,Node root) {
+        if(root == null){
+            return;
+        }
+        builder.append("\n");
+        for (int i = 0; i < depth; i++) {
+            builder.append("-");
+        }
+        builder.append(root.e);
+        depth++;
+        generatePrint(builder,depth,root.left);
+        generatePrint(builder,depth,root.right);
+    }
+
+    private void preOrder(Node node){
+        if(node == null){
+            return;
+        }
+        System.out.println(node.e);
+        preOrder(node.left);
+        preOrder(node.right);
+    }
+
+
 
     public static void main(String[] args) {
         OptimistBST<Integer> linkList = new OptimistBST<>();
-        linkList.add(2);
-        linkList.add(1);
-        linkList.add(3);
         linkList.add(5);
+        linkList.add(3);
+        linkList.add(6);
+        linkList.add(8);
+        linkList.add(4);
+        linkList.add(2);
         System.out.println(linkList);
 
-        System.out.println(linkList.contains(1));
+        System.out.println(linkList.contains(2));
         System.out.println(linkList.contains(9));
+
+        linkList.preOrder();
+
+        System.out.println(linkList);
     }
 
 }
+
