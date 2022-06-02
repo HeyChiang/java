@@ -21,6 +21,7 @@ public class Search {
         while (l < r) {
             int mid = l + (r - l) / 2;
             if (e[mid].compareTo(target) == 0) {
+                // 找到了就直接返回了
                 return mid;
             } else if (e[mid].compareTo(target) < 0) {
                 // 这里没有减一，是因为length没有和视频中一样-1
