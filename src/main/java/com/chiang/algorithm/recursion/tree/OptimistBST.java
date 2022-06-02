@@ -2,6 +2,10 @@ package com.chiang.algorithm.recursion.tree;
 
 import lombok.Data;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 /**
  * 二分搜索树，添加和查找节点
  */
@@ -78,6 +82,27 @@ public class OptimistBST<E extends Comparable<E>> {
         preOrder(root);
     }
 
+
+    /**
+     * 使用非递归的方式打印二分搜索树的数据，同前序遍历
+     */
+    public void preOrderNR(){
+        Stack<Node> stacks =new Stack<>();
+        stacks.push(root);
+
+        while (!stacks.isEmpty()){
+            Node pop = stacks.pop();
+            System.out.println(pop.e);
+
+            if(pop.right != null){
+                stacks.push(pop.right);
+            }
+            if(pop.left != null){
+                stacks.push(pop.left);
+            }
+        }
+    }
+
     @Override
     public String toString(){
         if(root != null){
@@ -146,6 +171,25 @@ public class OptimistBST<E extends Comparable<E>> {
         System.out.println(node.e);
     }
 
+    /**
+     * 广度搜索遍历，按照层级来打印数据
+     */
+    public void levelOrder(){
+        Queue<Node> linkList= new LinkedList<>();
+        linkList.add(root);
+        while (!linkList.isEmpty()){
+            Node node = linkList.remove();
+            System.out.println(node.e);
+
+            if(node.left != null){
+                linkList.add(node.left);
+            }
+            if(node.right != null){
+                linkList.add(node.right);
+            }
+        }
+    }
+
 
 
     public static void main(String[] args) {
@@ -164,14 +208,23 @@ public class OptimistBST<E extends Comparable<E>> {
         // 前序遍历
         System.out.println("前序遍历：");
         linkList.preOrder();
+
         // 中序遍历=顺序遍历
         System.out.println("顺序遍历：");
         linkList.inOrder();
-        // 后续遍历，释放内存
+
+        // 后续遍历，类似于释放内存
         System.out.println("后序遍历：");
         linkList.postOrder();
 
+        System.out.print("ToString：");
         System.out.println(linkList);
+
+        System.out.println("非递归遍历:");
+        linkList.preOrderNR();
+
+        System.out.println("广度搜索遍历：");
+        linkList.levelOrder();
     }
 
 }
