@@ -102,35 +102,6 @@ public class OptimistBST<E extends Comparable<E>> {
         generatePrint(builder,depth,root.right);
     }
 
-
-    /**
-     * 删除最小的数值
-     */
-    public Node removeMinNode(){
-        root = removeMinNode(root);
-        return root;
-    }
-
-
-    /**
-     * 删除最左节点，保留其右侧的节点
-     */
-    private Node removeMinNode(Node root) {
-
-        // 清理掉右节点，并将右节点返回作为上级的左节点
-        if(root.left == null){
-            System.out.println("Remove:"+root.e);
-            Node tempRight = root.right;
-            root.right = null;
-            size--;
-            return tempRight;
-        }
-
-        // 改变当前左节点数据
-        root.left = removeMinNode(root.left);
-        return root;
-    }
-
     /**
      * 前序遍历
      */
@@ -201,11 +172,6 @@ public class OptimistBST<E extends Comparable<E>> {
         linkList.postOrder();
 
         System.out.println(linkList);
-
-        System.out.println("删除最小的");
-        while (!linkList.isEmpty()){
-            linkList.removeMinNode();
-        }
     }
 
 }

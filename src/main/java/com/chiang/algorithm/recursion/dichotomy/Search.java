@@ -9,11 +9,19 @@ public class Search {
         System.out.println("索引位置：" + search(integers, 5));
     }
 
+    /**
+     * 寻找参数在数组中的位置
+     *
+     * @param e 数组对象
+     * @param target 搜索数组对象中，本参数所在的位置
+     * @return 返回参数所在的位置，如果没有则返回 l=0
+     */
     public static <E extends Comparable<E>> int search(E[] e, E target) {
         int l = 0, r = e.length;
         while (l < r) {
             int mid = l + (r - l) / 2;
             if (e[mid].compareTo(target) == 0) {
+                // 找到了就直接返回了
                 return mid;
             } else if (e[mid].compareTo(target) < 0) {
                 // 这里没有减一，是因为length没有和视频中一样-1
