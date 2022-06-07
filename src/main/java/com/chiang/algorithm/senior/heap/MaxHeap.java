@@ -3,6 +3,9 @@ package com.chiang.algorithm.senior.heap;
 
 import com.chiang.algorithm.foundation.arrary.DynamicArray;
 
+/**
+ * 最大堆，根节点永远是最大的
+ */
 public class MaxHeap<E extends Comparable<E>> {
     private DynamicArray<E> data;
 
