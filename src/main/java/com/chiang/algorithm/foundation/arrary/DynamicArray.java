@@ -73,6 +73,15 @@ public class DynamicArray<E> {
         data[index] = e;
     }
 
+    /**
+     * 元素交换位置
+     */
+    public void swap(int from,int to){
+        E fromE = data[from];
+        data[from] = data[to];
+        data[to] = fromE;
+    }
+
     // 查找数组中是否有元素e
     public boolean contains(E e){
         for(int i = 0 ; i < size ; i ++){
