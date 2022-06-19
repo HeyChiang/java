@@ -1,11 +1,10 @@
 package com.chiang.algorithm.senior.heap;
 
 
-import com.chiang.algorithm.SortHelper;
 import com.chiang.algorithm.foundation.arrary.DynamicArray;
 
 /**
- * 最大堆，根节点永远是最大的
+ * 最大堆，父节点永远是大于子节点的
  */
 public class MaxHeap<E extends Comparable<E>> {
     private DynamicArray<E> data;
@@ -53,6 +52,10 @@ public class MaxHeap<E extends Comparable<E>> {
         return (index * 2) + 2;
     }
 
+
+    /**
+     * 每次添加元素的时候，增加上浮循环，保证子节点是小于父节点的
+     */
     public void add(E e){
         data.addLast(e);
 
@@ -119,13 +122,10 @@ public class MaxHeap<E extends Comparable<E>> {
      * @param index 上移的元素索引
      */
     private void shiftUp(int index) {
-        if(index <= 0){
-            return;
-        }
 
-        int parentIndex = getParent(index);
-
-        while (index > 0 && data.get(index).compareTo(data.get(parentIndex)) > 0){
+        // 判断方法一定要写在循环里面，否则循环体的变量改变并不会影响到外面判断
+        while (index > 0 &&  data.get(index).compareTo(data.get(getParent(index))) > 0){
+            int parentIndex = getParent(index);
             data.swap(index,parentIndex);
             index = parentIndex;
         }
@@ -133,17 +133,18 @@ public class MaxHeap<E extends Comparable<E>> {
 
     public static void main(String[] args) {
         // 元素上浮
-        System.out.println("元素上浮：");
         MaxHeap<Integer> maxHeap=new MaxHeap<>();
-        maxHeap.add(2);
-        maxHeap.add(3);
-        System.out.println(99);
+        Integer[] integers = new Integer[]{5,10,1,5,100};
+        for (int i = 0; i < integers.length; i++) {
+            maxHeap.add(integers[i]);
+        }
+
+        System.out.println("元素上浮：");
         for (int i = 0; i < maxHeap.getSize(); i++) {
             System.out.println(maxHeap.get(i));
         }
 
         System.out.println("提取最大元素：");
-        Integer[] integers = SortHelper.generateArray(50);
         for (int i = 0; i < integers.length; i++) {
             maxHeap.add(integers[i]);
         }
