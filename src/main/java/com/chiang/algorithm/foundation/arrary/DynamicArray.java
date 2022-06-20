@@ -12,6 +12,14 @@ public class DynamicArray<E> {
         size = 0;
     }
 
+    public DynamicArray(E[] arr){
+        data = (E[]) new Object[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            data[i] = arr[i];
+        }
+        size = arr.length;
+    }
+
     // 无参数的构造函数，默认数组的容量capacity=10
     public DynamicArray(){
         this(10);

@@ -13,6 +13,17 @@ public class MaxHeap<E extends Comparable<E>> {
         data = new DynamicArray<>();
     }
 
+    /**
+     * 使用heapify的方法，对已有数据的数组进行排序，比直接对空数组add效率要高，
+     * 因为省去了最后的一层，直接省去了一半的计算，区别O(n)和O(nlogn)的差别。
+     */
+    public MaxHeap(E[] arr){
+        this.data = new DynamicArray<>(arr);
+        for (int i = getParent(arr.length-1); i>=0; i--) {
+            shiftDown(i);
+        }
+    }
+
     public MaxHeap(int capacity) {
         data = new DynamicArray<>(capacity);
     }
