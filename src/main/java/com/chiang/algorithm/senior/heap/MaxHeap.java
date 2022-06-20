@@ -77,6 +77,8 @@ public class MaxHeap<E extends Comparable<E>> {
 
     /**
      * 提取最大的元素
+     * 1. 将最大元素和最后一个元素交换，并函数最后一个元素
+     * 2. 循环将最底部的元素下沉下去
      */
     public E extractMax(){
         E e = getMax();
@@ -96,8 +98,12 @@ public class MaxHeap<E extends Comparable<E>> {
      * @param index 索引元素
      */
     private void shiftDown(int index) {
+
+        // 左边子元素还有就可以继续比较
         while (leftChild(index) < getSize()){
             int leftIndex = leftChild(index);
+
+            // 右边的元素比左边的元素大，就索引+1
             if(leftIndex+1 < getSize()){
                 int rightIndex = rightChild(index);
                 if(get(rightIndex).compareTo(get(leftIndex)) > 0){
@@ -105,10 +111,12 @@ public class MaxHeap<E extends Comparable<E>> {
                 }
             }
 
+            // 将子元素最大的那一个，对index做比较，如果子元素大就做一个交换
             if(get(leftIndex).compareTo(get(index)) > 0){
                 data.swap(index,leftIndex);
                 index = leftIndex;
             }else {
+                // 已经没有可以交换的元素，就跳出
                 break;
             }
 
@@ -146,9 +154,6 @@ public class MaxHeap<E extends Comparable<E>> {
 
         System.out.println("提取最大元素：");
         for (int i = 0; i < integers.length; i++) {
-            maxHeap.add(integers[i]);
-        }
-        for (int i = 0; i < maxHeap.getSize(); i++) {
             System.out.println(maxHeap.extractMax());
         }
     }
