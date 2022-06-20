@@ -1,6 +1,8 @@
 package com.chiang.algorithm.foundation.arrary;
 
 
+import com.chiang.algorithm.SortHelper;
+
 public class DynamicArray<E> {
 
     private E[] data;
@@ -85,9 +87,7 @@ public class DynamicArray<E> {
      * 元素交换位置
      */
     public void swap(int from,int to){
-        E fromE = data[from];
-        data[from] = data[to];
-        data[to] = fromE;
+        SortHelper.swap(data,from,to);
     }
 
     // 查找数组中是否有元素e
