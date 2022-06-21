@@ -32,7 +32,7 @@ public class MaxHeap<E extends Comparable<E>> {
         return data.isEmpty();
     }
 
-    public int getSize() {
+    public int size() {
         return data.getSize();
     }
 
@@ -70,7 +70,7 @@ public class MaxHeap<E extends Comparable<E>> {
     public void add(E e){
         data.addLast(e);
 
-        shiftUp(getSize() -1);
+        shiftUp(size() -1);
 
     }
 
@@ -78,7 +78,7 @@ public class MaxHeap<E extends Comparable<E>> {
         return data.get(index);
     }
 
-    public E getMax(){
+    public E findMax(){
         if(isEmpty()){
             throw new RuntimeException("没有元素");
         }
@@ -92,11 +92,11 @@ public class MaxHeap<E extends Comparable<E>> {
      * 2. 循环将最底部的元素下沉下去
      */
     public E extractMax(){
-        E e = getMax();
-        data.swap(0,getSize() -1);
+        E e = findMax();
+        data.swap(0, size() -1);
         data.removeLast();
 
-        if(getSize() > 1) {
+        if(size() > 1) {
             shiftDown(0);
         }
 
@@ -111,11 +111,11 @@ public class MaxHeap<E extends Comparable<E>> {
     private void shiftDown(int index) {
 
         // 左边子元素还有就可以继续比较
-        while (leftChild(index) < getSize()){
+        while (leftChild(index) < size()){
             int leftIndex = leftChild(index);
 
             // 右边的元素比左边的元素大，就索引+1
-            if(leftIndex+1 < getSize()){
+            if(leftIndex+1 < size()){
                 int rightIndex = rightChild(index);
                 if(get(rightIndex).compareTo(get(leftIndex)) > 0){
                     leftIndex++;
@@ -159,7 +159,7 @@ public class MaxHeap<E extends Comparable<E>> {
         }
 
         System.out.println("元素上浮：");
-        for (int i = 0; i < maxHeap.getSize(); i++) {
+        for (int i = 0; i < maxHeap.size(); i++) {
             System.out.println(maxHeap.get(i));
         }
 
