@@ -45,6 +45,10 @@ public class SortHelper {
         print(str, array, 0, array.length);
     }
 
+    public static <E> void print( E[] array) {
+        print(null, array, 0, array.length);
+    }
+
     public static void print(String str, int[] array) {
         Integer[] integers = Arrays.stream(array).map(Integer::new).boxed().toArray(Integer[]::new);
         print(str, integers, 0, array.length);
