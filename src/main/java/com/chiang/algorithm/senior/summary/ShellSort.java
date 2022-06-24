@@ -74,7 +74,7 @@ public class ShellSort {
                     Integer temp = arr[i];
                     int j;
 
-                    // 如果temp < 左值，就把左值放在j的位置，相当于左移
+                    // 如果temp < 左值，就把左值放在j的位置，相当于右移
                     for (j = i; j - h >= 0 && temp.compareTo(arr[j - h]) < 0; j -= h) {
                         arr[j] = arr[j - h];
                     }
