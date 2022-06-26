@@ -26,6 +26,7 @@ public class SegmentTree<E> {
     private void buildSegmentTree(int treeIndex, int l, int r){
 
         if(l == r){
+            // 已经没有子节点的时候，将当前的节点设置参数
             tree[treeIndex] = data[l];
             return;
         }
@@ -38,6 +39,7 @@ public class SegmentTree<E> {
         buildSegmentTree(leftTreeIndex, l, mid);
         buildSegmentTree(rightTreeIndex, mid + 1, r);
 
+        // 叶子节点都有值以后，开始合并参数给父节点
         tree[treeIndex] = merger.merge(tree[leftTreeIndex], tree[rightTreeIndex]);
     }
 
