@@ -4,18 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum MedicalType {
-    PRESCRIBE("1", "处方"), OTC("2", "非处方"), INSTRUMENT("3","医疗器械");
+    PRESCRIBE("1", "处方"), OTC("2", "非处方"),INSTRUMENT("3","医疗器械");
 
-    private final String text;
+    private final String code;
     private final String name;
 
     MedicalType(String code, String name) {
-        this.text = code;
+        this.code = code;
         this.name = name;
     }
 
-    public String getText() {
-        return text;
+    public String getCode() {
+        return code;
     }
 
     @JsonValue
@@ -24,9 +24,9 @@ public enum MedicalType {
     }
 
     @JsonCreator
-    public static MedicalType convertEnum(String text) {
+    public static MedicalType convertEnum(String code) {
         for (MedicalType r : MedicalType.values()) {
-            if (r.getText().equals(text)) {
+            if (r.getCode().equals(code)) {
                 return r;
             }
         }
@@ -37,6 +37,6 @@ public enum MedicalType {
 
     @Override
     public String toString() {
-        return text;
+        return code;
     }
 }
