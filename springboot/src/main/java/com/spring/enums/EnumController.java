@@ -22,7 +22,7 @@ public class EnumController {
 
 
     @GetMapping("/get_enum_obj")
-    MedicalType getObj(@PathParam("type") MedicalType medicalType) {
+    MedicalType getObj(@RequestParam("type") MedicalType medicalType) {
         return medicalType;
     }
 
