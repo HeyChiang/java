@@ -30,7 +30,9 @@ public enum MedicalType {
                 return r;
             }
         }
-        throw new IllegalArgumentException();
+
+        // 没有找到不抛出异常，直接
+        return null;
     }
 
     @Override
