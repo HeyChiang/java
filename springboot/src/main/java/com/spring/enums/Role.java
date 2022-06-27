@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum Role {
-    VALUE1("A", "特工"), VALUE2("B", "警察");
+    PRESCRIBE("1", "处方"), OTC("2", "非处方"), INSTRUMENT("3","医疗器械");
 
     private final String text;
     private final String name;
