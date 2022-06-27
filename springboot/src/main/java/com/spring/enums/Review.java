@@ -8,5 +8,5 @@ import java.io.Serializable;
 public class Review implements Serializable {
 
     private Integer id;
-    private Role role;
+    private MedicalType medicalType;
 }

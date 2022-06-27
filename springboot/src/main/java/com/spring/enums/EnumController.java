@@ -22,8 +22,8 @@ public class EnumController {
 
 
     @GetMapping("/get_enum_obj")
-    Role getObj(@PathParam("role") Role role) {
-        return role;
+    MedicalType getObj(@PathParam("type") MedicalType medicalType) {
+        return medicalType;
     }
 
     @PostMapping("/post_enum_list")
