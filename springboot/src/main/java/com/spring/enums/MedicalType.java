@@ -4,7 +4,10 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 public enum MedicalType {
-    PRESCRIBE("1", "处方"), OTC("2", "非处方"),INSTRUMENT("3","医疗器械");
+
+    PRESCRIBE("1", "处方"),
+    OTC("2", "非处方"),
+    INSTRUMENT("3","医疗器械");
 
     private final String code;
     private final String name;
