@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * removeAll的删除会删除所有集合内相同的参数
+ * removeAll会删除所有集合内相同的参数，并不是一一对应的删除
  *
  * @author JiangHao
  */
@@ -20,6 +20,7 @@ public class Main {
         int rmSum = 0 ;
         while (!list.isEmpty()) {
 
+            // 每次删除文件的大小
             int size = list.size() % 10;
             int removeSize = size == 0 ? 10 : size;
 
@@ -27,6 +28,7 @@ public class Main {
             rmSum += removeSize;
 
             System.out.println("删除：" + removeList.size());
+            // 如果有相同数据，会删除多个
             list.removeAll(removeList);
         }
         System.out.println("总共删除："+rmSum);
