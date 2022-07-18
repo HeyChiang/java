@@ -37,9 +37,4 @@ public enum MedicalType {
         // 没有找到不抛出异常，直接
         return null;
     }
-
-    @Override
-    public String toString() {
-        return code;
-    }
 }

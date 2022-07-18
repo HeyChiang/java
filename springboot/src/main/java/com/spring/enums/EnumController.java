@@ -22,8 +22,8 @@ public class EnumController {
 
 
     @GetMapping("/get_enum_obj")
-    MedicalType getObj(@RequestParam("type") MedicalType medicalType) {
-        return medicalType;
+    MedicalType getObj(@RequestParam("type") MedicalType code) {
+        return code;
     }
 
     @PostMapping("/post_enum_list")
