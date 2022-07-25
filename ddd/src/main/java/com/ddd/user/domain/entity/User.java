@@ -9,8 +9,8 @@ import org.springframework.validation.annotation.Validated;
 @Data
 public class User {
 
+    private Integer id;
     private String phone;
-    private String nickName;
     private String userName;
     private String password;
     private String address;
