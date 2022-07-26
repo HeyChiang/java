@@ -1,12 +1,13 @@
-package com.ddd.user.application.service.impl;
+package com.ddd.user.application.repository.impl;
 
 import com.ddd.user.application.dto.UserDto;
-import com.ddd.user.application.service.UserService;
+import com.ddd.user.application.repository.UserRepository;
 import com.ddd.user.infrastructure.dataobject.UserDO;
 import com.ddd.user.infrastructure.mapper.UserMapper;
 import lombok.Setter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,9 +15,9 @@ import org.springframework.stereotype.Service;
  *
  * @author JiangHao
  */
-@Service
+@Repository
 @Setter(onMethod_= @Autowired)
-public class UserServiceImpl implements UserService {
+public class UserRepositoryImpl implements UserRepository {
 
     private UserMapper userMapper;
 

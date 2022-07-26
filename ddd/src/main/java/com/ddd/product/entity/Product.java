@@ -1,5 +1,6 @@
 package com.ddd.product.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.validation.annotation.Validated;
 
