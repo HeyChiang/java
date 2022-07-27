@@ -18,5 +18,5 @@ public interface ProductService {
      */
     List<ProductDto> selectAll();
 
-    List<ProductDto> selectAll(Long[] ids);
+    List<ProductDto> selectAll(List<Long> ids);
 }

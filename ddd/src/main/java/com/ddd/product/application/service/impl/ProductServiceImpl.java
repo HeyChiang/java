@@ -33,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDto> selectAll(Long[] ids) {
+    public List<ProductDto> selectAll(List<Long> ids) {
 
         return null;
     }

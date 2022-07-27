@@ -1,4 +1,4 @@
-package com.ddd.product.application.dto;
+package com.ddd.order.application.dto;
 
 import lombok.Data;
 
@@ -10,9 +10,14 @@ import java.math.BigDecimal;
  * @author JiangHao
  */
 @Data
-public class ProductDto {
+public class BuyProductDto {
     private Long id;
     private String title;
     private BigDecimal price;
     private BigDecimal stock;
+
+    /**
+     * 购买商品的数量
+     */
+    private BigDecimal buyNum;
 }

@@ -9,6 +9,4 @@ public interface DomainEventBus {
 
   void post(DomainEvent event);
 
-  void register(DomainEventHandler handler);
-
 }
