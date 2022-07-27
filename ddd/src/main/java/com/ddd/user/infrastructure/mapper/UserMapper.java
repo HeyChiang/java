@@ -19,6 +19,6 @@ public interface UserMapper {
      * @return 用户数据
      */
     @Select("select * from user where id = #{id}")
-    UserDO selectUserById(Integer id);
+    UserDO selectUserById(Long id);
 
 }

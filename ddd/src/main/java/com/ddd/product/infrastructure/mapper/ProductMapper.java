@@ -21,4 +21,12 @@ public interface ProductMapper {
     @Select("select * from product")
     List<ProductDto> selectAll();
 
+    /**
+     * 通过商品Id数组查询商品
+     */
+    @Select("select * from product where id in " +
+            "<foreach collection=\"ids\" item=\"id\" open=\"(\" separator=\",\" close=\")\" > " +
+            "   #{id} " +
+            " </foreach>")
+    List<ProductDto> selectAll(Long[] ids);
 }

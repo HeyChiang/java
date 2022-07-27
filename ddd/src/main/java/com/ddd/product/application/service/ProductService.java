@@ -17,4 +17,6 @@ public interface ProductService {
      * @return 商品领域对象
      */
     List<ProductDto> selectAll();
+
+    List<ProductDto> selectAll(Long[] ids);
 }
