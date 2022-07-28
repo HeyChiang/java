@@ -34,7 +34,7 @@ public class UserController {
      * @return 返回用户数据对象
      */
     @GetMapping("/get")
-    public Result<UserVO> getUserById(Integer id){
+    public Result<UserVO> getUserById(Long id){
         if(Objects.nonNull(id)){
             UserDto userDto = userRepository.selectUserById(id);
             UserVO userVO = new UserVO();

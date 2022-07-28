@@ -1,7 +1,9 @@
 package com.ddd.product.infrastructure.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.ddd.product.application.dto.ProductDto;
-import org.apache.ibatis.annotations.Mapper;
+import com.ddd.product.infrastructure.dataobject.ProductDO;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -11,22 +13,14 @@ import java.util.List;
  *
  * @author JiangHao
  */
-@Mapper
-public interface ProductMapper {
-    /**
-     * 查询所有的商品
-     *
-     * @return 商品列表集合
-     */
-    @Select("select * from product")
-    List<ProductDto> selectAll();
+public interface ProductMapper extends BaseMapper<ProductDO> {
 
     /**
      * 通过商品Id数组查询商品
      */
     @Select("select * from product where id in " +
-            "<foreach collection=\"ids\" item=\"id\" open=\"(\" separator=\",\" close=\")\" > " +
-            "   #{id} " +
+            "<foreach collection=\"ids\" item=\"id1\" open=\"(\" separator=\",\" close=\")\" > " +
+            "   #{id1} " +
             " </foreach>")
-    List<ProductDto> selectAll(Long[] ids);
+    List<ProductDto> allProduct(@Param("ids") List<Long> ids);
 }

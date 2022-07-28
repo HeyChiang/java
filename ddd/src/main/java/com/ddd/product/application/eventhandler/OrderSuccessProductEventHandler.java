@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
  * @author JiangHao
  */
 @Component
-public class OrderSuccessEventHandler implements DomainEventHandler<OrderSuccessEvent> {
+public class OrderSuccessProductEventHandler implements DomainEventHandler<OrderSuccessEvent> {
 
     @Override
     public void onApplicationEvent(OrderSuccessEvent event) {
         Order order = (Order) event.getSource();
-        System.out.println("我是商品扣库存"+order);
+        System.out.println("我是商品扣库存"+order.getOrderId());
     }
 }

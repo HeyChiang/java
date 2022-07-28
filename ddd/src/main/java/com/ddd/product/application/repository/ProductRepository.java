@@ -1,6 +1,6 @@
 package com.ddd.product.application.repository;
 
-import com.ddd.product.entity.Product;
+import com.ddd.product.domain.entity.Product;
 
 import java.util.List;
 
@@ -16,5 +16,5 @@ public interface ProductRepository {
      *
      * @return 商品领域对象
      */
-    List<Product> selectAll();
+    List<Product> selectAll(List<Long> ids);
 }

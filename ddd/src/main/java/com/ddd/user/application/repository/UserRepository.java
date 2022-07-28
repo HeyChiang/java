@@ -15,5 +15,5 @@ public interface UserRepository {
      * @param id 用户ID
      * @return 用户数据对象
      */
-    UserDto selectUserById(Integer id);
+    UserDto selectUserById(Long id);
 }

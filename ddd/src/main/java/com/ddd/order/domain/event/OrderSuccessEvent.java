@@ -14,7 +14,7 @@ import java.util.UUID;
  *
  * @author JiangHao
  */
-@Data
+
 public class OrderSuccessEvent extends DomainEvent {
     private List<BuyProductDto> productList;
     private Long userId;
@@ -31,5 +31,17 @@ public class OrderSuccessEvent extends DomainEvent {
     @Override
     public String key() {
         return "OrderSuccess-"+UUID.randomUUID();
+    }
+
+    public List<BuyProductDto> getProductList() {
+        return productList;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 }

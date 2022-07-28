@@ -9,6 +9,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,7 +31,7 @@ public class OrderController {
      * @return 订单对象
      */
     @PutMapping
-    public Result<OrderVO> createOrder(@Validated OrderDto param){
+    public Result<OrderVO> createOrder(@RequestBody OrderDto param){
         Order order = orderService.createOrder(param);
         return Result.success(OrderVO.copyFrom(order));
     }

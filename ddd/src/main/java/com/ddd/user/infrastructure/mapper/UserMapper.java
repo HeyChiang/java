@@ -9,7 +9,6 @@ import org.apache.ibatis.annotations.Select;
  *
  * @author JiangHao
  */
-@Mapper
 public interface UserMapper {
 
     /**

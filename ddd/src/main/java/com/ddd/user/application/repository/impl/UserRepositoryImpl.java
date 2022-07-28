@@ -22,7 +22,7 @@ public class UserRepositoryImpl implements UserRepository {
     private UserMapper userMapper;
 
     @Override
-    public UserDto selectUserById(Integer id) {
+    public UserDto selectUserById(Long id) {
         UserDO userDO = userMapper.selectUserById(id);
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(userDO, userDto);

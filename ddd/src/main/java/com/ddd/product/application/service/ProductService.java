@@ -11,12 +11,5 @@ import java.util.List;
  */
 public interface ProductService {
 
-    /**
-     * 查询所有的商品
-     *
-     * @return 商品领域对象
-     */
-    List<ProductDto> selectAll();
-
     List<ProductDto> selectAll(List<Long> ids);
 }
