@@ -23,7 +23,7 @@ create table product
 )
     comment '商品信息';
 
-create table product
+create table user
 (
     id        bigint auto_increment
         primary key,
@@ -33,4 +33,3 @@ create table product
     address   varchar(50) null comment '地址'
 )
     comment '用户表';
-

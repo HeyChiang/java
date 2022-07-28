@@ -11,7 +11,7 @@ import org.springframework.beans.BeanUtils;
  */
 @Data
 public class UserDto {
-    private Integer id;
+    private Long id;
     private String phone;
     private String userName;
     private String password;

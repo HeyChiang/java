@@ -5,8 +5,10 @@ import com.ddd.infracore.tools.ListBeanCopy;
 import com.ddd.order.application.dto.BuyProductDto;
 import com.ddd.order.application.dto.OrderDto;
 import com.ddd.order.application.pram.ProductParam;
+import com.ddd.order.application.repository.OrderRepository;
 import com.ddd.order.application.service.OrderService;
 import com.ddd.order.domain.entity.Order;
+import com.ddd.order.infrastructure.mapper.OrderMapper;
 import com.ddd.product.application.dto.ProductDto;
 import com.ddd.product.application.service.ProductService;
 import com.ddd.user.application.dto.UserDto;
@@ -14,6 +16,7 @@ import com.ddd.user.application.service.UserService;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +31,12 @@ import java.util.stream.Collectors;
 @Setter(onMethod_ = @Autowired)
 public class OrderServiceImpl implements OrderService {
 
+    private OrderRepository orderRepository;
     private ProductService productService;
     private DomainEventBus eventBus;
     private UserService userService;
 
+    @Transactional
     @Override
     public Order createOrder(OrderDto orderDto) {
         UserDto userDto = userService.selectUserById(orderDto.getUserId());
@@ -41,6 +46,7 @@ public class OrderServiceImpl implements OrderService {
                 .eventBus(eventBus)
                 .build();
         order.create();
+        orderRepository.insert(order);
         return order;
     }
 

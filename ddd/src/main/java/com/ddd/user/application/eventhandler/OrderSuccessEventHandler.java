@@ -1,4 +1,4 @@
-package com.ddd.product.application.eventhandler;
+package com.ddd.user.application.eventhandler;
 
 import com.ddd.infracore.event.DomainEventHandler;
 import com.ddd.order.domain.entity.Order;
@@ -15,6 +15,6 @@ public class OrderSuccessEventHandler implements DomainEventHandler<OrderSuccess
     @Override
     public void onApplicationEvent(OrderSuccessEvent event) {
         Order order = (Order) event.getSource();
-        System.out.println("我是商品扣库存"+order);
+        System.out.println("我是用户，要扣钱："+order);
     }
 }
