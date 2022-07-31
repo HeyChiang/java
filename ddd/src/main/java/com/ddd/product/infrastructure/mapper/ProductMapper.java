@@ -5,7 +5,9 @@ import com.ddd.product.application.dto.ProductDto;
 import com.ddd.product.infrastructure.dataobject.ProductDO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -24,4 +26,12 @@ public interface ProductMapper extends BaseMapper<ProductDO> {
             " #{id}\n" +
             "</foreach></script>")
     List<ProductDto> allProduct(@Param("ids") List<Long> ids);
+
+    /**
+     * 修改商品的库存
+     * @param id 商品ID
+     * @param stock 需要扣除的商品库存
+     */
+    @Update("update product set stock=stock-#{stock} where id=#{id}")
+    Integer updateStock(@Param("id") Long id, @Param("stock")BigDecimal stock);
 }

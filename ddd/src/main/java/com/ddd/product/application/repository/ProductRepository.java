@@ -2,6 +2,7 @@ package com.ddd.product.application.repository;
 
 import com.ddd.product.domain.entity.Product;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**

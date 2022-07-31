@@ -1,8 +1,13 @@
 package com.ddd.product.application.eventhandler;
 
 import com.ddd.infracore.event.DomainEventHandler;
+import com.ddd.order.application.dto.BuyProductDto;
 import com.ddd.order.domain.entity.Order;
 import com.ddd.order.domain.event.OrderSuccessEvent;
+import com.ddd.product.infrastructure.dataobject.ProductDO;
+import com.ddd.product.infrastructure.mapper.ProductMapper;
+import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,11 +15,17 @@ import org.springframework.stereotype.Component;
  * @author JiangHao
  */
 @Component
+@Setter(onMethod_ = @Autowired)
 public class OrderSuccessProductEventHandler implements DomainEventHandler<OrderSuccessEvent> {
+
+    private ProductMapper productMapper;
 
     @Override
     public void onApplicationEvent(OrderSuccessEvent event) {
         Order order = (Order) event.getSource();
+        for (BuyProductDto buyProductDto : order.getProductList()) {
+            productMapper.updateStock(buyProductDto.getId(),buyProductDto.getBuyNum());
+        }
         System.out.println("我是商品扣库存"+order.getOrderId());
     }
 }
