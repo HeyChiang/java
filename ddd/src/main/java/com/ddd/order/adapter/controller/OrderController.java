@@ -33,7 +33,7 @@ public class OrderController {
     @PutMapping
     public Result<OrderVO> createOrder(@RequestBody OrderDto param){
         Order order = orderService.createOrder(param);
-        return Result.success(OrderVO.copyFrom(order));
+        return Result.success("总费用："+order.getTotalPrice(),OrderVO.copyFrom(order));
     }
 
 }

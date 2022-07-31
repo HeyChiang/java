@@ -8,6 +8,7 @@ import com.ddd.order.application.pram.ProductParam;
 import com.ddd.order.application.repository.OrderRepository;
 import com.ddd.order.application.service.OrderService;
 import com.ddd.order.domain.entity.Order;
+import com.ddd.order.domain.event.OrderSuccessEvent;
 import com.ddd.order.infrastructure.mapper.OrderMapper;
 import com.ddd.product.application.dto.ProductDto;
 import com.ddd.product.application.service.ProductService;
@@ -40,13 +41,16 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order createOrder(OrderDto orderDto) {
         UserDto userDto = userService.selectUserById(orderDto.getUserId());
-        Order order = Order.builder()
+        Order order = Order.Builder()
                 .productList(getBuyProductDto(orderDto.getProductIds()))
                 .user(userDto)
                 .eventBus(eventBus)
                 .build();
         order.create();
         orderRepository.insert(order);
+
+        // 根据情况，事件可以放在领域里，也可放在application
+        eventBus.post(new OrderSuccessEvent(order));
         return order;
     }
 

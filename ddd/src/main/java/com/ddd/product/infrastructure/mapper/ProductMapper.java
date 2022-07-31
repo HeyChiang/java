@@ -18,9 +18,10 @@ public interface ProductMapper extends BaseMapper<ProductDO> {
     /**
      * 通过商品Id数组查询商品
      */
-    @Select("select * from product where id in " +
-            "<foreach collection=\"ids\" item=\"id1\" open=\"(\" separator=\",\" close=\")\" > " +
-            "   #{id1} " +
-            " </foreach>")
+    @Select("<script>select * from product where id in " +
+            "<foreach item=\"id\" index=\"index\" collection=\"ids\"" +
+            "        open=\"(\" separator=\",\" close=\")\">\n" +
+            " #{id}\n" +
+            "</foreach></script>")
     List<ProductDto> allProduct(@Param("ids") List<Long> ids);
 }

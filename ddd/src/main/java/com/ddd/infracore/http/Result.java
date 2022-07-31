@@ -24,15 +24,17 @@ public class Result<T> {
      * @param <T> 返回的数据类型
      */
     public static <T> Result<T> success(String message){
-        Result<T> result = new Result<>();
-        result.setCode(HttpStatus.OK.value());
-        result.setMessage(message);
-        return result;
+        return success(message,null);
     }
 
     public static <T> Result<T> success(T data){
+        return success(null,data);
+    }
+
+    public static <T> Result<T> success(String message,T data){
         Result<T> result = new Result<>();
         result.setCode(HttpStatus.OK.value());
+        result.setMessage(message);
         result.setData(data);
         return result;
     }

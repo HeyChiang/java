@@ -5,7 +5,6 @@ import com.ddd.order.domain.entity.Order;
 import com.ddd.order.infrastructure.dataobject.OrderDO;
 import com.ddd.order.infrastructure.mapper.OrderMapper;
 import lombok.Setter;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -17,8 +16,7 @@ public class OrderRepositoryImpl implements OrderRepository {
 
     @Override
     public int insert(Order order) {
-        OrderDO orderDO = new OrderDO();
-        BeanUtils.copyProperties(order,orderDO);
+        OrderDO orderDO = order.toOrderDO();
         int insert = orderMapper.insert(orderDO);
         order.setOrderId(orderDO.getId());
         return insert;

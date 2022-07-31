@@ -14,7 +14,7 @@ public class OrderVO {
 
     public static OrderVO copyFrom(Order order){
         OrderVO orderVO = new OrderVO();
-        orderVO.setOrderId(orderVO.getOrderId());
+        orderVO.setOrderId(order.getOrderId());
         return orderVO;
     }
 }

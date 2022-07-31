@@ -2,7 +2,7 @@ server:
   port: 8080
 logging:
   level:
-    com.chiang.logback: info
+    com.ddd: debug
 
 mybatis-plus:
   check-config-location: true
@@ -18,6 +18,6 @@ spring:
       web-stat-filter:
         enabled: false
     driverClassName: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3307/ddd?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/ddd?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: test-2021
