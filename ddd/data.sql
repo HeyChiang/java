@@ -1,3 +1,5 @@
+create database ddd;
+use ddd;
 create table `order`
 (
     id           bigint auto_increment comment '自增长ID'
