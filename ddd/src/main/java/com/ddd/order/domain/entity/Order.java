@@ -1,17 +1,9 @@
 package com.ddd.order.domain.entity;
 
 import com.ddd.infracore.event.DomainEventBus;
-import com.ddd.order.application.dto.BuyProductDto;
 import com.ddd.order.domain.enums.OrderStatusEnum;
-import com.ddd.order.domain.event.OrderSuccessEvent;
 import com.ddd.order.infrastructure.dataobject.OrderDO;
 import com.ddd.user.application.dto.UserDto;
-import kotlin.BuilderInference;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
@@ -31,7 +23,7 @@ public class Order {
     private Order(){}
 
     private Long orderId;
-    private List<BuyProductDto> productList;
+    private List<BuyProduct> productList;
     private UserDto user;
     private OrderStatusEnum orderStatus;
     private DomainEventBus eventBus;
@@ -43,11 +35,11 @@ public class Order {
     public void create() {
         // 检查库存，计算总价
         totalPrice = BigDecimal.ZERO;
-        for (BuyProductDto buyProductDto : this.productList) {
-            if (buyProductDto.getBuyNum().compareTo(buyProductDto.getStock()) > 0) {
-                throw new RuntimeException(buyProductDto.getTitle() + "库存不足，目前库存：" + buyProductDto.getStock());
+        for (BuyProduct buyProduct : this.productList) {
+            if (buyProduct.getBuyNum().compareTo(buyProduct.getStock()) > 0) {
+                throw new RuntimeException(buyProduct.getTitle() + "库存不足，目前库存：" + buyProduct.getStock());
             }
-            totalPrice = totalPrice.add(buyProductDto.getPrice());
+            totalPrice = totalPrice.add(buyProduct.getPrice());
         }
 
         orderStatus = OrderStatusEnum.WAIT_TAKE;
@@ -58,7 +50,7 @@ public class Order {
     }
     public static class Builder{
         private Long orderId;
-        private List<BuyProductDto> productList;
+        private List<BuyProduct> productList;
         private UserDto user;
         private OrderStatusEnum orderStatus;
         private DomainEventBus eventBus;
@@ -69,7 +61,7 @@ public class Order {
             return this;
         }
 
-        public Builder productList(List<BuyProductDto> productList) {
+        public Builder productList(List<BuyProduct> productList) {
             this.productList = productList;
             return this;
         }
@@ -140,7 +132,7 @@ public class Order {
         return orderId;
     }
 
-    public List<BuyProductDto> getProductList() {
+    public List<BuyProduct> getProductList() {
         return productList;
     }
 

@@ -1,12 +1,11 @@
 package com.ddd.order.domain.event;
 
 import com.ddd.infracore.event.DomainEvent;
-import com.ddd.order.application.dto.BuyProductDto;
+import com.ddd.order.domain.entity.BuyProduct;
 import com.ddd.order.domain.entity.Order;
-import lombok.Data;
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.HashMap;
 import java.util.UUID;
 
 /**
@@ -16,14 +15,17 @@ import java.util.UUID;
  */
 
 public class OrderSuccessEvent extends DomainEvent {
-    private List<BuyProductDto> productList;
-    private Long userId;
-    private BigDecimal totalPrice;
+    private final HashMap<Long,BigDecimal> productMap;
+    private final Long userId;
+    private final BigDecimal totalPrice;
 
     public OrderSuccessEvent(Object source) {
-        super(source);
+        super("OrderSuccess");
         Order order = (Order) source;
-        productList = order.getProductList();
+        productMap = new HashMap<>(order.getProductList().size());
+        for (BuyProduct buyProduct : order.getProductList()) {
+            productMap.put(buyProduct.getId(),buyProduct.getBuyNum());
+        }
         this.userId = order.getUser().getId();
         this.totalPrice = order.getTotalPrice();
     }
@@ -33,8 +35,8 @@ public class OrderSuccessEvent extends DomainEvent {
         return "OrderSuccess-"+UUID.randomUUID();
     }
 
-    public List<BuyProductDto> getProductList() {
-        return productList;
+    public HashMap<Long, BigDecimal> getProductMap() {
+        return productMap;
     }
 
     public Long getUserId() {

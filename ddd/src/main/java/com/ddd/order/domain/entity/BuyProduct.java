@@ -1,4 +1,4 @@
-package com.ddd.order.application.dto;
+package com.ddd.order.domain.entity;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * @author JiangHao
  */
 @Data
-public class BuyProductDto {
+public class BuyProduct {
     private Long id;
     private String title;
     private BigDecimal price;
