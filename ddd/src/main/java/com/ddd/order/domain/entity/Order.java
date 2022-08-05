@@ -5,6 +5,7 @@ import com.ddd.order.domain.enums.OrderStatusEnum;
 import com.ddd.order.infrastructure.dataobject.OrderDO;
 import com.ddd.user.application.dto.UserDto;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -33,12 +34,16 @@ public class Order {
      * 创建订单并支付
      */
     public void create() {
-        // 检查库存，计算总价
         totalPrice = BigDecimal.ZERO;
         for (BuyProduct buyProduct : this.productList) {
-            if (buyProduct.getBuyNum().compareTo(buyProduct.getStock()) > 0) {
-                throw new RuntimeException(buyProduct.getTitle() + "库存不足，目前库存：" + buyProduct.getStock());
+
+            // 购买限制检查
+            String canBuyTip = buyProduct.canBuy();
+            if (StringUtils.hasText(canBuyTip)) {
+                throw new RuntimeException(canBuyTip);
             }
+
+            // 计算商品总价
             totalPrice = totalPrice.add(buyProduct.getPrice());
         }
 
