@@ -40,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
     public Order createOrder(OrderDto orderDto) {
         UserDto userDto = userService.selectUserById(orderDto.getUserId());
         Order order = Order.Builder()
-                .productList(getBuyProductDto(orderDto.getProductIds()))
+                .productList(convertParamToBuyProduct(orderDto.getProductIds()))
                 .user(userDto)
                 .eventBus(eventBus)
                 .build();
@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
      * @param paramList 参数集合
      * @return 领域对象需要的商品集合
      */
-    private List<BuyProduct> getBuyProductDto(List<ProductParam> paramList) {
+    private List<BuyProduct> convertParamToBuyProduct(List<ProductParam> paramList) {
         List<Long> productIds = paramList.stream().map(ProductParam::getProductId).collect(Collectors.toList());
         List<ProductDto> productList = productService.selectAll(productIds);
         List<BuyProduct> productDtoList = ListBeanCopy.copy(productList, BuyProduct::new);
