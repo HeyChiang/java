@@ -13,21 +13,28 @@ spring:
     rules:
       sharding:
         tables:
+          # 定义逻辑表表明
           city:
+            # 实际要操作的数据库和表节点
             actual-data-nodes: db1.city_$->{0..1}
             key-generate-strategy:
+              # 引入 key-generators定义的snowflake变量，大小写要一致，否则报错：Can not find keyGenerator `SNOWFLAKE` in database `logic_db`.
               key-generator-name: snowflake
+              # 哪一列需要使用
               column: id
+            # 定义表分片的算法策略
             table-strategy:
               standard:
                 sharding-column: id
                 sharding-algorithm-name: t-city-inline
         sharding-algorithms:
+          # 定义一个分片算法，变量名字叫：t-city-inline
           t-city-inline:
             type: INLINE
             props:
               algorithm-expression: city_$->{id % 2}
         key-generators:
+          # 定义id生成的方式使用雪花算法，变量名为：snowflake
           snowflake:
             type: SNOWFLAKE
     props:
