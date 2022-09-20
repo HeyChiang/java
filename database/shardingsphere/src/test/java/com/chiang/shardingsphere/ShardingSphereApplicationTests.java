@@ -1,5 +1,6 @@
 package com.chiang.shardingsphere;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.chiang.shardingsphere.entity.Order;
 import com.chiang.shardingsphere.entity.OrderItem;
 import com.chiang.shardingsphere.mapper.OrderItemMapper;
@@ -19,7 +20,16 @@ class ShardingSphereApplicationTests {
     private OrderItemMapper orderItemMapper;
 
     @Test
-    void contextLoads() {
+    void query(){
+        // 做了表绑定以后，就不回出现笛卡尔积的情况
+        QueryWrapper<OrderItem> orderItemQueryWrapper = new QueryWrapper<>();
+        orderItemQueryWrapper.eq("id",1);
+        orderItemQueryWrapper.eq("user_id",1);
+        orderItemMapper.selectList(orderItemQueryWrapper);
+    }
+
+    @Test
+    void insert() {
         Random random = new Random();
         Order order = new Order();
         OrderItem orderItem = new OrderItem();
