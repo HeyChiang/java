@@ -24,7 +24,8 @@ class ShardingSphereApplicationTests {
         Order order = new Order();
         OrderItem orderItem = new OrderItem();
 
-        for (long i = 0; i < 10; i++) {
+        int index = 50;
+        for (long i = index; i < index+10; i++) {
             long userId = random.nextInt(1000);
             long orderItemId = random.nextInt(10000);
 

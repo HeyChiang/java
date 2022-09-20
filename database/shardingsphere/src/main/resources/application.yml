@@ -24,7 +24,7 @@ spring:
             sharding-column: user_id
         tables:
           # 定义逻辑表表明
-          order:
+          my_order:
             # 实际要操作的数据库和表节点
             actual-data-nodes: db$->{1..2}.t_order_$->{0..1}
             key-generate-strategy:
@@ -69,7 +69,7 @@ spring:
           snowflake:
             type: SNOWFLAKE
         binding-tables:
-          - order,order_item
+          - my_order,order_item
     props:
       sql-show: true
     mode:

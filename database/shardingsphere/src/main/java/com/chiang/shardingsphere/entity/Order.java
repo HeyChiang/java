@@ -4,7 +4,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.util.Date;
 
-@TableName("order")
+/**
+ * 对于ShardingSphere框架来说，MySQL保留关键字不要用。
+ * 例如表名为order就会导致插入异常出现。
+ */
+@TableName("my_order")
 public class Order {
 
     private Long id;
