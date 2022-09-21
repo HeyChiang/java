@@ -29,7 +29,7 @@ spring:
             actual-data-nodes: db$->{1..2}.t_order_$->{0..1}
             key-generate-strategy:
               # 引入 key-generators定义的snowflake变量，大小写要一致，否则报错：Can not find keyGenerator `SNOWFLAKE` in database `logic_db`.
-              # 配置好以后，如果不传入主键，sharding会使用snowflake自动生成id
+              # 配置好以后，如果不传入主键，sharding会使用snowflake自动生成id（前题是数据bean对象不能用同一个，否则自动生成的id也会重复，与bean里面的属性无关）
               key-generator-name: snowflake
               # 哪一列需要使用分片
               column: id
