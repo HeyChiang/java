@@ -35,6 +35,8 @@ spring:
             # 定义表分片的算法策略
             table-strategy:
               # standard 用于单分片键的标准分片场景
+              # complex 用于多分片键的复合分片场景
+              # hint 强制路由
               standard:
                 sharding-column: id
                 sharding-algorithm-name: t-order-inline
