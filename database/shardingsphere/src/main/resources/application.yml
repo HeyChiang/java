@@ -34,18 +34,15 @@ spring:
               column: id
             # 定义表分片的算法策略
             table-strategy:
+              # standard 用于单分片键的标准分片场景
               standard:
                 sharding-column: id
                 sharding-algorithm-name: t-order-inline
           order_item:
-            # 实际要操作的数据库和表节点
             actual-data-nodes: db$->{1..2}.t_order_item_$->{0..1}
             key-generate-strategy:
-              # 引入 key-generators定义的snowflake变量，大小写要一致，否则报错：Can not find keyGenerator `SNOWFLAKE` in database `logic_db`.
               key-generator-name: snowflake
-              # 哪一列需要使用分片
               column: order_id
-            # 定义表分片的算法策略
             table-strategy:
               standard:
                 sharding-column: order_id
@@ -53,6 +50,7 @@ spring:
         sharding-algorithms:
           # 定义一个分片算法名
           database-inline:
+            # 分片算法类型
             type: INLINE
             props:
               algorithm-expression: db$->{user_id % 2+1}
