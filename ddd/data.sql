@@ -1,6 +1,6 @@
 create database ddd;
 use ddd;
-create table `order`
+create table `myOrder`
 (
     id           bigint auto_increment comment '自增长ID'
         primary key,

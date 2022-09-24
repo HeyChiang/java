@@ -17,6 +17,7 @@
         <module>database</module>
         <module>netty</module>
         <module>ddd</module>
+        <module>exmaple</module>
     </modules>
 
     <dependencyManagement>
