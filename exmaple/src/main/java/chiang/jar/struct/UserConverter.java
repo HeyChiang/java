@@ -1,6 +1,7 @@
 package chiang.jar.struct;
 
 import chiang.jar.struct.entity.User;
+import chiang.jar.struct.entity.UserAggregate;
 import chiang.jar.struct.entity.UserVo;
 import com.alibaba.fastjson2.JSON;
 import org.mapstruct.Mapper;
@@ -25,6 +26,13 @@ public interface UserConverter {
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "createTime", dateFormat = "yyyy-MM-dd HH:mm:ss")
     User vo2Do(UserVo userVo);
+
+    /**
+     * 两个对象合成一个对象
+     */
+    @Mapping(target = "id",source = "userVo.id")
+    @Mapping(target = "level",source = "user.level")
+    UserAggregate pojo2Aggregate(User user,UserVo userVo);
 
     List<UserVo> do2voList(List<User> userList);
 

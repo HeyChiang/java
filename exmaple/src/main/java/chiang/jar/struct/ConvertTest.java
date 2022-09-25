@@ -1,9 +1,6 @@
 package chiang.jar.struct;
 
-import chiang.jar.struct.entity.User;
-import chiang.jar.struct.entity.UserDetail;
-import chiang.jar.struct.entity.UserDetailVo;
-import chiang.jar.struct.entity.UserVo;
+import chiang.jar.struct.entity.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,6 +23,15 @@ public class ConvertTest {
         new ConvertTest().vo2DoTest();
         System.out.println("\nUserList转VoList");
         new ConvertTest().userListVo2UserList();
+        System.out.println("\nPOJO转Aggregate");
+        new ConvertTest().user2Aggregate();
+    }
+    public void user2Aggregate(){
+        User user =new User().setLevel("100");
+        UserVo userVo = new UserVo().setId(3L);
+        UserAggregate userAggregate = UserConverter.INSTANCE.pojo2Aggregate(user, userVo);
+        assert userAggregate != null;
+        System.out.println(userAggregate);
     }
 
     public void userListVo2UserList(){

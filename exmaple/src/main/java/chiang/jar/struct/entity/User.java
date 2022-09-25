@@ -15,6 +15,7 @@ public class User {
     private Integer sex;  // 性别
     private LocalDate birthday; // 生日
     private LocalDateTime createTime; // 创建时间
+    private String level; // 等级
     private UserDetail userDetail;
     private String config; // 其他扩展信息，以JSON格式存储
 }
