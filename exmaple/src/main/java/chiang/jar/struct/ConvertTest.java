@@ -15,17 +15,17 @@ import java.util.List;
  * mapstruct 类映射工具Demo
  * 1. 可以将对象里的对象，映射到不同的对象上去
  * 2. 可以将多个对象映射到同一个对象上去
- * 3.
+ * 3. 可以集合对集合映射
  */
-public class Test {
+public class ConvertTest {
 
     public static void main(String[] args) {
         System.out.println("\nUser转VO");
-        new Test().do2VoTest();
+        new ConvertTest().do2VoTest();
         System.out.println("\nVO转User");
-        new Test().vo2DoTest();
+        new ConvertTest().vo2DoTest();
         System.out.println("\nUserList转VoList");
-        new Test().userListVo2UserList();
+        new ConvertTest().userListVo2UserList();
     }
 
     public void userListVo2UserList(){
