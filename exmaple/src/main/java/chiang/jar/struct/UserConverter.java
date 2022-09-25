@@ -28,6 +28,8 @@ public interface UserConverter {
 
     List<UserVo> do2voList(List<User> userList);
 
+    List<User> vo2List(List<UserVo> userVos);
+
     default List<UserVo.UserConfig> strConfigToListUserConfig(String config) {
         return JSON.parseArray(config, UserVo.UserConfig.class);
     }
