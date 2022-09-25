@@ -13,15 +13,18 @@ import java.util.List;
 public interface UserConverter {
     UserConverter INSTANCE = Mappers.getMapper(UserConverter.class);
 
+    @Mapping(target = "detailVo", source = "userDetail")
     @Mapping(target = "gender", source = "sex")
     @Mapping(target = "createTime", dateFormat = "yyyy-MM-dd HH:mm:ss")
     @Mapping(target = "detailVo.location",source = "userDetail.address")
-    UserVo do2vo(User var1);
+    UserVo do2vo(User user);
 
+    @Mapping(target = "userDetail", source = "detailVo")
+    @Mapping(target = "userDetail.address", source = "detailVo.location")
     @Mapping(target = "sex", source = "gender")
     @Mapping(target = "password", ignore = true)
     @Mapping(target = "createTime", dateFormat = "yyyy-MM-dd HH:mm:ss")
-    User vo2Do(UserVo var1);
+    User vo2Do(UserVo userVo);
 
     List<UserVo> do2voList(List<User> userList);
 
