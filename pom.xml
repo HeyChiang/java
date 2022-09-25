@@ -51,8 +51,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.16</version>
+            <version>${org.projectlombok.version}</version>
         </dependency>
     </dependencies>
 
+    <properties>
+        <org.projectlombok.version>1.18.24</org.projectlombok.version>
+    </properties>
 </project>
