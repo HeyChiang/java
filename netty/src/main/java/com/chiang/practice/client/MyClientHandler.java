@@ -1,4 +1,4 @@
-package com.chiang.client;
+package com.chiang.practice.client;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
