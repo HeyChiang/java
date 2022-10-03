@@ -39,6 +39,7 @@ public class TestRedis {
                             writeString(buffer,"name");
                             writeString(buffer,"haha");
 
+//                            封装到方法中
 //                            buffer.writeBytes("$3".getBytes());
 //                            buffer.writeBytes(CHARACTER);
 //                            buffer.writeBytes("set".getBytes());
