@@ -11,6 +11,9 @@ import io.netty.handler.logging.LoggingHandler;
 
 import java.nio.charset.StandardCharsets;
 
+/**
+ * 实现简单的入栈
+ */
 @SuppressWarnings("all")
 public class SimpleNettyHttpServer {
     public static void main(String[] args) {
@@ -24,6 +27,8 @@ public class SimpleNettyHttpServer {
             protected void initChannel(SocketChannel ch) throws Exception {
                 ch.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));
                 ch.pipeline().addLast(new HttpServerCodec());
+
+                // 根据类型来选择Handler处理
                 ch.pipeline().addLast(new SimpleChannelInboundHandler<HttpRequest>(){
 
                     @Override
