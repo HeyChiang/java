@@ -2,7 +2,7 @@ package com.chiang.protocol.message;
 
 import java.io.Serializable;
 
-public class LoginMessage extends Message implements  Serializable {
+public class LoginMessage implements  Message,Serializable {
     @Override
     public Integer getMessageType() {
         return MessageType.ONE_TO_ONE.getCode();

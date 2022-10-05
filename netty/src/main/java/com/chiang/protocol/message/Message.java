@@ -1,13 +1,11 @@
 package com.chiang.protocol.message;
 
-import java.io.Serializable;
-
 /**
  * 自定义消息
  */
-public abstract class Message implements Serializable {
+public interface Message {
 
-    abstract Integer getMessageType();
-    abstract String getContent();
-    abstract Integer getSequenceId();
+     Integer getMessageType();
+     String getContent();
+     Integer getSequenceId();
 }

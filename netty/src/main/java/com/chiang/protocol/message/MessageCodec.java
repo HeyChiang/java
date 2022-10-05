@@ -27,7 +27,7 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         // 消息的类型，登录、私聊、群聊
         outBuf.writeInt(message.getMessageType());
         // 序号，为了双工通信提供异步的功能,int类型占4个字节
-        outBuf.writeByte(message.getSequenceId());
+        outBuf.writeInt(message.getSequenceId());
         // 没有意义，为了填充。（说2的n次方看起来更专业）
         outBuf.writeByte(0xff);
 
@@ -47,12 +47,15 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         System.out.println("进入了解码");
         int magicNum = inBuf.readInt();
         byte version = inBuf.readByte();
-        int serializerType = inBuf.readInt();
+        int serializerType = inBuf.readByte();
+        int messageType = inBuf.readInt();
         int sequenceId = inBuf.readInt();
         inBuf.readByte();
 
         int length = inBuf.readInt();
         byte[] content =new byte[length];
+        inBuf.readBytes(content,0,length);
+
         ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(content));
         Message message = (Message) ois.readObject();
         list.add(message);
