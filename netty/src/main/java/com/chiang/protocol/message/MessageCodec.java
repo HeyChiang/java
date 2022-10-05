@@ -28,8 +28,8 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         outBuf.writeInt(message.getMessageType());
         // 序号，为了双工通信提供异步的功能,int类型占4个字节
         outBuf.writeInt(message.getSequenceId());
-        // 没有意义，为了填充。（说2的n次方看起来更专业）
-        outBuf.writeByte(0xff);
+//        // 没有意义，为了填充。（说2的n次方看起来更专业）
+//        outBuf.writeByte(0xff);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oss = new ObjectOutputStream(bos);
@@ -50,7 +50,7 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         int serializerType = inBuf.readByte();
         int messageType = inBuf.readInt();
         int sequenceId = inBuf.readInt();
-        inBuf.readByte();
+//        inBuf.readByte();
 
         int length = inBuf.readInt();
         byte[] content =new byte[length];
