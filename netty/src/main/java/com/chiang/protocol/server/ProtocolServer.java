@@ -20,7 +20,6 @@ public class ProtocolServer {
     public static void main(String[] args) {
         LoggingHandler loggingHandler = new LoggingHandler();
         MessageCodec messageCodec = new MessageCodec();
-        // MessageCodecSharable
 
         NioEventLoopGroup boss = new NioEventLoopGroup();
         NioEventLoopGroup worker = new NioEventLoopGroup();
@@ -41,11 +40,17 @@ public class ProtocolServer {
                         ctx.writeAndFlush("成功收到");
                     }
                 });
-
-                Channel channel = serverBootstrap.bind(8080).sync().channel();
-                channel.closeFuture().sync();
             }
         });
+
+        try {
+            Channel channel = serverBootstrap.bind(8080).sync().channel();
+            channel.closeFuture().sync();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            boss.shutdownGracefully();
+        }
 
     }
 }

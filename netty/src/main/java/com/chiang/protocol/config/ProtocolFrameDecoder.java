@@ -10,6 +10,9 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 public class ProtocolFrameDecoder extends LengthFieldBasedFrameDecoder {
 
     public ProtocolFrameDecoder(){
+        // lengthFieldOffset：偏移量，代表前面魔熟、协议版本等参数
+        // lengthFieldLength：描述数据的长度为4个字节
+        // initialBytesToScrip：需要剔除掉前面的多少个byte数据
         this(1024,14,4,0,0);
     }
 

@@ -1,9 +1,12 @@
 package com.chiang.protocol.client;
 
 import com.chiang.protocol.config.ProtocolFrameDecoder;
+import com.chiang.protocol.message.LoginMessage;
 import com.chiang.protocol.message.MessageCodec;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
@@ -18,7 +21,6 @@ public class ProtocolClient {
         NioEventLoopGroup group=new NioEventLoopGroup();
         LoggingHandler loggingHandler = new LoggingHandler();
         MessageCodec messageCodec=new MessageCodec();
-        // MesaageCodecSharble
 
         Bootstrap bootstrap= new Bootstrap();
         bootstrap.channel(NioSocketChannel.class);
@@ -29,6 +31,14 @@ public class ProtocolClient {
                 ch.pipeline().addLast(new ProtocolFrameDecoder());
                 ch.pipeline().addLast(loggingHandler);
                 ch.pipeline().addLast(messageCodec);
+                ch.pipeline().addLast("ClientHanler",new ChannelInboundHandlerAdapter(){
+                    @Override
+                    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+                        LoginMessage loginMessage = new LoginMessage();
+                        ctx.writeAndFlush(loginMessage);
+                        System.out.println("发送Handler消息成功");
+                    }
+                });
             }
         });
 
