@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- * 消息类的编码和解码
+ * 消息类的编码和解码，不能重复利用。因为....
  */
 public class MessageCodec extends ByteToMessageCodec<Message> {
     @Override

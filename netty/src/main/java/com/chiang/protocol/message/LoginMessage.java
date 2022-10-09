@@ -7,19 +7,19 @@ import java.io.Serializable;
  */
 public class LoginMessage implements  Message,Serializable {
 
-    private String content = "default";
+    private Object content = "default";
     @Override
     public Integer getMessageType() {
         return MessageType.ONE_TO_ONE.getCode();
     }
 
     @Override
-    public String getContent() {
+    public Object getContent() {
         return content;
     }
 
     @Override
-    public void setContent(String content) {
+    public void setContent(Object content) {
         this.content = content;
     }
 

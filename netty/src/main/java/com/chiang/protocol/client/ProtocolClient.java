@@ -2,7 +2,7 @@ package com.chiang.protocol.client;
 
 import com.chiang.protocol.config.ProtocolFrameDecoder;
 import com.chiang.protocol.message.LoginMessage;
-import com.chiang.protocol.message.MessageCodec;
+import com.chiang.protocol.message.MessageCodecSharable;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -22,7 +22,7 @@ public class ProtocolClient {
     public static void main(String[] args) {
         NioEventLoopGroup group=new NioEventLoopGroup();
         LoggingHandler loggingHandler = new LoggingHandler();
-        MessageCodec messageCodec=new MessageCodec();
+        MessageCodecSharable messageCodec=new MessageCodecSharable();
 
         Bootstrap bootstrap= new Bootstrap();
         bootstrap.channel(NioSocketChannel.class);
@@ -33,7 +33,7 @@ public class ProtocolClient {
                 ch.pipeline().addLast(new ProtocolFrameDecoder());
                 ch.pipeline().addLast(loggingHandler);
                 ch.pipeline().addLast(messageCodec);
-                ch.pipeline().addLast("ClientHanler",new ChannelInboundHandlerAdapter(){
+                ch.pipeline().addLast("ClientHandler",new ChannelInboundHandlerAdapter(){
                     @Override
                     public void channelActive(ChannelHandlerContext ctx) throws Exception {
                         new Thread(()->{
@@ -46,9 +46,9 @@ public class ProtocolClient {
                             LoginMessage loginMessage = new LoginMessage();
                             loginMessage.setContent(username+password);
                             ctx.writeAndFlush(loginMessage);
-                            System.out.println("发送Handler消息成功");
-                        },"SystemIn").start();
 
+                            // todo 使用JSON解析发送数据到服务器，验证帐号和密码
+                        },"SystemIn").start();
                     }
                 });
 

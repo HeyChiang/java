@@ -37,8 +37,7 @@ public class ProtocolServer {
                 ch.pipeline().addLast(new SimpleChannelInboundHandler<LoginMessage>() {
                     @Override
                     protected void channelRead0(ChannelHandlerContext ctx, LoginMessage msg) throws Exception {
-                        System.out.println("收到Msg："+msg);
-                        ctx.writeAndFlush("成功收到");
+                        System.out.println("收到 LoginMessage："+msg.getContent());
                     }
                 });
             }
