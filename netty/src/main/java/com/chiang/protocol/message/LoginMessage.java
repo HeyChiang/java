@@ -2,7 +2,12 @@ package com.chiang.protocol.message;
 
 import java.io.Serializable;
 
+/**
+ * 登录消息发送
+ */
 public class LoginMessage implements  Message,Serializable {
+
+    private String content = "default";
     @Override
     public Integer getMessageType() {
         return MessageType.ONE_TO_ONE.getCode();
@@ -10,11 +15,16 @@ public class LoginMessage implements  Message,Serializable {
 
     @Override
     public String getContent() {
-        return "Jiang";
+        return content;
+    }
+
+    @Override
+    public void setContent(String content) {
+        this.content = content;
     }
 
     @Override
     public Integer getSequenceId() {
-        return 1;
+        return 0;
     }
 }

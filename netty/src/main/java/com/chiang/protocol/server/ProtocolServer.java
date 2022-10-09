@@ -3,6 +3,7 @@ package com.chiang.protocol.server;
 import com.chiang.protocol.config.ProtocolFrameDecoder;
 import com.chiang.protocol.message.LoginMessage;
 import com.chiang.protocol.message.MessageCodec;
+import com.chiang.protocol.message.MessageCodecSharable;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -19,7 +20,7 @@ import io.netty.handler.logging.LoggingHandler;
 public class ProtocolServer {
     public static void main(String[] args) {
         LoggingHandler loggingHandler = new LoggingHandler();
-        MessageCodec messageCodec = new MessageCodec();
+        MessageCodecSharable messageCodec = new MessageCodecSharable();
 
         NioEventLoopGroup boss = new NioEventLoopGroup();
         NioEventLoopGroup worker = new NioEventLoopGroup();

@@ -7,5 +7,6 @@ public interface Message {
 
      Integer getMessageType();
      String getContent();
+     void setContent(String content);
      Integer getSequenceId();
 }
