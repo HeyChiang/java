@@ -2,7 +2,7 @@ package com.chiang.protocol.client;
 
 import com.chiang.protocol.config.ProtocolFrameDecoder;
 import com.chiang.protocol.message.LoginMessage;
-import com.chiang.protocol.message.MessageCodecSharable;
+import com.chiang.protocol.config.MessageCodecSharable;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -34,6 +34,13 @@ public class ProtocolClient {
                 ch.pipeline().addLast(loggingHandler);
                 ch.pipeline().addLast(messageCodec);
                 ch.pipeline().addLast("ClientHandler",new ChannelInboundHandlerAdapter(){
+
+                    @Override
+                    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                        System.out.println("服务器返回："+msg.toString());
+                        // todo 发送消息到达服务器以后，没有消息返回来。 如何根据不同的用户发消息呢？连接异常时，如何处理？
+                    }
+
                     @Override
                     public void channelActive(ChannelHandlerContext ctx) throws Exception {
                         new Thread(()->{
@@ -44,7 +51,8 @@ public class ProtocolClient {
                             String password = scanner.nextLine();
 
                             LoginMessage loginMessage = new LoginMessage();
-                            loginMessage.setContent(username+password);
+                            loginMessage.setUserName(username);
+                            loginMessage.setPassword(password);
                             ctx.writeAndFlush(loginMessage);
 
                             // todo 使用JSON解析发送数据到服务器，验证帐号和密码

@@ -1,25 +1,22 @@
 package com.chiang.protocol.message;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.io.Serializable;
-
-/**
- * 登录消息发送
- */
 @Data
-public class LoginMessage implements  Message,Serializable {
+@AllArgsConstructor
+public class MessageResponse implements Message{
 
-    private String userName;
-    private String password;
+    private Integer code;
+    private String message;
+
     @Override
     public Integer getMessageType() {
         return MessageType.ONE_TO_ONE.getCode();
     }
 
-
     @Override
     public Integer getSequenceId() {
-        return 0;
+        return 1;
     }
 }

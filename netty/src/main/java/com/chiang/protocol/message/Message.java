@@ -6,7 +6,5 @@ package com.chiang.protocol.message;
 public interface Message {
 
      Integer getMessageType();
-     Object getContent();
-     void setContent(Object content);
      Integer getSequenceId();
 }

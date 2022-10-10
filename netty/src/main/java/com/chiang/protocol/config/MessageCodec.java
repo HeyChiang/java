@@ -1,10 +1,9 @@
-package com.chiang.protocol.message;
+package com.chiang.protocol.config;
 
+import com.chiang.protocol.message.Message;
 import io.netty.buffer.ByteBuf;
-import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
-import io.netty.handler.codec.MessageToMessageCodec;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,16 +12,13 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- * 消息类的编码和解码
+ * 消息类的编码和解码，不能重复利用。因为....
  */
-@ChannelHandler.Sharable
-public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf,Message> {
-
+public class MessageCodec extends ByteToMessageCodec<Message> {
     @Override
-    protected void encode(ChannelHandlerContext ctx, Message message, List<Object> outList) throws Exception {
+    protected void encode(ChannelHandlerContext channelHandlerContext, Message message, ByteBuf outBuf) throws Exception {
         System.out.println("进入了编码");
 
-        ByteBuf outBuf = ctx.alloc().buffer();
         // 很多网络协议都会设置一个随机魔数，来过滤掉不支持这个协议的数据包
         outBuf.writeBytes(new byte[]{3,1,2,4});
         // 协议版本,方便后期的升级
@@ -39,12 +35,11 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf,Message>
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream oss = new ObjectOutputStream(bos);
         oss.writeObject(message);
-        byte[] content = bos.toByteArray();
+        byte[] beanByte = bos.toByteArray();
         // 消息内容长度，int类型占4个字节
-        outBuf.writeInt(content.length);
+        outBuf.writeInt(beanByte.length);
         // 消息内容
-        outBuf.writeBytes(content);
-        outList.add(outBuf);
+        outBuf.writeBytes(beanByte);
     }
 
     @Override
@@ -66,6 +61,5 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf,Message>
         Message message = (Message) ois.readObject();
         list.add(message);
 
-        System.out.println("message:"+message.getContent());
     }
 }

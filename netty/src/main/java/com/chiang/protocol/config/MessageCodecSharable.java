@@ -1,8 +1,11 @@
-package com.chiang.protocol.message;
+package com.chiang.protocol.config;
 
+import com.chiang.protocol.message.Message;
 import io.netty.buffer.ByteBuf;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.ByteToMessageCodec;
+import io.netty.handler.codec.MessageToMessageCodec;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -11,13 +14,16 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- * 消息类的编码和解码，不能重复利用。因为....
+ * 消息类的编码和解码
  */
-public class MessageCodec extends ByteToMessageCodec<Message> {
+@ChannelHandler.Sharable
+public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message> {
+
     @Override
-    protected void encode(ChannelHandlerContext channelHandlerContext, Message message, ByteBuf outBuf) throws Exception {
+    protected void encode(ChannelHandlerContext ctx, Message message, List<Object> outList) throws Exception {
         System.out.println("进入了编码");
 
+        ByteBuf outBuf = ctx.alloc().buffer();
         // 很多网络协议都会设置一个随机魔数，来过滤掉不支持这个协议的数据包
         outBuf.writeBytes(new byte[]{3,1,2,4});
         // 协议版本,方便后期的升级
@@ -39,6 +45,7 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
         outBuf.writeInt(content.length);
         // 消息内容
         outBuf.writeBytes(content);
+        outList.add(outBuf);
     }
 
     @Override
@@ -53,13 +60,12 @@ public class MessageCodec extends ByteToMessageCodec<Message> {
 //        inBuf.readByte();
 
         int length = inBuf.readInt();
-        byte[] content =new byte[length];
-        inBuf.readBytes(content,0,length);
+        byte[] beanByte =new byte[length];
+        inBuf.readBytes(beanByte,0,length);
 
-        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(content));
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(beanByte));
         Message message = (Message) ois.readObject();
         list.add(message);
 
-        System.out.println("message:"+message.getContent());
     }
 }

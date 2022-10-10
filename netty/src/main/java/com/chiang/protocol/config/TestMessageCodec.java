@@ -1,13 +1,11 @@
-package com.chiang.protocol.message;
+package com.chiang.protocol.config;
 
+import com.chiang.protocol.message.LoginMessage;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.embedded.EmbeddedChannel;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.logging.LoggingHandler;
-
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 
 /**
  * 测试自定义协议的编码和解码
