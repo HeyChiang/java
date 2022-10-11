@@ -3,9 +3,11 @@ package com.chiang.protocol.message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
-public class MessageResponse implements Message{
+public class MessageResponse implements Message, Serializable {
 
     private Integer code;
     private String message;
