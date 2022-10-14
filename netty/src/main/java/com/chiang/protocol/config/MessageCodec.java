@@ -14,6 +14,7 @@ import java.util.List;
 /**
  * 消息类的编码和解码，不能重复利用。因为....
  */
+@SuppressWarnings("all")
 public class MessageCodec extends ByteToMessageCodec<Message> {
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, Message message, ByteBuf outBuf) throws Exception {

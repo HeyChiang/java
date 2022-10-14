@@ -3,6 +3,7 @@ package com.chiang.protocol.client;
 import com.chiang.protocol.config.ProtocolFrameDecoder;
 import com.chiang.protocol.message.LoginMessage;
 import com.chiang.protocol.config.MessageCodecSharable;
+import com.chiang.protocol.message.MessageResponse;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
@@ -11,6 +12,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.logging.LoggingHandler;
 
 import java.util.Scanner;
@@ -37,8 +39,15 @@ public class ProtocolClient {
 
                     @Override
                     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                        if(msg instanceof MessageResponse){
+                            MessageResponse response = (MessageResponse) msg;
+                            if(response.getCode().equals(HttpResponseStatus.OK.code())){
+                                System.out.println("登录成功");
+                            }else {
+                                System.out.println("登录失败");
+                            }
+                        }
                         System.out.println("服务器返回："+msg.toString());
-                        // todo 发送消息到达服务器以后，没有消息返回来。 如何根据不同的用户发消息呢？连接异常时，如何处理？
                     }
 
                     @Override
@@ -55,7 +64,6 @@ public class ProtocolClient {
                             loginMessage.setPassword(password);
                             ctx.writeAndFlush(loginMessage);
 
-                            // todo 使用JSON解析发送数据到服务器，验证帐号和密码
                         },"SystemIn").start();
                     }
                 });

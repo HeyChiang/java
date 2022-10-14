@@ -1,9 +1,13 @@
 package com.chiang.protocol.data;
 
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandlerContext;
+
 import java.util.HashMap;
 
 public class UserData {
     private static final HashMap<String,User> USER_MAP = new HashMap<>();
+    public static final HashMap<String, Channel> USER_CHANNEL= new HashMap<>();
 
     static {
         User jiangHao = new User("JiangHao", "12345");

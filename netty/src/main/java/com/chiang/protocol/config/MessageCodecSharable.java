@@ -14,15 +14,14 @@ import java.io.ObjectOutputStream;
 import java.util.List;
 
 /**
- * 消息类的编码和解码
+ * 消息类的编码和解码，可以共享使用。
  */
+@SuppressWarnings("all")
 @ChannelHandler.Sharable
 public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message> {
 
     @Override
-    protected void encode(ChannelHandlerContext ctx, Message message, List<Object> outList) throws Exception {
-        System.out.println("进入了编码");
-
+    protected void encode(ChannelHandlerContext ctx, Message message, List<Object> outList)  {
         ByteBuf outBuf = ctx.alloc().buffer();
         // 很多网络协议都会设置一个随机魔数，来过滤掉不支持这个协议的数据包
         outBuf.writeBytes(new byte[]{3,1,2,4});
@@ -38,8 +37,12 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
 //        outBuf.writeByte(0xff);
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oss = new ObjectOutputStream(bos);
-        oss.writeObject(message);
+        try {
+            ObjectOutputStream oss = new ObjectOutputStream(bos);
+            oss.writeObject(message);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
         byte[] content = bos.toByteArray();
         // 消息内容长度，int类型占4个字节
         outBuf.writeInt(content.length);
@@ -49,9 +52,7 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
     }
 
     @Override
-    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf inBuf, List<Object> list) throws Exception {
-
-        System.out.println("进入了解码");
+    protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf inBuf, List<Object> list)  {
         int magicNum = inBuf.readInt();
         byte version = inBuf.readByte();
         int serializerType = inBuf.readByte();
@@ -63,9 +64,13 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         byte[] beanByte =new byte[length];
         inBuf.readBytes(beanByte,0,length);
 
-        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(beanByte));
-        Message message = (Message) ois.readObject();
-        list.add(message);
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(beanByte));
+            Message message = (Message) ois.readObject();
+            list.add(message);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
 }
