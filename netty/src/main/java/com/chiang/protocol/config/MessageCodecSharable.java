@@ -36,19 +36,18 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
 //        // 没有意义，为了填充。（说2的n次方看起来更专业）
 //        outBuf.writeByte(0xff);
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            ObjectOutputStream oss = new ObjectOutputStream(bos);
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream();ObjectOutputStream oss = new ObjectOutputStream(bos);){
             oss.writeObject(message);
+            byte[] content = bos.toByteArray();
+            // 消息内容长度，int类型占4个字节
+            outBuf.writeInt(content.length);
+            // 消息内容
+            outBuf.writeBytes(content);
+            outList.add(outBuf);
         }catch (Exception e){
             e.printStackTrace();
         }
-        byte[] content = bos.toByteArray();
-        // 消息内容长度，int类型占4个字节
-        outBuf.writeInt(content.length);
-        // 消息内容
-        outBuf.writeBytes(content);
-        outList.add(outBuf);
+
     }
 
     @Override
@@ -64,8 +63,8 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         byte[] beanByte =new byte[length];
         inBuf.readBytes(beanByte,0,length);
 
-        try {
-            ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(beanByte));
+
+        try (ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(beanByte));){
             Message message = (Message) ois.readObject();
             list.add(message);
         }catch (Exception e){
