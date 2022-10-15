@@ -32,6 +32,10 @@ public class ReentrantLockCondition {
             queue.add(s);
             queue.add(s);
             condition.signalAll();
+
+            System.out.println("任务添加完成，唤醒所有线程，等待三秒解锁，他们才可以获得锁真正开始！");
+            Thread.sleep(2000);
+            System.out.println("三秒完成");
         } finally {
             lock.unlock();
         }
@@ -44,10 +48,10 @@ public class ReentrantLockCondition {
     public String getTask() {
         // 一定要先获取锁，才有资格调用await操作,否则会报错:IllegalMonitorStateException
         lock.lock();
-        printInfo("getTask");
+        printInfo("getTask - 进入了锁，延迟1秒");
         try {
             Thread.sleep(1000);
-            printInfo("getTask");
+            printInfo("getTask - 1秒完成，开始判断await");
             while (queue.isEmpty()) {
                 // 在await进入等待的情况，去其他的线程是可以获取锁，
                 // 在addTask没有先锁的情况下，会有两个task进入获取了锁
