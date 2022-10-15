@@ -1,5 +1,6 @@
 package com.chiang.protocol.message;
 
+import com.chiang.protocol.message.enums.MessageType;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -19,7 +20,7 @@ public class LoginMessage implements  Message,Serializable {
 
 
     @Override
-    public Integer getSequenceId() {
+    public Integer getSerializationType() {
         return 0;
     }
 }

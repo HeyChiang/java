@@ -4,7 +4,6 @@ import com.chiang.protocol.message.Message;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageCodec;
 import io.netty.handler.codec.MessageToMessageCodec;
 
 import java.io.ByteArrayInputStream;
@@ -32,7 +31,7 @@ public class MessageCodecSharable extends MessageToMessageCodec<ByteBuf, Message
         // 消息的类型，登录、私聊、群聊
         outBuf.writeInt(message.getMessageType());
         // 序号，为了双工通信提供异步的功能,int类型占4个字节
-        outBuf.writeInt(message.getSequenceId());
+        outBuf.writeInt(message.getSerializationType());
 //        // 没有意义，为了填充。（说2的n次方看起来更专业）
 //        outBuf.writeByte(0xff);
 

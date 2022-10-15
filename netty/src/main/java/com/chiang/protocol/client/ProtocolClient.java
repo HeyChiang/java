@@ -1,6 +1,7 @@
 package com.chiang.protocol.client;
 
 import com.chiang.protocol.config.ProtocolFrameDecoder;
+import com.chiang.protocol.message.ChatMessage;
 import com.chiang.protocol.message.LoginMessage;
 import com.chiang.protocol.config.MessageCodecSharable;
 import com.chiang.protocol.message.MessageResponse;
@@ -16,6 +17,10 @@ import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.logging.LoggingHandler;
 
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * netty客户端，自定义协议
@@ -29,25 +34,39 @@ public class ProtocolClient {
         Bootstrap bootstrap= new Bootstrap();
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.group(group);
+
+        Lock lock = new ReentrantLock();
+        Condition condition = lock.newCondition();
+        AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+
         bootstrap.handler(new ChannelInitializer<SocketChannel>() {
             @Override
             protected void initChannel(SocketChannel ch) throws Exception {
+                // 协议帧的处理
                 ch.pipeline().addLast(new ProtocolFrameDecoder());
+                // 入栈的时候先打logging，然后messageCodec，出栈就反过来了
                 ch.pipeline().addLast(loggingHandler);
                 ch.pipeline().addLast(messageCodec);
                 ch.pipeline().addLast("ClientHandler",new ChannelInboundHandlerAdapter(){
 
                     @Override
                     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+                        System.out.println("服务器返回："+msg.toString());
+
                         if(msg instanceof MessageResponse){
                             MessageResponse response = (MessageResponse) msg;
                             if(response.getCode().equals(HttpResponseStatus.OK.code())){
                                 System.out.println("登录成功");
+                                atomicBoolean.set(true);
                             }else {
                                 System.out.println("登录失败");
+                                atomicBoolean.set(false);
                             }
+                            lock.lock();
+                            condition.signal();
+                            lock.unlock();
                         }
-                        System.out.println("服务器返回："+msg.toString());
+
                     }
 
                     @Override
@@ -63,6 +82,37 @@ public class ProtocolClient {
                             loginMessage.setUserName(username);
                             loginMessage.setPassword(password);
                             ctx.writeAndFlush(loginMessage);
+
+                            // 登录完成以后锁住，等待登录结果的返回
+                            lock.lock();
+                            try {
+                                condition.await();
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            lock.unlock();
+
+                            if(atomicBoolean.get()){
+                                while (true){
+                                    System.out.println("\n------ 可以开始发送消息了,例如：send ZhangSan 你好! ------");
+
+                                    String[] cmd = scanner.nextLine().split(" ");
+                                    switch (cmd[0]){
+                                        case "quit":{
+                                            ctx.channel().close();
+                                            break;
+                                        }
+                                        case "send":{
+                                            ctx.writeAndFlush(new ChatMessage(cmd[1],username,cmd[2]));
+                                            break;
+                                        }
+                                        default:
+                                    }
+                                }
+                            }else {
+                                System.out.println("登录失败，关闭channel！");
+                                ctx.channel().close();
+                            }
 
                         },"SystemIn").start();
                     }

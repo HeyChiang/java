@@ -7,22 +7,23 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * 所有消息的响应通用类
+ * 登录消息发送
  */
 @Data
 @AllArgsConstructor
-public class MessageResponse implements Message, Serializable {
+public class ChatMessage implements  Message,Serializable {
 
-    private Integer code;
-    private String message;
-
+    private String to;
+    private String from;
+    private String content;
     @Override
     public Integer getMessageType() {
         return MessageType.ONE_TO_ONE.getCode();
     }
 
+
     @Override
     public Integer getSerializationType() {
-        return 1;
+        return 0;
     }
 }

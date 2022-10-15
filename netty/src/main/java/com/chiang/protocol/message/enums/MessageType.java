@@ -1,9 +1,10 @@
-package com.chiang.protocol.message;
+package com.chiang.protocol.message.enums;
 
 import lombok.Getter;
 
 @Getter
 public enum MessageType {
+
     ONE_TO_ONE(0),
     ONE_TO_MULTIPLE(1);
 

@@ -2,6 +2,7 @@ package com.chiang.protocol.server;
 
 import com.chiang.protocol.config.ProtocolFrameDecoder;
 import com.chiang.protocol.config.MessageCodecSharable;
+import com.chiang.protocol.server.handler.ChatMessageInboundHandler;
 import com.chiang.protocol.server.handler.LoginMessageInboundHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -32,6 +33,7 @@ public class ProtocolServer {
                 ch.pipeline().addLast(loggingHandler);
                 ch.pipeline().addLast(messageCodec);
                 ch.pipeline().addLast(new LoginMessageInboundHandler());
+                ch.pipeline().addLast(new ChatMessageInboundHandler());
             }
         });
 

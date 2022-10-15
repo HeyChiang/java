@@ -6,5 +6,5 @@ package com.chiang.protocol.message;
 public interface Message {
 
      Integer getMessageType();
-     Integer getSequenceId();
+     Integer getSerializationType();
 }
