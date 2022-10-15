@@ -94,13 +94,15 @@ public class ProtocolClient {
 
                             if(atomicBoolean.get()){
                                 while (true){
-                                    System.out.println("\n------ 可以开始发送消息了,例如：send ZhangSan 你好! ------");
+                                    System.out.println("\n------ 可以开始发送消息了  ------");
+                                    System.out.println("1.例如消息：send ZhangSan 你好!");
+                                    System.out.println("2.例如退出：quit");
 
                                     String[] cmd = scanner.nextLine().split(" ");
                                     switch (cmd[0]){
                                         case "quit":{
                                             ctx.channel().close();
-                                            break;
+                                            return;
                                         }
                                         case "send":{
                                             ctx.writeAndFlush(new ChatMessage(cmd[1],username,cmd[2]));

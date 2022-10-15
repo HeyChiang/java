@@ -33,4 +33,16 @@ public class LoginMessageInboundHandler extends SimpleChannelInboundHandler<Logi
             ctx.writeAndFlush(new MessageResponse(HttpResponseStatus.INTERNAL_SERVER_ERROR.code(), "失败"));
         }
     }
+
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
+        System.out.println("异常日志捕捉LoginMessageInboundHandler："+cause.toString());
+        if(ctx.channel().isActive()){
+            System.out.println("连接异常，关闭连接");
+            ctx.close();
+        }else {
+            System.out.println("异常，发生了什么事？");
+        }
+    }
 }
